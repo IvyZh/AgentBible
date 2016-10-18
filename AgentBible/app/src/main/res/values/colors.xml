@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="bottom_text_nor">#A0A0A0</color>
+    <color name="bottom_text_pre">#3399FF</color>
+    <color name="home_menu_text">#434343</color>
+
+    <color name="common_bg">#EAEFF6</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="divide_color">#C3C5C5</color>
+
+</resources>

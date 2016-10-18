@@ -1,0 +1,77 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:listDivider">@drawable/divider_bg</item>-->
+    </style>
+
+
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingstars</item>
+        <item name="android:minHeight">22px</item>
+        <item name="android:maxHeight">22px</item>
+    </style>
+
+
+    <!--Home Menu Style-->
+
+    <style name="selection_rl">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
+    <!--Home Menu Style-->
+
+    <style name="home_menu_rl">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="home_menu_iv">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="home_menu_tv">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/home_menu_text</item>
+    </style>
+
+    <!--Home Bottom Style-->
+    <style name="home_bottom_iv">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="home_bottom_tv">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/bottom_text_nor</item>
+    </style>
+
+
+    <!--Divide Style-->
+    <style name="divide_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/divide_color</item>
+    </style>
+
+</resources>

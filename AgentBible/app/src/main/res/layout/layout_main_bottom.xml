@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_main"
+                style="@style/home_menu_rl">
+
+                <ImageView
+                    android:id="@+id/iv_main"
+                    android:src="@drawable/tab_home_press"
+                    style="@style/home_bottom_iv" />
+
+                <TextView
+                    android:id="@+id/tv_main"
+                    android:layout_below="@id/iv_main"
+                    style="@style/home_bottom_tv"
+                    android:text="首页" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_data"
+                style="@style/home_menu_rl">
+
+
+                <ImageView
+                    android:id="@+id/iv_data"
+                    android:src="@drawable/data_press"
+                    style="@style/home_bottom_iv" />
+
+                <TextView
+                    android:id="@+id/tv_data"
+                    android:layout_below="@id/iv_data"
+                    style="@style/home_bottom_tv"
+                    android:text="数据分析" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_me"
+                style="@style/home_menu_rl">
+
+                <ImageView
+                    android:id="@+id/iv_me"
+                    android:src="@drawable/my_press"
+                    style="@style/home_bottom_iv" />
+
+                <TextView
+                    android:id="@+id/tv_me"
+                    android:layout_below="@id/iv_me"
+                    style="@style/home_bottom_tv"
+                    android:text="我" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

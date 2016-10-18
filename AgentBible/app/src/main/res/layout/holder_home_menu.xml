@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_second_hand_house"
+            style="@style/home_menu_rl">
+
+            <ImageView
+                android:id="@+id/iv_second_hand_house"
+                android:src="@drawable/icon_ersf"
+                style="@style/home_menu_iv" />
+
+            <TextView
+                android:id="@+id/tv_second_hand_house"
+                android:layout_below="@id/iv_second_hand_house"
+                style="@style/home_menu_tv"
+
+                android:text="二手房" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_tenement"
+            style="@style/home_menu_rl">
+
+            <ImageView
+                android:id="@+id/iv_tenement"
+                android:src="@drawable/icon_zufang"
+                style="@style/home_menu_iv" />
+
+            <TextView
+                android:id="@+id/tv_tenement"
+                android:layout_below="@id/iv_tenement"
+                style="@style/home_menu_tv"
+                android:text="租房" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_keyuan"
+            style="@style/home_menu_rl">
+
+            <ImageView
+                android:id="@+id/iv_keyuan"
+                android:src="@drawable/icon_keyuan"
+                style="@style/home_menu_iv" />
+
+            <TextView
+                android:id="@+id/tv_keyuan"
+                android:layout_below="@id/iv_keyuan"
+                style="@style/home_menu_tv"
+                android:text="客源" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_deal"
+            style="@style/home_menu_rl">
+
+            <ImageView
+                android:id="@+id/iv_deal"
+                android:src="@drawable/icon_deal"
+                style="@style/home_menu_iv" />
+
+            <TextView
+                android:id="@+id/tv_deal"
+                android:layout_below="@id/iv_deal"
+                style="@style/home_menu_tv"
+                android:text="最新成交" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
