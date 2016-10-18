@@ -5,7 +5,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
     defaultConfig {
-        applicationId "com.ivy.commondemo"
+        applicationId "cn.com.gxdgroup.angentbible"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -57,4 +57,7 @@ dependencies {
 
 
     compile 'com.android.support:recyclerview-v7:24.0.0'//recyclerview
+
+    //MPAndroidChart
+    //compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
 }
