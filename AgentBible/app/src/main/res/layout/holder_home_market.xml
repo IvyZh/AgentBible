@@ -171,11 +171,14 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <View
+
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/chart"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/margin_lr"
+        android:layout_marginRight="@dimen/margin_lr"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#44ff00ee" />
+        android:layout_height="200dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
