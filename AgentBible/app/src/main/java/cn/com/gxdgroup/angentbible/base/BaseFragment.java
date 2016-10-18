@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import cn.com.gxdgroup.angentbible.utils.L;
 
 /**
  * Created by Ivy on 2016/10/14.
@@ -35,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mActivity = getActivity();
+        L.v("3. BaseFragment onCreateView");
         View view = inflaterView(inflater);
         ButterKnife.bind(this, view);
         initView(view);

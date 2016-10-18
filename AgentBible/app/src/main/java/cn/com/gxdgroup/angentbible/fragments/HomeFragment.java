@@ -27,6 +27,7 @@ public class HomeFragment extends BaseFragment {
     FrameLayout mFrMenu;
     @BindView(R.id.fr_market)
     FrameLayout mFrMarket;
+    HomeMarketHolder homeMarketHolder;
 
     @Override
     public View inflaterView(LayoutInflater inflater) {
@@ -35,22 +36,15 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-
+        homeMarketHolder = new HomeMarketHolder(mActivity);
         mFrImgsAd.addView(new HomeCarouselHolder(mActivity).getContentView());
         mFrMenu.addView(new HomeMenuHolder(mActivity).getContentView());
-        mFrMarket.addView(new HomeMarketHolder(mActivity).getContentView());
+        mFrMarket.addView(homeMarketHolder.getContentView());
     }
 
     @Override
     public void initData() {
-
+        homeMarketHolder.setData();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 }

@@ -20,6 +20,7 @@ import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.fragments.DataAnalysisFragments;
 import cn.com.gxdgroup.angentbible.fragments.HomeFragment;
 import cn.com.gxdgroup.angentbible.fragments.MeFragment;
+import cn.com.gxdgroup.angentbible.ui.MyViewPager;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
@@ -27,7 +28,7 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.vp_main)
-    ViewPager mVpMain;
+    MyViewPager mVpMain;
     @BindView(R.id.iv_main)
     ImageView mIvMain;
     @BindView(R.id.tv_main)
@@ -60,11 +61,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 
+        L.v("2. MainActivity initView");
+
         fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new DataAnalysisFragments());
         fragments.add(new MeFragment());
 
+        mVpMain.setNoScroll(true);
         mVpMain.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragments));
 
         mVpMain.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -88,10 +92,25 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void loadData() {
 
-//        fragments.get(1).initData();
+//        fragments.get(1).initData(); 报错
+
+//        fragments.get(0).initData();
+
+        L.v("main load data");
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        L.v("main onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        L.v("main onResume");
+    }
 
     @OnClick({R.id.rl_main, R.id.rl_data, R.id.rl_me})
     public void onClick(View view) {

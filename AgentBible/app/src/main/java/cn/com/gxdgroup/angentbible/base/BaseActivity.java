@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.utils.AppManager;
+import cn.com.gxdgroup.angentbible.utils.L;
 
 
 /**
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         /**
          * setContentView和findViewById操作(可以只用ButterKnife快捷操作)
          */
+        L.v("1. BaseActivity setContentView");
         setContentView();//需要设置setContentView
 
         ButterKnife.bind(this);//绑定ButterKnife
