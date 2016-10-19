@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
@@ -61,77 +60,47 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 
-        L.v("2. MainActivity initView");
-
         fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new DataAnalysisFragments());
         fragments.add(new MeFragment());
 
-        mVpMain.setNoScroll(true);
+        mVpMain.setNoScroll(false);
         mVpMain.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragments));
 
         mVpMain.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                L.v("onPageSelected " + position);
-                selectPos(position);
-                fragments.get(position).initData();
+                selectPosAndLoadData(position);
             }
         });
 
-
-        selectPos(0);
-    }
-
-    @Override
-    protected void initListener() {
-
+        selectPosAndLoadData(0);
     }
 
     @Override
     protected void loadData() {
 
-//        fragments.get(1).initData(); 报错
-
-//        fragments.get(0).initData();
-
-        L.v("main load data");
-
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        L.v("main onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        L.v("main onResume");
-    }
 
     @OnClick({R.id.rl_main, R.id.rl_data, R.id.rl_me})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_main:
-                selectPos(0);
+                mVpMain.setCurrentItem(0);
                 break;
             case R.id.rl_data:
-                selectPos(1);
+                mVpMain.setCurrentItem(1);
                 break;
             case R.id.rl_me:
-                selectPos(2);
+                mVpMain.setCurrentItem(2);
                 break;
         }
     }
 
-    private void selectPos(int pos) {
-        mVpMain.setCurrentItem(pos);
-
+    private void selectPosAndLoadData(int pos) {
         // 还原所有状态-颜色
-
         mTvMain.setTextColor(UIUtils.getColor(R.color.bottom_text_nor));
         mTvData.setTextColor(UIUtils.getColor(R.color.bottom_text_nor));
         mTvMe.setTextColor(UIUtils.getColor(R.color.bottom_text_nor));
@@ -155,7 +124,10 @@ public class MainActivity extends BaseActivity {
                 mIvMe.setImageResource(R.drawable.my_press);
                 break;
         }
+        //对fragment loadData
+        L.v("selectPosAndLoadData:" + pos);
 
+        fragments.get(pos).loadData();
     }
 
 

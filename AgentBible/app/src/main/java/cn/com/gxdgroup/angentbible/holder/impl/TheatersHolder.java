@@ -72,13 +72,11 @@ public class TheatersHolder extends BaseHolder {
         private List<MoviesBean.SubjectsBean> mDatas;
 
         MovieAdapter(List<MoviesBean.SubjectsBean> mDatas) {
-            L.v("new MovieAdapter");
             this.mDatas = mDatas;
         }
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            L.v(" onCreateViewHolder");
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
                     UIUtils.getContext()).inflate(R.layout.item_movie, parent, false));
             return holder;
@@ -86,7 +84,6 @@ public class TheatersHolder extends BaseHolder {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            L.v(" onBindViewHolder");
             MoviesBean.SubjectsBean item = mDatas.get(position);
             holder.tvTitle.setText(item.getTitle());
 

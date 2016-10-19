@@ -1,6 +1,7 @@
 package cn.com.gxdgroup.angentbible.base;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import cn.com.gxdgroup.angentbible.utils.L;
 
 /**
  * Created by Ivy on 2016/10/14.
@@ -18,7 +18,7 @@ import cn.com.gxdgroup.angentbible.utils.L;
 
 public abstract class BaseFragment extends Fragment {
 
-    public FragmentActivity mActivity;
+    protected FragmentActivity mActivity;
 
     /**
      * 此方法可以得到上下文对象
@@ -26,47 +26,43 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = getActivity();
     }
-
 
     /*
      * 返回一个需要展示的View
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mActivity = getActivity();
-        L.v("3. BaseFragment onCreateView");
-        View view = inflaterView(inflater);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = setContentView(inflater);
         ButterKnife.bind(this, view);
         initView(view);
         return view;
     }
 
-    /*
-     * 当Activity初始化之后可以在这里进行一些数据的初始化操作
+    /**
+     * 这里可以放置子类加载网络数据的内容
+     *
+     * @param savedInstanceState
      */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //loadData();
     }
+
+    public abstract void loadData();
 
     /**
      * 子类实现此抽象方法返回View进行展示
      *
      * @return
      */
-    public abstract View inflaterView(LayoutInflater inflater);
+    public abstract View setContentView(LayoutInflater inflater);
 
     /**
      * 初始化控件
      */
     protected abstract void initView(View view);
-
-    /**
-     * 子类在此方法中实现数据的初始化
-     */
-    public abstract void initData();
-
 
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
+import cn.com.gxdgroup.angentbible.utils.L;
 
 
 /**
@@ -15,7 +16,7 @@ import cn.com.gxdgroup.angentbible.base.BaseFragment;
 
 public class MeFragment extends BaseFragment {
     @Override
-    public View inflaterView(LayoutInflater inflater) {
+    public View setContentView(LayoutInflater inflater) {
         TextView view = new TextView(mActivity);
         view.setText("Music");
 
@@ -28,7 +29,7 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    public void initData() {
-
+    public void loadData() {
+        L.v("MeFragment load data...");
     }
 }

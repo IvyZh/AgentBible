@@ -21,31 +21,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         AppManager.getAppManager().addActivity(this);// 添加Activity到堆栈
-        /**
-         * setContentView和findViewById操作(可以只用ButterKnife快捷操作)
-         */
-        L.v("1. BaseActivity setContentView");
-        setContentView();//需要设置setContentView
 
+        setContentView();//需要设置setContentView
         ButterKnife.bind(this);//绑定ButterKnife
         initView();//初始化View
         initListener();//监听
-
         loadData();//加载数据
     }
-
-    protected abstract void setContentView();
-
 
     /**
      * setContentView
      */
+    protected abstract void setContentView();
+
+    /**
+     * 初始化View中控件
+     */
     protected abstract void initView();
 
     /**
-     * 给控件添加点击监听事件(一般也可以使用ButterKnife)
+     * 给控件添加点击监听事件(选填，一般也可以使用ButterKnife)
      */
-    protected abstract void initListener();
+    protected void initListener() {
+    }
 
     /**
      * 加载数据的网络操作

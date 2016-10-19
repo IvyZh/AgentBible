@@ -13,6 +13,7 @@ import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.holder.impl.home.HomeCarouselHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.HomeMarketHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.HomeMenuHolder;
+import cn.com.gxdgroup.angentbible.utils.L;
 
 /**
  * Created by Ivy on 2016/10/14.
@@ -30,7 +31,12 @@ public class HomeFragment extends BaseFragment {
     HomeMarketHolder homeMarketHolder;
 
     @Override
-    public View inflaterView(LayoutInflater inflater) {
+    public void loadData() {
+        L.v("HomeFragment load data...");
+    }
+
+    @Override
+    public View setContentView(LayoutInflater inflater) {
         return inflater.inflate(R.layout.fragment_home, null);
     }
 
@@ -40,11 +46,6 @@ public class HomeFragment extends BaseFragment {
         mFrImgsAd.addView(new HomeCarouselHolder(mActivity).getContentView());
         mFrMenu.addView(new HomeMenuHolder(mActivity).getContentView());
         mFrMarket.addView(homeMarketHolder.getContentView());
-    }
-
-    @Override
-    public void initData() {
-        homeMarketHolder.setData();
     }
 
 }

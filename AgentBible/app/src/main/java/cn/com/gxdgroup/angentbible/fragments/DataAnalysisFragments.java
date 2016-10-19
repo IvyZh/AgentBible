@@ -39,10 +39,18 @@ public class DataAnalysisFragments extends BaseFragment {
     private Observer mObserver;
 
     @Override
-    public View inflaterView(LayoutInflater inflater) {
-        L.v("inflaterView DataAnalysisFragments");
-        View view = UIUtils.inflate(R.layout.fragment_movie);
+    public void loadData() {
+        L.v("DataAnalysisFragments load data...");
+        Observable<MoviesBean> observable = Retrofit2Utils.getServiceApi().getTheatersMoviesObservable("上海");
 
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mObserver);
+    }
+
+    @Override
+    public View setContentView(LayoutInflater inflater) {
+        View view = UIUtils.inflate(R.layout.fragment_movie);
         return view;
     }
 
@@ -54,8 +62,6 @@ public class DataAnalysisFragments extends BaseFragment {
 
         mFrInTheater.addView(theatersHolder.getContentView());
         mFrComingSoon.addView(comingSoonHolder.getContentView());
-
-        L.v("initView initView mObserver");
 
         mObserver = new Observer<MoviesBean>() {
             @Override
@@ -77,16 +83,6 @@ public class DataAnalysisFragments extends BaseFragment {
         };
 
 
-    }
-
-    @Override
-    public void initData() {
-        L.v("initView initData..");
-        Observable<MoviesBean> observable = Retrofit2Utils.getServiceApi().getTheatersMoviesObservable("上海");
-
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);
     }
 
 
