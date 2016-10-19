@@ -87,5 +87,12 @@
         <item name="android:textColor">@color/common_red</item>
     </style>
 
+    <style name="map_poi_style">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
 
 </resources>

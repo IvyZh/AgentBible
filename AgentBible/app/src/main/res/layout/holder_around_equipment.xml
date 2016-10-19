@@ -4,15 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="174dp">
+        android:gravity="center_vertical"
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_lr"
+            android:text="周边配套"
+            android:textColor="@color/text_dark"
+            android:layout_alignBottom="@+id/imageView" />
+
+        <ImageView
+            android:layout_marginRight="@dimen/margin_lr"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right"
+            android:id="@+id/imageView" />
+    </RelativeLayout>
+
+    <View style="@style/divide_style" />
+
+    <View
+        android:id="@+id/bmapView2"
+        android:background="@color/common_orange"
+        android:layout_width="fill_parent"
+        android:layout_height="260dp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:paddingRight="@dimen/margin_lr"
+            android:paddingLeft="@dimen/margin_lr"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="周边配套" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </FrameLayout>
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/bank"
+                android:layout_marginLeft="0dp"
+                android:text="银行" />
 
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/taxi"
+                android:text="公交" />
+
+            <TextView
+                style="@style/map_poi_style"
+
+                android:drawableTop="@drawable/subway"
+                android:text="地铁" />
+
+
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/school"
+                android:text="教育" />
+
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/hospital"
+                android:text="医院" />
+
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/supermaket"
+                android:text="购物" />
+
+            <TextView
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/food"
+                android:text="美食" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
 </LinearLayout>

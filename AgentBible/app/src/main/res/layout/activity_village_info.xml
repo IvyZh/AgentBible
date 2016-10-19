@@ -51,13 +51,19 @@
                 android:layout_height="wrap_content" />
 
 
-            <!--周边配套模块-->
+            <!--周边配套模块 地图-->
             <FrameLayout
                 android:background="@color/white"
                 android:id="@+id/fr_arround_equipment"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <!--<com.baidu.mapapi.map.MapView-->
+            <!--android:id="@+id/bmapView"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="260dp"-->
+            <!--android:clickable="true" />-->
 
 
             <!--小区二手房模块-->

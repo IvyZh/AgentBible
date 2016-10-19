@@ -4,8 +4,21 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+    <!--百度地图权限-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+
     <application
-        android:name="cn.com.gxdgroup.angentbible.base.MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,6 +37,11 @@
         <activity android:name=".activities.SeconHandHouseDetailsActivity" />
         <activity android:name=".activities.VillageInfoActivity" />
         <activity android:name=".activities.SearchActivity" />
+
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="eIlFfNxvqj38Gy7Ie0lsv9IrMdekm6am" />
     </application>
 
 </manifest>

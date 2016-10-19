@@ -1,16 +1,13 @@
 package cn.com.gxdgroup.angentbible.activities;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.BannerHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.details.GardenPriceHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseDealInDetailsHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseFeatureHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.SecondHandHouseInDetailsHolder;
@@ -49,10 +46,18 @@ public class VillageInfoActivity extends BaseActivity {
     TitleView mTitleView;
 
     private BaseHolder trendChartHolder;
+//    private MapView mMapView;
 
     @Override
     protected void setContentView() {
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        //注意该方法要再setContentView方法之前实现
+
         setContentView(R.layout.activity_village_info);
+
+        //获取地图控件引用
+//        mMapView = (MapView) findViewById(R.id.bmapView);
+
     }
 
     @Override
@@ -88,10 +93,29 @@ public class VillageInfoActivity extends BaseActivity {
     protected void loadData() {
         ((TrendChartHolder) trendChartHolder).setTitle("小区价格走势");
         ((TrendChartHolder) trendChartHolder).setLocationVisibility(false);
-        ((TrendChartHolder) trendChartHolder).setTitle("小区价格走势");
         ((TrendChartHolder) trendChartHolder).setLineDataNum(2);
         trendChartHolder.setData();
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+//        mMapView.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+//        mMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+//        mMapView.onPause();
+    }
 }
