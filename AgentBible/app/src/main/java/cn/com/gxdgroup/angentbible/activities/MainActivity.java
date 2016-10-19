@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity {
 
         mVpMain.setNoScroll(false);
         mVpMain.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragments));
+        mVpMain.setOffscreenPageLimit(2);//就可以让ViewPager多缓存一个页面，这样上面的问题就得到了解决。
 
         mVpMain.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -76,11 +77,6 @@ public class MainActivity extends BaseActivity {
         });
 
         selectPosAndLoadData(0);
-    }
-
-    @Override
-    protected void loadData() {
-
     }
 
 

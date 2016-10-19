@@ -46,9 +46,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 加载数据的网络操作
+     * 加载数据的网络操作(选填)
      */
-    protected abstract void loadData();
+    protected void loadData() {
+    }
+
 
     @Override
     protected void onDestroy() {

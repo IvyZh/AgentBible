@@ -22,4 +22,9 @@ public class HouseDealInDetailsHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_house_deal_in_details);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

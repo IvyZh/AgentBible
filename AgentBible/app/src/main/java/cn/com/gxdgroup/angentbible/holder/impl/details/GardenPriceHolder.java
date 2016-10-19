@@ -20,6 +20,11 @@ public class GardenPriceHolder extends BaseHolder {
 
     @Override
     public View setContentView() {
-        return UIUtils.inflate(R.layout.holder_home_market);
+        return UIUtils.inflate(R.layout.holder_trend_chart);
+    }
+
+    @Override
+    public void setData() {
+
     }
 }

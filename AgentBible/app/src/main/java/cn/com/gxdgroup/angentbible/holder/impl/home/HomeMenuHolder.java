@@ -26,6 +26,11 @@ public class HomeMenuHolder extends BaseHolder {
         return UIUtils.inflate(R.layout.holder_home_menu);
     }
 
+    @Override
+    public void setData() {
+
+    }
+
     @OnClick({R.id.rl_second_hand_house, R.id.rl_tenement, R.id.rl_keyuan, R.id.rl_deal})
     public void onClick(View view) {
         switch (view.getId()) {

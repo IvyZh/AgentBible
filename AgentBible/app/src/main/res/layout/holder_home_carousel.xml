@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="174dp">
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -14,6 +15,27 @@
             android:scaleType="fitXY"
             android:src="@drawable/banner" />
 
-    </FrameLayout>
+        <TextView
+            android:layout_marginTop="14dp"
+            android:id="@+id/tv_location"
+            android:layout_marginLeft="@dimen/margin_lr"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上海"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/btn_pull_down"
+            android:textColor="@color/white" />
+
+
+        <ImageView
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="@dimen/margin_lr"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_search"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
 </LinearLayout>

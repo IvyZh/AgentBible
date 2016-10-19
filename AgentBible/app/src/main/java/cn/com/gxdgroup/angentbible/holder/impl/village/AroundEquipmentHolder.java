@@ -22,4 +22,9 @@ public class AroundEquipmentHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_around_equipment);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

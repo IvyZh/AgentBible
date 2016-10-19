@@ -23,6 +23,7 @@
         <activity android:name=".activities.SecondHandHouseActivity" />
         <activity android:name=".activities.SeconHandHouseDetailsActivity" />
         <activity android:name=".activities.VillageInfoActivity" />
+        <activity android:name=".activities.SearchActivity" />
     </application>
 
 </manifest>

@@ -22,4 +22,9 @@ public class GardenMagazineHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_garden_magazine);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

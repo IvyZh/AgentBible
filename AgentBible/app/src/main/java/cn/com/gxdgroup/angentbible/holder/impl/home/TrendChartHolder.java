@@ -2,9 +2,9 @@ package cn.com.gxdgroup.angentbible.holder.impl.home;
 
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.AxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 
@@ -33,41 +34,37 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 /**
  * Created by Ivy on 2016/10/17.
  *
- * @description:
+ * @description: 所有走势图的Holder
  */
 
-public class HomeMarketHolder extends BaseHolder {
+public class TrendChartHolder extends BaseHolder {
     @BindView(R.id.iv_arrow)
     ImageView mIvArrow;
     @BindView(R.id.chart)
     CombinedChart mChart;
+    protected String[] xAxisLabels;//x轴的内容
+    @BindView(R.id.tv_char_title)
+    TextView mTvCharTitle;
+    @BindView(R.id.tv_location)
+    TextView mTvLocation;
+    private int lineDataNum = 1;
+    private int lineColors[] = {R.color.common_blue, R.color.common_green, R.color.common_orange};
 
-    private final int itemcount = 12;
-
-    protected String[] mMonths;
-
-    public HomeMarketHolder(FragmentActivity activity) {
+    public TrendChartHolder(FragmentActivity activity) {
         super(activity);
     }
 
     @Override
     public View setContentView() {
-        return UIUtils.inflate(R.layout.holder_home_market);
+        return UIUtils.inflate(R.layout.holder_trend_chart);
     }
 
     @Override
     public void initView() {
+        int gridColorId = Color.rgb(239, 239, 239);//分割线的颜色
+        int labelTextColor = Color.rgb(112, 112, 112);//x y周的label的颜色
+        xAxisLabels = new String[]{"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};//x轴的内容
 
-
-        initChar();
-    }
-
-    private void initChar() {
-
-        int gridColorId = Color.rgb(239, 239, 239);
-        int labelTextColor = Color.rgb(112, 112, 112);
-
-        mMonths = new String[]{"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
         mChart.setDescription("");
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setDrawGridBackground(true);//如果启用，chart 绘图区后面的背景矩形将绘制。
@@ -84,7 +81,7 @@ public class HomeMarketHolder extends BaseHolder {
         mChart.setScaleYEnabled(false);//启用/禁用缩放在y轴。
         mChart.setPinchZoom(true);//: 如果设置为true，捏缩放功能。 如果false，x轴和y轴可分别放大。
 
-        mChart.animateY(8000, Easing.EasingOption.EaseInSine); // 图4
+        mChart.animateY(2000, Easing.EasingOption.EaseInSine); // 图4
 
         // draw bars behind lines
         mChart.setDrawOrder(new CombinedChart.DrawOrder[]{
@@ -99,6 +96,8 @@ public class HomeMarketHolder extends BaseHolder {
 
 
         Legend l = mChart.getLegend();
+        l.setEnabled(true);
+//        l.setTextColor();
         l.setWordWrapEnabled(true);
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
 
@@ -145,16 +144,13 @@ public class HomeMarketHolder extends BaseHolder {
         xAxis.setGranularity(1f);
         xAxis.setAxisLineColor(gridColorId);//设置轴线的轴的颜色。,使用这种引用不行：R.color.grid_color
         xAxis.setGridColor(gridColorId);//设置该轴的网格线颜色。
-        xAxis.setLabelCount(mMonths.length);
+        xAxis.setLabelCount(xAxisLabels.length);
 //        xAxis.setAvoidFirstLastClipping(true);//如果设置为true，则在绘制时会避免“剪掉”在x轴上的图表或屏幕边缘的第一个和最后一个坐标轴标签项。
 
         xAxis.setValueFormatter(new AxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-
-                Log.v("way", "v:" + value);
-
-                return mMonths[(int) value % mMonths.length];
+                return xAxisLabels[(int) value % xAxisLabels.length];
             }
 
             @Override
@@ -162,21 +158,27 @@ public class HomeMarketHolder extends BaseHolder {
                 return 0;
             }
         });
-
     }
+
 
     /**
      * 设置折线图的数据
      */
     private LineData generateLineData() {
 
-        int lineColorId = Color.rgb(51, 153, 255);
-
         LineData d = new LineData();
+        for (int i = 0; i < lineDataNum; i++) {
+            int lineColorId = UIUtils.getColor(lineColors[i % lineColors.length]);
+            d.addDataSet(prepareLineData(lineColorId));
+        }
 
+
+        return d;
+    }
+
+    private ILineDataSet prepareLineData(int lineColorId) {
         ArrayList<Entry> entries = new ArrayList<Entry>();
-
-        for (int index = 0; index < itemcount; index++)
+        for (int index = 0; index < xAxisLabels.length; index++)
             entries.add(new Entry(index + 0.25f, getRandom(15, 5)));
 
         LineDataSet set = new LineDataSet(entries, "Line DataSet");
@@ -195,9 +197,8 @@ public class HomeMarketHolder extends BaseHolder {
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         set.setHighLightColor(Color.TRANSPARENT);// 设置点击某个点时，横竖两条线的颜色
-        d.addDataSet(set);
 
-        return d;
+        return set;
     }
 
 
@@ -239,6 +240,7 @@ public class HomeMarketHolder extends BaseHolder {
         return (float) (Math.random() * range) + startsfrom;
     }
 
+    @Override
     public void setData() {
         CombinedData data = new CombinedData();
 
@@ -251,5 +253,18 @@ public class HomeMarketHolder extends BaseHolder {
 
         mChart.setData(data);
         mChart.invalidate();
+    }
+
+    public void setLineDataNum(int lineDataNum) {
+        this.lineDataNum = lineDataNum;
+    }
+
+    public void setTitle(String title) {
+        mTvCharTitle.setText(title);
+    }
+
+    public void setLocationVisibility(boolean isShow) {
+        mIvArrow.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        mTvLocation.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 }

@@ -1,9 +1,11 @@
 package cn.com.gxdgroup.angentbible.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseFragment extends Fragment {
-
+    String TAG = "MyFragment";
     protected FragmentActivity mActivity;
 
     /**
@@ -26,6 +28,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
         mActivity = getActivity();
     }
 
@@ -34,6 +37,7 @@ public abstract class BaseFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.v(TAG, "onCreateView");
         View view = setContentView(inflater);
         ButterKnife.bind(this, view);
         initView(view);
@@ -48,7 +52,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //loadData();
+        Log.v(TAG, "onActivityCreated");
+//        loadData();
     }
 
     public abstract void loadData();
@@ -64,5 +69,60 @@ public abstract class BaseFragment extends Fragment {
      * 初始化控件
      */
     protected abstract void initView(View view);
+
+
+    //
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Log.v(TAG, "onAttach");
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v(TAG, "onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(TAG, "onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v(TAG, "onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v(TAG, "onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.v(TAG, "onDestroyView");
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.v(TAG, "onDestroy");
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.v(TAG, "onDetach");
+    }
+
 
 }

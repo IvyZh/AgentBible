@@ -22,4 +22,9 @@ public class HouseIntroHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_house_intro);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

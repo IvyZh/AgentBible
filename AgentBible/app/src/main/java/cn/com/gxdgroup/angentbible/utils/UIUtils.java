@@ -22,6 +22,7 @@ public class UIUtils {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                mToast.setText(msg);
                 mToast.show();
             }
         });

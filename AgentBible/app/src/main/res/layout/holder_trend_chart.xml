@@ -11,6 +11,7 @@
         android:layout_height="40dp">
 
         <TextView
+            android:id="@+id/tv_char_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -29,6 +30,7 @@
             android:src="@drawable/pull_down" />
 
         <TextView
+            android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

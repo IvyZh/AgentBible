@@ -448,7 +448,7 @@ public abstract class Utils {
                                                                   VelocityTracker tracker) {
 
         // Check the dot product of current velocities.
-        // If the pointer that left was opposing another velocity vector, clear.
+        // If the pointer that left was opposing another velocity vector, ic_search_clear.
         tracker.computeCurrentVelocity(1000, mMaximumFlingVelocity);
         final int upIndex = ev.getActionIndex();
         final int id1 = ev.getPointerId(upIndex);

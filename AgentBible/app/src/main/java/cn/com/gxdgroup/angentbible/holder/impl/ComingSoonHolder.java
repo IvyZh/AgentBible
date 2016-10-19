@@ -21,4 +21,9 @@ public class ComingSoonHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(cn.com.gxdgroup.angentbible.R.layout.layout_coming_soon_holder);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

@@ -1,19 +1,18 @@
 package cn.com.gxdgroup.angentbible.fragments;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
+import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.HomeCarouselHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.home.HomeMarketHolder;
+import cn.com.gxdgroup.angentbible.holder.impl.home.TrendChartHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.HomeMenuHolder;
 import cn.com.gxdgroup.angentbible.utils.L;
+import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 /**
  * Created by Ivy on 2016/10/14.
@@ -28,11 +27,22 @@ public class HomeFragment extends BaseFragment {
     FrameLayout mFrMenu;
     @BindView(R.id.fr_market)
     FrameLayout mFrMarket;
-    HomeMarketHolder homeMarketHolder;
+    BaseHolder homeMarketHolder, carouselHolder, menuHolder;
 
     @Override
     public void loadData() {
         L.v("HomeFragment load data...");
+
+//        homeMarketHolder.setData();
+
+        UIUtils.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(homeMarketHolder!=null){
+                    homeMarketHolder.setData();//有可能null TODO
+                }
+            }
+        }, 1000);
     }
 
     @Override
@@ -42,9 +52,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        homeMarketHolder = new HomeMarketHolder(mActivity);
-        mFrImgsAd.addView(new HomeCarouselHolder(mActivity).getContentView());
-        mFrMenu.addView(new HomeMenuHolder(mActivity).getContentView());
+        homeMarketHolder = new TrendChartHolder(mActivity);
+        carouselHolder = new HomeCarouselHolder(mActivity);
+        menuHolder = new HomeMenuHolder(mActivity);
+
+        mFrImgsAd.addView(carouselHolder.getContentView());
+        mFrMenu.addView(menuHolder.getContentView());
         mFrMarket.addView(homeMarketHolder.getContentView());
     }
 

@@ -74,4 +74,18 @@
         <item name="android:background">@color/divide_color</item>
     </style>
 
+
+    <!--SearchBar Style-->
+    <style name="InternalSearchEditTextTheme">
+        <item name="colorControlNormal">@color/internal_search_grey</item>
+        <item name="colorControlActivated">@color/internal_search_grey</item>
+        <item name="colorControlHighlight">@color/internal_search_grey</item>
+    </style>
+
+
+    <style name="second_house_detail" parent="home_menu_tv">
+        <item name="android:textColor">@color/common_red</item>
+    </style>
+
+
 </resources>

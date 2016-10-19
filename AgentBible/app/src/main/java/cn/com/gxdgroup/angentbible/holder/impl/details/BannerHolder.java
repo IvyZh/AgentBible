@@ -22,4 +22,9 @@ public class BannerHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_details_banner);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

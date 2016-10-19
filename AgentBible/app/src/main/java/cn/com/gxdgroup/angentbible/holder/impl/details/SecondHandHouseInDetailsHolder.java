@@ -22,4 +22,9 @@ public class SecondHandHouseInDetailsHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_seond_house_in_details);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

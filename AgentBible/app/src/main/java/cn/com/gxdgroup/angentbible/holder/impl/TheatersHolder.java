@@ -47,6 +47,11 @@ public class TheatersHolder extends BaseHolder {
         return UIUtils.inflate(R.layout.layout_theater_holder);
     }
 
+    @Override
+    public void setData() {
+
+    }
+
     public void setData(List<MoviesBean.SubjectsBean> mDatas) {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(UIUtils.getContext());

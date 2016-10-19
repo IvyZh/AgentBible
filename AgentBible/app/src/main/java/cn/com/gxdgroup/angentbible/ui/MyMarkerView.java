@@ -11,10 +11,11 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.Utils;
 
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.utils.L;
 
 /**
  * Custom implementation of the MarkerView.
- * 
+ *
  * @author Philipp Jahoda
  */
 public class MyMarkerView extends MarkerView {
@@ -33,14 +34,13 @@ public class MyMarkerView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
 
         if (e instanceof CandleEntry) {
-
             CandleEntry ce = (CandleEntry) e;
+//            tvContent.setText("" + Utils.formatNumber(ce.getHigh(), 0, true));
 
-            tvContent.setText("" + Utils.formatNumber(ce.getHigh(), 0, true));
         } else {
-
-            tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true));
+//            tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true));
         }
+        L.v("e.x:" + e.getX() + ","+e.getY());
     }
 
     @Override

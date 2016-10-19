@@ -22,4 +22,9 @@ public class ZuFangInDetailsHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_zufang_in_details);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }

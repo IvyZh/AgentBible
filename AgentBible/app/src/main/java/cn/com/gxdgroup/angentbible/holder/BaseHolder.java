@@ -34,4 +34,9 @@ public abstract class BaseHolder {
     //执行一些初始化的操作，非必须，所以空实现了，需要的话重写即可
     public void initView() {
     }
+
+    /**
+     * 给holder设置数据，子类需要覆盖
+     */
+    public abstract void setData();
 }

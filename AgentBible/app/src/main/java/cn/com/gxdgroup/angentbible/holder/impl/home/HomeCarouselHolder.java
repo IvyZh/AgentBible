@@ -23,4 +23,9 @@ public class HomeCarouselHolder extends BaseHolder {
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_home_carousel);
     }
+
+    @Override
+    public void setData() {
+
+    }
 }
