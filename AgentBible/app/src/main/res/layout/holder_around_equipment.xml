@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView"
             android:layout_marginLeft="@dimen/margin_lr"
             android:text="周边配套"
-            android:textColor="@color/text_dark"
-            android:layout_alignBottom="@+id/imageView" />
+            android:textColor="@color/text_dark" />
 
         <ImageView
-            android:layout_marginRight="@dimen/margin_lr"
-            android:layout_alignParentRight="true"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/right"
-            android:id="@+id/imageView" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_lr"
+            android:src="@drawable/right" />
     </RelativeLayout>
 
     <View style="@style/divide_style" />
 
-    <View
-        android:id="@+id/bmapView2"
-        android:background="@color/common_orange"
+    <com.baidu.mapapi.map.TextureMapView
+        android:id="@+id/mTexturemap"
         android:layout_width="fill_parent"
-        android:layout_height="260dp" />
+        android:layout_height="260dp"
+        android:clickable="true" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -40,47 +40,53 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:paddingRight="@dimen/margin_lr"
-            android:paddingLeft="@dimen/margin_lr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/margin_lr"
+            android:paddingRight="@dimen/margin_lr">
 
             <TextView
+                android:id="@+id/tv_bank"
                 style="@style/map_poi_style"
-                android:drawableTop="@drawable/bank"
                 android:layout_marginLeft="0dp"
+                android:drawableTop="@drawable/bank"
                 android:text="银行" />
 
             <TextView
+                android:id="@+id/tv_bus"
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/taxi"
                 android:text="公交" />
 
             <TextView
+                android:id="@+id/tv_subway"
                 style="@style/map_poi_style"
-
                 android:drawableTop="@drawable/subway"
                 android:text="地铁" />
 
 
             <TextView
+                android:id="@+id/tv_edu"
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/school"
                 android:text="教育" />
 
             <TextView
+                android:id="@+id/tv_hospital"
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/hospital"
                 android:text="医院" />
 
             <TextView
+                android:id="@+id/tv_shopping"
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/supermaket"
                 android:text="购物" />
 
             <TextView
+                android:id="@+id/tv_food"
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/food"
                 android:text="美食" />

@@ -38,10 +38,9 @@
         <activity android:name=".activities.VillageInfoActivity" />
         <activity android:name=".activities.SearchActivity" />
 
-
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="eIlFfNxvqj38Gy7Ie0lsv9IrMdekm6am" />
+            android:value="zeoxjISqu9rDDByc7t1wzE42MqLQyvkz" />
     </application>
 
 </manifest>

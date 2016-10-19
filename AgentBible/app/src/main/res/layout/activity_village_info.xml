@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg">
+    android:background="@color/common_bg"
+    android:orientation="vertical">
 
 
     <cn.com.gxdgroup.angentbible.ui.TitleView
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -23,70 +24,63 @@
             <!--轮播图  -->
             <FrameLayout
                 android:id="@+id/fr_banner"
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
             <!-- 小区基本信息-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_house_feature"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
 
 
             <!--小区价格走势模块-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_garden_price"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
 
             <!--小区月报模块-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_garden_magazine"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
 
 
             <!--周边配套模块 地图-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_arround_equipment"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <!--<com.baidu.mapapi.map.MapView-->
-            <!--android:id="@+id/bmapView"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="260dp"-->
-            <!--android:clickable="true" />-->
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
 
             <!--小区二手房模块-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_second_house"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
             <!--小区租房模块-->
             <FrameLayout
-                android:background="@color/white"
                 android:id="@+id/fr_zufang"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
             <!--小区成交记录模块-->
             <FrameLayout
                 android:id="@+id/fr_house_deal"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
 
         </LinearLayout>
 

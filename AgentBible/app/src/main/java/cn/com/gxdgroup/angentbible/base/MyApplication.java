@@ -3,6 +3,8 @@ package cn.com.gxdgroup.angentbible.base;
 import android.app.Application;
 import android.os.Handler;
 
+import com.baidu.mapapi.SDKInitializer;
+
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
 import okhttp3.OkHttpClient;
 
@@ -20,7 +22,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(this);
 //        注意：在SDK各功能组件使用之前都需要调用，因此我们建议该方法放在Application的初始化方法中
         mContext = this;
         handler = new Handler();

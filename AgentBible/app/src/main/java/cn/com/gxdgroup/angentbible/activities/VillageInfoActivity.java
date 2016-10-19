@@ -1,9 +1,12 @@
 package cn.com.gxdgroup.angentbible.activities;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
@@ -44,6 +47,8 @@ public class VillageInfoActivity extends BaseActivity {
     FrameLayout mFrHouseDeal;
     @BindView(R.id.titleView)
     TitleView mTitleView;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     private BaseHolder trendChartHolder;
 //    private MapView mMapView;
@@ -117,5 +122,9 @@ public class VillageInfoActivity extends BaseActivity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
 //        mMapView.onPause();
+    }
+
+    public ScrollView getScrollView() {
+        return scrollView;
     }
 }
