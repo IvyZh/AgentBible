@@ -15,12 +15,14 @@ public abstract class BaseHolder {
 
     private View contentView;
     protected FragmentActivity mActivity;
+    protected boolean isInitViewDown = false;// 是否初始化完毕
 
     public BaseHolder(FragmentActivity activity) {
         mActivity = activity;
         contentView = setContentView();
         ButterKnife.bind(this, contentView);
         initView();
+        isInitViewDown = true;
     }
 
     //把当前的view返回给父类

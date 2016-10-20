@@ -81,4 +81,7 @@ dependencies {
 
     //MPAndroidChart
     //compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
+
+    //PickerView
+    compile 'com.bigkoo:pickerview:2.1.1'
 }

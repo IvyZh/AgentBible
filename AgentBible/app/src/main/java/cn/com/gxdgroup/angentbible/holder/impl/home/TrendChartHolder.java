@@ -1,12 +1,12 @@
 package cn.com.gxdgroup.angentbible.holder.impl.home;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -25,8 +25,11 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.ui.MyMarkerView;
@@ -58,6 +61,8 @@ public class TrendChartHolder extends BaseHolder {
     TextView mTvHouseNum;
     private int lineDataNum = 1;
     private int lineColors[] = {R.color.common_blue, R.color.common_green, R.color.common_orange};
+    private ArrayList<String> options1Items = new ArrayList<>();
+    private OptionsPickerView pvOptions;
 
     public TrendChartHolder(FragmentActivity activity) {
         super(activity);
@@ -128,10 +133,10 @@ public class TrendChartHolder extends BaseHolder {
         rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         rightAxis.setTextColor(labelTextColor);//设置轴标签的颜色。
-        rightAxis.setLabelCount(6);
+        rightAxis.setLabelCount(5);
         rightAxis.setDrawAxisLine(false);// 设置为true，则绘制网格线。
         rightAxis.setAxisMaxValue(100);
-        rightAxis.setAxisMinValue(10);
+        rightAxis.setAxisMinValue(0);
 //
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setEnabled(true);
@@ -284,5 +289,29 @@ public class TrendChartHolder extends BaseHolder {
     public void setLocationVisibility(boolean isShow) {
         mIvArrow.setVisibility(isShow ? View.VISIBLE : View.GONE);
         mTvLocation.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R.id.tv_location)
+    public void onClick() {
+
+        if (pvOptions == null) {
+            final String[] names = {"浦东", "闵行", "徐汇", "长宁", "普陀", "静安", "卢湾", "黄浦", "闸北", "虹口", "杨浦", "宝山", "嘉定", "青浦", "松江", "金山", "奉贤", "南汇", "崇明"};
+            //选项选择器
+            pvOptions = new OptionsPickerView(mActivity);
+            for (int i = 0; i < names.length; i++) {
+                options1Items.add(names[i]);
+            }
+            pvOptions.setPicker(options1Items);
+            pvOptions.setCyclic(false);
+            pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
+                @Override
+                public void onOptionsSelect(int options1, int option2, int options3) {
+                    mTvLocation.setText(names[options1]+"区");
+                }
+            });
+        }
+
+        pvOptions.show();
+
     }
 }

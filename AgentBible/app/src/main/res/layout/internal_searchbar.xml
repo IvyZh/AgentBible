@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/common_blue"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/common_blue">
 
 
     <RelativeLayout
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/internal_searchbar_radius"
-        android:layout_marginLeft="@dimen/internal_searchbar_radius"
+        android:layout_marginLeft="@dimen/margin_lr"
         android:layout_marginTop="@dimen/internal_searchbar_radius"
         android:layout_toLeftOf="@+id/internal_vs_cancel"
         android:layout_toStartOf="@+id/internal_vs_cancel"
@@ -57,19 +57,19 @@
         app:vsReserve="8dp">
 
         <TextView
-            android:layout_gravity="right|center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
             android:gravity="center_vertical"
             android:text="取消"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/common_blue" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/common_blue" />-->
 
     </cn.com.gxdgroup.angentbible.ui.ViewSwitcher>
 

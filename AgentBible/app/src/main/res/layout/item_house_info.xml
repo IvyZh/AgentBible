@@ -4,105 +4,102 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:padding="@dimen/margin_lr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:background="@color/white"
+        android:padding="@dimen/margin_lr">
 
         <ImageView
             android:id="@+id/iv_cover"
-            android:layout_width="114dp"
-            android:layout_height="84dp"
-            android:src="@drawable/ico_picture"
-            android:scaleType="centerCrop" />
+            android:layout_width="124dp"
+            android:layout_height="92dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ico_picture" />
 
         <TextView
-            android:text="闵行区莘庄大学城小区"
-            android:textSize="16sp"
-            android:textColor="#000000"
+            android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_cover"
             android:ellipsize="end"
             android:singleLine="true"
-            android:id="@+id/tv_address"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_cover" />
+            android:text="闵行区莘庄大学城小区"
+            android:textColor="#000000"
+            android:textSize="17sp" />
 
 
         <TextView
-            android:layout_marginLeft="10dp"
-            android:text="2室2厅1卫"
-            android:layout_toRightOf="@id/iv_cover"
-            android:textSize="14sp"
-            android:textColor="#232323"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:id="@+id/tv_layout"
-            android:layout_below="@id/tv_address" />
-
-        <TextView
-            android:layout_marginLeft="2dp"
-            android:text="300万"
-            android:layout_alignParentRight="true"
-            android:textSize="18sp"
-            android:layout_alignBaseline="@id/tv_layout"
-            android:textColor="#FC3232"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_total_price"
-            android:layout_below="@id/tv_address" />
-
-
-        <TextView
+            android:layout_below="@id/tv_address"
             android:layout_marginLeft="10dp"
-            android:text="90㎡"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_cover"
-            android:textSize="14sp"
+            android:text="2室2厅1卫"
             android:textColor="#232323"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:id="@+id/tv_area"
-            android:layout_below="@id/tv_layout" />
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_marginLeft="2dp"
+            android:id="@+id/tv_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_layout"
             android:layout_alignParentRight="true"
-            android:text="36588元/㎡"
-            android:textColor="#707070"
-            android:textSize="14sp"
+            android:layout_below="@id/tv_address"
+            android:text="300万"
+            android:textColor="#FC3232"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_layout"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/iv_cover"
+            android:text="90㎡"
+            android:textColor="#232323"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_unit_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tv_area"
-            android:id="@+id/tv_unit_price"
-            android:layout_below="@id/tv_layout" />
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_layout"
+            android:layout_marginLeft="2dp"
+            android:text="36588元/㎡"
+            android:textColor="#707070"
+            android:textSize="12sp" />
 
 
         <TextView
-            android:layout_marginLeft="10dp"
-            android:text="张先生 个人"
-            android:layout_toRightOf="@id/iv_cover"
-            android:textSize="14sp"
-            android:textColor="#707070"
-            android:layout_marginTop="4dp"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_name"
-            android:layout_below="@id/tv_area" />
+            android:layout_below="@id/tv_area"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/iv_cover"
+            android:text="张先生 个人"
+            android:textColor="#707070"
+            android:textSize="14sp" />
 
         <TextView
-            android:text="今天发布"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tv_name"
             android:layout_alignParentRight="true"
-            android:textSize="14sp"
+            android:layout_below="@id/tv_area"
+            android:text="今天发布"
             android:textColor="#707070"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_time"
-            android:layout_below="@id/tv_area" />
+            android:textSize="10sp" />
 
     </RelativeLayout>
 </RelativeLayout>
