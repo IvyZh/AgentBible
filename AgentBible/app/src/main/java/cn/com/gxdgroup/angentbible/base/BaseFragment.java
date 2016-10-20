@@ -56,7 +56,7 @@ public abstract class BaseFragment extends Fragment {
 //        loadData();
     }
 
-    public abstract void loadData();
+
 
     /**
      * 子类实现此抽象方法返回View进行展示
@@ -70,6 +70,7 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void initView(View view);
 
+    public abstract void loadData();
 
     //
     @Override

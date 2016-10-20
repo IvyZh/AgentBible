@@ -3,14 +3,15 @@
     android:id="@+id/internal_iv_search_icon"
     android:layout_width="match_parent"
     android:layout_height="20dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:padding="2dp"
         android:scaleType="fitXY"
-        android:src="@drawable/btn_search" />
+        android:src="@drawable/ico_search_small" />
 
 
     <EditText
@@ -20,15 +21,16 @@
         android:layout_marginLeft="6dp"
         android:background="@android:color/transparent"
         android:ellipsize="end"
-        android:hint="请输入搜索关键词"
+        android:hint="请输入小区名称"
         android:imeOptions="actionSearch"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="@color/common_blue"
-        android:textColorHint="@color/common_blue"
+        android:textColor="@color/white"
+        android:textColorHint="#99ffffff"
         android:textSize="14sp"
-        android:theme="@style/InternalSearchEditTextTheme" />
+        android:theme="@style/InternalSearchEditTextTheme"
+        android:layout_weight="0.33" />
 
 
 </LinearLayout>

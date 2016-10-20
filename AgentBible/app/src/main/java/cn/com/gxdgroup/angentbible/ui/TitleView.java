@@ -19,7 +19,7 @@ import cn.com.gxdgroup.angentbible.R;
 public class TitleView extends RelativeLayout {
 
     private ImageView ivBack, ivOperation;
-    private TextView tvTitle;
+    private TextView tvTitle, tvOperation;
 
     public TitleView(Context context) {
         super(context);
@@ -42,14 +42,7 @@ public class TitleView extends RelativeLayout {
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivOperation = (ImageView) findViewById(R.id.iv_operation);
         tvTitle = (TextView) findViewById(R.id.tv_title);
-
-
-        ivBack.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        tvOperation = (TextView) findViewById(R.id.tv_operation);
     }
 
     public void setTitle(String msg) {
@@ -72,5 +65,25 @@ public class TitleView extends RelativeLayout {
         ivOperation.setVisibility(visibility);
     }
 
+
+    // visiable
+    public void showRightText(boolean b) {
+        tvOperation.setVisibility(b ? VISIBLE : GONE);
+    }
+
+    public void showRightImageView(boolean b) {
+        ivOperation.setVisibility(b ? VISIBLE : GONE);
+    }
+
+    // text
+    public void setRightText(String msg) {
+        tvOperation.setText(msg);
+    }
+
+    // listener
+    public TitleView setRightTextListener(OnClickListener listener) {
+        tvOperation.setOnClickListener(listener);
+        return this;
+    }
 
 }

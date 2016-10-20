@@ -1,5 +1,6 @@
 package cn.com.gxdgroup.angentbible.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -92,4 +93,7 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
     }
 
 
+    public void contact(View v) {
+        startActivity(new Intent(this, ContactActivity.class));
+    }
 }

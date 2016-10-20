@@ -74,6 +74,10 @@
         <item name="android:background">@color/divide_color</item>
     </style>
 
+    <style name="divide_style_left" parent="divide_style">
+        <item name="android:layout_marginLeft">40dp</item>
+    </style>
+
 
     <!--SearchBar Style-->
     <style name="InternalSearchEditTextTheme">
@@ -111,4 +115,48 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+    <!--MeFragment Item-->
+
+    <style name="me_item_iv">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_lr</item>
+    </style>
+
+    <style name="me_item_tv">
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_lr</item>
+    </style>
+
+
+    <style name="me_item_arrow">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/margin_lr</item>
+        <item name="android:src">@drawable/right</item>
+    </style>
+
+    <style name="me_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+    <!--Hot menu-->
+    <style name="hot_menu_iv">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
 </resources>

@@ -20,6 +20,7 @@
         android:layout_centerInParent="true"
         android:singleLine="true"
         android:textColor="#ffffff"
+        android:textSize="18sp"
         android:layout_centerVertical="true"
         android:text="请输入小区名称" />
 
@@ -29,7 +30,19 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/margin_lr"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:src="@drawable/ico_like" />
+
+    <TextView
+        android:id="@+id/tv_operation"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_lr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:text="详情" />
 
 </RelativeLayout>

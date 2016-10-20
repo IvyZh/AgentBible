@@ -1,50 +1,40 @@
 package cn.com.gxdgroup.angentbible.holder.impl.village;
 
-import android.location.Location;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.Overlay;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.overlayutil.PoiOverlay;
-import com.baidu.mapapi.radar.RadarNearbyResult;
-import com.baidu.mapapi.radar.RadarNearbySearchOption;
-import com.baidu.mapapi.radar.RadarSearchError;
-import com.baidu.mapapi.radar.RadarSearchListener;
-import com.baidu.mapapi.radar.RadarSearchManager;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.activities.EquipmentActivity;
 import cn.com.gxdgroup.angentbible.activities.VillageInfoActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.utils.L;
@@ -75,6 +65,8 @@ public class AroundEquipmentHolder extends BaseHolder {
     TextView tvShopping;
     @BindView(R.id.tv_food)
     TextView tvFood;
+    @BindView(R.id.rl_around_equipment)
+    RelativeLayout mRlAroundEquipment;
     private PoiSearch mPoiSearch;
     private OnGetPoiSearchResultListener poiListener;
     private BaiduMap mBaiduMap;
@@ -97,6 +89,7 @@ public class AroundEquipmentHolder extends BaseHolder {
     public void initView() {
 
         mBaiduMap = mMapView.getMap();
+        mMapView.showZoomControls(false);//隐藏缩放按钮
         mPoiSearch = PoiSearch.newInstance();//创建POI检索实例
 //        mRadarSearchManager = RadarSearchManager.getInstance();//初始化周边雷达功能
 
@@ -188,28 +181,29 @@ public class AroundEquipmentHolder extends BaseHolder {
 
         // 解决ScrollView中嵌套百度地图（BaiduMap）的解决方案
         View v = mMapView.getChildAt(0);
-        v.setOnTouchListener(new View.OnTouchListener() {
+        if (mActivity instanceof VillageInfoActivity) {
+            v.setOnTouchListener(new View.OnTouchListener() {
 
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                ScrollView scrollView = ((VillageInfoActivity) mActivity).getScrollView();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    scrollView.requestDisallowInterceptTouchEvent(false);
-                } else {
-                    scrollView.requestDisallowInterceptTouchEvent(true);
+                @Override
+                public boolean onTouch(View view, MotionEvent event) {
+                    ScrollView scrollView = ((VillageInfoActivity) mActivity).getScrollView();
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        scrollView.requestDisallowInterceptTouchEvent(false);
+                    } else {
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                    }
+                    return false;
                 }
-                return false;
-            }
 
 
-        });
+            });
+        }
+
         navigateTo(31.1882, 121.433346);
     }
 
 
     private void navigateTo(double latitude, double longitude) {
-        L.v("navigateTo---");
-
         LatLng latLng = new LatLng(latitude, longitude);
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
@@ -220,7 +214,9 @@ public class AroundEquipmentHolder extends BaseHolder {
                 .direction(100).latitude(latitude)
                 .longitude(longitude).build();
 
-        MapStatus sta = new MapStatus.Builder().target(latLng).zoom(mBaiduMap.getMapStatus().zoom + 1).build();
+        int zoom = 15;//地图缩放级别 3~21
+
+        MapStatus sta = new MapStatus.Builder().target(latLng).zoom(zoom).build();
 
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(sta);
         //改变地图状态
@@ -232,6 +228,7 @@ public class AroundEquipmentHolder extends BaseHolder {
         BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.icon_geo);
         MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
         mBaiduMap.setMyLocationConfigeration(config);
+
         // 当不需要定位图层时关闭定位图层
 //        mBaiduMap.setMyLocationEnabled(false);
 
@@ -256,6 +253,15 @@ public class AroundEquipmentHolder extends BaseHolder {
 //        mBaiduMap.setMyLocationData(data);
     }
 
+    @OnClick(R.id.rl_around_equipment)
+    public void onClick() {
+        mActivity.startActivity(new Intent(mActivity, EquipmentActivity.class));
+    }
+
+    public void showMapTitleBar(boolean b) {
+        mRlAroundEquipment.setVisibility(b ? View.VISIBLE : View.GONE);
+    }
+
 
     private class MyPoiOverlay extends PoiOverlay {
         public MyPoiOverlay(BaiduMap baiduMap) {
@@ -265,6 +271,22 @@ public class AroundEquipmentHolder extends BaseHolder {
         @Override
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
+
+            PoiInfo info = getPoiResult().getAllPoi().get(index);
+            L.v("--click--" + index + "," + info.location.longitude);
+
+
+            //创建InfoWindow展示的view
+            Button button = new Button(mActivity);
+            button.setText(info.name);
+            button.setBackgroundResource(R.drawable.popup);
+            //定义用于显示该InfoWindow的坐标点
+            LatLng pt = info.location;
+            //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+            InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
+            //显示InfoWindow
+            mBaiduMap.showInfoWindow(mInfoWindow);
+
             return true;
         }
     }
@@ -312,36 +334,67 @@ public class AroundEquipmentHolder extends BaseHolder {
 
     @OnClick({R.id.tv_bank, R.id.tv_bus, R.id.tv_subway, R.id.tv_edu, R.id.tv_hospital, R.id.tv_shopping, R.id.tv_food})
     public void onClick(View view) {
-//        mBaiduMap.clear();
-//        if(addMarker!=null){
-//            addMarker.remove();
-//        }
+
+        // 恢复状态
+        int colorLight = UIUtils.getColor(R.color.text_light);
+        int colorBlue = UIUtils.getColor(R.color.common_blue);
+        tvBank.setTextColor(colorLight);
+        tvBus.setTextColor(colorLight);
+        tvSubway.setTextColor(colorLight);
+        tvEdu.setTextColor(colorLight);
+        tvHospital.setTextColor(colorLight);
+        tvShopping.setTextColor(colorLight);
+        tvFood.setTextColor(colorLight);
+
+
+        tvBank.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.bank), null, null);
+        tvBus.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.taxi), null, null);
+        tvSubway.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.subway), null, null);
+        tvEdu.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.school), null, null);
+        tvHospital.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.hospital), null, null);
+        tvShopping.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.supermaket), null, null);
+        tvFood.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.food), null, null);
+
         mKeyWord = "银行";
         switch (view.getId()) {
             case R.id.tv_bank:
                 mKeyWord = "银行";
+                tvBank.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.bank_press), null, null);
+                tvBank.setTextColor(colorBlue);
                 break;
             case R.id.tv_bus:
                 mKeyWord = "公交";
+                tvBus.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.taxi_press), null, null);
+                tvBus.setTextColor(colorBlue);
                 break;
             case R.id.tv_subway:
                 mKeyWord = "地铁";
+                tvSubway.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.subwa_press), null, null);
+                tvSubway.setTextColor(colorBlue);
                 break;
             case R.id.tv_edu:
                 mKeyWord = "学校";
+                tvEdu.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.schoo_press), null, null);
+                tvEdu.setTextColor(colorBlue);
                 break;
             case R.id.tv_hospital:
                 mKeyWord = "医院";
+                tvHospital.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.hospital_press), null, null);
+                tvHospital.setTextColor(colorBlue);
                 break;
             case R.id.tv_shopping:
                 mKeyWord = "购物";
+                tvShopping.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.supermaket_press), null, null);
+                tvShopping.setTextColor(colorBlue);
                 break;
             case R.id.tv_food:
                 mKeyWord = "美食";
+                tvFood.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.food_press), null, null);
+                tvFood.setTextColor(colorBlue);
                 break;
         }
 
-        L.v("search.1..."+mKeyWord);
+        L.v("search.1..." + mKeyWord);
 
         LatLng pt = new LatLng(31.1882, 121.433346);
         PoiNearbySearchOption searchOption = new PoiNearbySearchOption();
@@ -368,5 +421,7 @@ public class AroundEquipmentHolder extends BaseHolder {
 
     }
 
-
+    public TextureMapView getMapView() {
+        return mMapView;
+    }
 }

@@ -2,6 +2,8 @@ package cn.com.gxdgroup.angentbible.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -61,4 +63,16 @@ public class UIUtils {
     public static View inflate(int viewId) {
         return View.inflate(getContext(), viewId, null);
     }
+
+    public static Drawable getDrawable(int id) {
+        Drawable drawable = getResources().getDrawable(id);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());//必须设置图片大小，否则不显示
+        return drawable;
+    }
+
+    public static Typeface getTypeFaceHelveticaNeue() {
+        return Typeface.createFromAsset(getContext().getAssets(), "HelveticaNeueLTPro-Th_0.ttf");
+//        return Typeface.createFromAsset(getContext().getAssets(), "fonts/HelveticaNeueLTPro-Th_0.ttf");
+    }
+
 }

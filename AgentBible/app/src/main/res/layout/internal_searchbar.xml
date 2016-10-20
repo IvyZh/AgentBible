@@ -56,7 +56,6 @@
         android:layout_marginTop="@dimen/internal_searchbar_radius"
         app:vsReserve="8dp">
 
-
         <TextView
             android:layout_gravity="right|center_vertical"
             android:layout_width="match_parent"

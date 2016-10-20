@@ -1,25 +1,19 @@
 package cn.com.gxdgroup.angentbible.fragments;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
-import cn.com.gxdgroup.angentbible.domain.MoviesBean;
-import cn.com.gxdgroup.angentbible.holder.impl.ComingSoonHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.TheatersHolder;
-import cn.com.gxdgroup.angentbible.net.Retrofit2Utils;
-import cn.com.gxdgroup.angentbible.utils.L;
+import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.CompanyHolder;
+import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.HotHolder;
+import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.PortHolder;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
-
-import java.util.List;
-
-import butterknife.BindView;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -29,61 +23,38 @@ import rx.schedulers.Schedulers;
  */
 
 public class DataAnalysisFragments extends BaseFragment {
-    @BindView(R.id.fr_in_theater)
-    FrameLayout mFrInTheater;
-    @BindView(R.id.fr_coming_soon)
-    FrameLayout mFrComingSoon;
 
-    private TheatersHolder theatersHolder;
-    private ComingSoonHolder comingSoonHolder;
-    private Observer mObserver;
 
-    @Override
-    public void loadData() {
-        L.v("DataAnalysisFragments load data...");
-        Observable<MoviesBean> observable = Retrofit2Utils.getServiceApi().getTheatersMoviesObservable("上海");
-
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);
-    }
+    @BindView(R.id.fr_hot)
+    FrameLayout mFrHot;
+    @BindView(R.id.fr_port)
+    FrameLayout mFrPort;
+    @BindView(R.id.fr_company)
+    FrameLayout mFrCompany;
 
     @Override
     public View setContentView(LayoutInflater inflater) {
-        View view = UIUtils.inflate(R.layout.fragment_movie);
-        return view;
+        return UIUtils.inflate(R.layout.fragment_data_analysis);
     }
 
     @Override
     protected void initView(View view) {
 
-        theatersHolder = new TheatersHolder(mActivity);
-        comingSoonHolder = new ComingSoonHolder(mActivity);
+        mFrHot.addView(new HotHolder(mActivity).getContentView());
+        mFrPort.addView(new PortHolder(mActivity).getContentView());
+        mFrCompany.addView(new CompanyHolder(mActivity).getContentView());
+    }
 
-        mFrInTheater.addView(theatersHolder.getContentView());
-        mFrComingSoon.addView(comingSoonHolder.getContentView());
-
-        mObserver = new Observer<MoviesBean>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(MoviesBean bean) {
-                List<MoviesBean.SubjectsBean> subjects = bean.getSubjects();
-                theatersHolder.setData(subjects);
-            }
-
-        };
-
+    @Override
+    public void loadData() {
 
     }
 
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 }

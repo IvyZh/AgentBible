@@ -21,10 +21,10 @@ import cn.com.gxdgroup.angentbible.base.BaseActivity;
 /**
  * Created by Ivy on 2016/10/18.
  *
- * @description: 二手房列表
+ * @description: 房源列表界面
  */
 
-public class SecondHandHouseActivity extends BaseActivity {
+public class HouseResourcesListActivity extends BaseActivity {
     @BindView(R.id.lv_second_hand_house)
     ListView mLvSecondHandHouse;
     @BindView(R.id.iv_back)
@@ -100,7 +100,7 @@ public class SecondHandHouseActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_search:
-                startActivity(new Intent(this,SearchActivity.class));
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.rl_location:
                 break;

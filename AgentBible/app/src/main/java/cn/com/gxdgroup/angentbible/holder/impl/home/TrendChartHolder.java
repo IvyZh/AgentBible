@@ -1,6 +1,7 @@
 package cn.com.gxdgroup.angentbible.holder.impl.home;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,6 +48,14 @@ public class TrendChartHolder extends BaseHolder {
     TextView mTvCharTitle;
     @BindView(R.id.tv_location)
     TextView mTvLocation;
+    @BindView(R.id.tv_price_rate)
+    TextView mTvPriceRate;
+    @BindView(R.id.tv_house_num_rate)
+    TextView mTvHouseNumRate;
+    @BindView(R.id.tv_price)
+    TextView mTvPrice;
+    @BindView(R.id.tv_house_num)
+    TextView mTvHouseNum;
     private int lineDataNum = 1;
     private int lineColors[] = {R.color.common_blue, R.color.common_green, R.color.common_orange};
 
@@ -61,6 +70,16 @@ public class TrendChartHolder extends BaseHolder {
 
     @Override
     public void initView() {
+
+//        Typeface neue = UIUtils.getTypeFaceHelveticaNeue();
+//        mTvHouseNum.setTypeface(neue);
+//        mTvPrice.setTypeface(neue);
+//        mTvHouseNumRate.setTypeface(neue);
+//        mTvPriceRate.setTypeface(neue);
+
+
+        //---------------------initChar--------------------------
+
         int gridColorId = Color.rgb(239, 239, 239);//分割线的颜色
         int labelTextColor = Color.rgb(112, 112, 112);//x y周的label的颜色
         xAxisLabels = new String[]{"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};//x轴的内容
@@ -94,9 +113,8 @@ public class TrendChartHolder extends BaseHolder {
         // set the marker to the chart
         mChart.setMarkerView(mv);
 
-
         Legend l = mChart.getLegend();
-        l.setEnabled(true);
+        l.setEnabled(false);//标注
 //        l.setTextColor();
         l.setWordWrapEnabled(true);
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);

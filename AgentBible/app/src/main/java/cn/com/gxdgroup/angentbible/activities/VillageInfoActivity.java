@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
+import com.baidu.mapapi.map.TextureMapView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
@@ -51,7 +53,7 @@ public class VillageInfoActivity extends BaseActivity {
     ScrollView scrollView;
 
     private BaseHolder trendChartHolder;
-//    private MapView mMapView;
+    private TextureMapView mMapView;
 
     @Override
     protected void setContentView() {
@@ -70,13 +72,15 @@ public class VillageInfoActivity extends BaseActivity {
 
         trendChartHolder = new TrendChartHolder(this);
 
+
+        AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
         mFrBanner.addView(new BannerHolder(this).getContentView());
         mFrHouseFeature.addView(new HouseFeatureHolder(this).getContentView());
         mFrGardenPrice.addView(trendChartHolder.getContentView());
 
 
         mFrGardenMagazine.addView(new GardenMagazineHolder(this).getContentView());
-        mFrArroundEquipment.addView(new AroundEquipmentHolder(this).getContentView());
+        mFrArroundEquipment.addView(equipmentHolder.getContentView());
 
 
         mFrZufang.addView(new ZuFangInDetailsHolder(this).getContentView());
@@ -90,6 +94,10 @@ public class VillageInfoActivity extends BaseActivity {
                 finish();
             }
         });
+
+
+        mMapView = equipmentHolder.getMapView();
+
 
     }
 
@@ -107,21 +115,21 @@ public class VillageInfoActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-//        mMapView.onDestroy();
+        mMapView.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-//        mMapView.onResume();
+        mMapView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-//        mMapView.onPause();
+        mMapView.onPause();
     }
 
     public ScrollView getScrollView() {

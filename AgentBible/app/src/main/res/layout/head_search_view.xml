@@ -8,14 +8,14 @@
     <ImageView
         android:id="@+id/iv_back"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_lr"
+        android:paddingLeft="@dimen/margin_lr"
+        android:paddingRight="@dimen/margin_lr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/btn_back" />
 
     <RelativeLayout
         android:id="@+id/rl_search"
-        android:layout_marginLeft="@dimen/margin_lr"
         android:layout_toRightOf="@id/iv_back"
         android:layout_marginRight="@dimen/margin_lr"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_marginLeft="@dimen/margin_lr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_search" />
+            android:src="@drawable/ico_search_small" />
 
         <TextView
             android:layout_marginLeft="4dp"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="#ffffff"
+            android:textColor="#99ffffff"
             android:layout_centerVertical="true"
             android:text="请输入小区名称" />
     </RelativeLayout>

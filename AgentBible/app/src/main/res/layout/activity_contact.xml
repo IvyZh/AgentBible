@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.com.gxdgroup.angentbible.ui.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_portrait"
+            android:layout_marginLeft="@dimen/margin_lr"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/launcher_logo" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_alignTop="@id/iv_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_portrait"
+            android:text="胡强强" />
+
+        <TextView
+            android:id="@+id/tv_role"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_portrait"
+            android:layout_below="@id/tv_name"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/text_light"
+            android:text=" 房地产经纪人" />
+
+
+        <Button
+            android:id="@+id/switch_"
+            android:background="@color/common_orange"
+            android:layout_alignTop="@id/iv_portrait"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_lr"
+            android:layout_width="40dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_alignTop="@id/iv_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/switch_"
+            android:layout_marginRight="8dp"
+            android:text="不再关注对方房源" />
+    </RelativeLayout>
+
+</LinearLayout>
