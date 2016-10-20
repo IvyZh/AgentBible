@@ -7,7 +7,7 @@
     <LinearLayout
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
+        android:layout_height="122dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -21,10 +21,10 @@
 
             <TextView
                 android:id="@+id/tv_second_hand_house"
-                android:layout_below="@id/iv_second_hand_house"
                 style="@style/home_menu_tv"
-
-                android:text="二手房" />
+                android:text="二手房"
+                android:layout_below="@+id/iv_second_hand_house"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <RelativeLayout

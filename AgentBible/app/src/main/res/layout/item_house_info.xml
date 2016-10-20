@@ -15,7 +15,7 @@
             android:id="@+id/iv_cover"
             android:layout_width="114dp"
             android:layout_height="84dp"
-            android:src="@drawable/ico_default_picture"
+            android:src="@drawable/ico_picture"
             android:scaleType="centerCrop" />
 
         <TextView
