@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="174dp">
+        android:layout_height="196dp">
 
 
         <ImageView
@@ -19,12 +19,20 @@
             android:layout_marginTop="14dp"
             android:id="@+id/tv_location"
             android:layout_marginLeft="@dimen/margin_lr"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上海"
-            android:drawablePadding="4dp"
-            android:drawableRight="@drawable/btn_pull_down"
+            android:textSize="14sp"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="@dimen/margin_lr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/tv_location"
+            android:src="@drawable/btn_pull_down"
             android:textColor="@color/white" />
 
 
