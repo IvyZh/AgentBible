@@ -1,8 +1,10 @@
 package cn.com.gxdgroup.angentbible.holder.impl.home;
 
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -276,6 +278,23 @@ public class TrendChartHolder extends BaseHolder {
 
         mChart.setData(data);
         mChart.invalidate();
+
+
+
+        // 给成交量 成交rate 平均价 平均价rata赋值
+        ValueAnimator valueAnimator = ValueAnimator.ofInt( 60000, 86512);
+        valueAnimator.setDuration(800);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int money= (int) animation.getAnimatedValue();
+                mTvPrice.setText(money+"");
+                mTvHouseNum.setText((money/12)+"");
+            }
+        });
+        valueAnimator.start();
+
     }
 
     public void setLineDataNum(int lineDataNum) {
