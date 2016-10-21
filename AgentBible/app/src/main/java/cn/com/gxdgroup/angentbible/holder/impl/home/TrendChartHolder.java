@@ -284,6 +284,7 @@ public class TrendChartHolder extends BaseHolder {
         // 给成交量 成交rate 平均价 平均价rata赋值
         ValueAnimator valueAnimator = ValueAnimator.ofInt( 60000, 86512);
         valueAnimator.setDuration(800);
+        //
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
