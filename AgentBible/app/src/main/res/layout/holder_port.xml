@@ -61,7 +61,7 @@
 
                 <ImageView
                     android:id="@+id/iv_area"
-                    android:src="@drawable/ico_agent"
+                    android:src="@drawable/ico_agent_num"
                     style="@style/hot_menu_iv"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"

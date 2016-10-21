@@ -1,6 +1,5 @@
 package cn.com.gxdgroup.angentbible.activities;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
@@ -8,7 +7,6 @@ import android.widget.ScrollView;
 import com.baidu.mapapi.map.TextureMapView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
@@ -20,6 +18,7 @@ import cn.com.gxdgroup.angentbible.holder.impl.details.ZuFangInDetailsHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.TrendChartHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.AroundEquipmentHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.GardenMagazineHolder;
+import cn.com.gxdgroup.angentbible.holder.impl.village.VillageBasicHolder;
 import cn.com.gxdgroup.angentbible.ui.TitleView;
 
 /**
@@ -33,8 +32,8 @@ public class VillageInfoActivity extends BaseActivity {
 
     @BindView(R.id.fr_banner)
     FrameLayout mFrBanner;
-    @BindView(R.id.fr_house_feature)
-    FrameLayout mFrHouseFeature;
+    @BindView(R.id.fr_village_basic)
+    FrameLayout mFrVillageBasic;
     @BindView(R.id.fr_garden_price)
     FrameLayout mFrGardenPrice;
     @BindView(R.id.fr_garden_magazine)
@@ -57,14 +56,7 @@ public class VillageInfoActivity extends BaseActivity {
 
     @Override
     protected void setContentView() {
-        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
-        //注意该方法要再setContentView方法之前实现
-
         setContentView(R.layout.activity_village_info);
-
-        //获取地图控件引用
-//        mMapView = (MapView) findViewById(R.id.bmapView);
-
     }
 
     @Override
@@ -75,7 +67,7 @@ public class VillageInfoActivity extends BaseActivity {
 
         AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
         mFrBanner.addView(new BannerHolder(this).getContentView());
-        mFrHouseFeature.addView(new HouseFeatureHolder(this).getContentView());
+        mFrVillageBasic.addView(new VillageBasicHolder(this).getContentView());
         mFrGardenPrice.addView(trendChartHolder.getContentView());
 
 

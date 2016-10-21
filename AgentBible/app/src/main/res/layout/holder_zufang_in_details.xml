@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="174dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="小区租房" />
+    <TextView
+        style="@style/card_title_tv"
+        android:text="小区租房(123)" />
 
-    </FrameLayout>
+    <View style="@style/divide_style" />
+
+    <include layout="@layout/item_house_info" />
 
 </LinearLayout>

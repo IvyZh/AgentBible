@@ -25,47 +25,44 @@
 
         </LinearLayout>
 
+        <View style="@style/weight_view" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:id="@+id/ll_second"
+            style="@style/item_select_style">
 
-            <LinearLayout
-                android:id="@+id/ll_second"
-                style="@style/item_select_style"
-                android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_price"
+                style="@style/tv_select_style"
+                android:text="价格" />
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    style="@style/tv_select_style"
-                    android:text="价格" />
-
-                <ImageView
-                    android:id="@+id/iv_price_arrow"
-                    style="@style/arrow_select_style" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_third"
-                style="@style/item_select_style"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tv_source"
-                    style="@style/tv_select_style"
-                    android:text="来源" />
-
-                <ImageView
-                    android:id="@+id/iv_source_arrow"
-                    style="@style/arrow_select_style" />
-
-            </LinearLayout>
-
+            <ImageView
+                android:id="@+id/iv_price_arrow"
+                style="@style/arrow_select_style" />
 
         </LinearLayout>
+
+        <View style="@style/weight_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_third"
+            style="@style/item_select_style">
+
+            <TextView
+                android:id="@+id/tv_source"
+                style="@style/tv_select_style"
+                android:text="来源" />
+
+            <ImageView
+                android:id="@+id/iv_source_arrow"
+                style="@style/arrow_select_style" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/ll_last"

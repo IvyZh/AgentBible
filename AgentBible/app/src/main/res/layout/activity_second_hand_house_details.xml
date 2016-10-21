@@ -36,14 +36,14 @@
             <FrameLayout
                 android:background="@color/white"
                 android:id="@+id/fr_house_intro"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <!--小区价格走势模块-->
             <FrameLayout
                 android:background="@color/white"
                 android:id="@+id/fr_garden_price"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -51,20 +51,20 @@
             <FrameLayout
                 android:background="@color/white"
                 android:id="@+id/fr_second_house"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <!--小区租房模块-->
             <FrameLayout
                 android:background="@color/white"
                 android:id="@+id/fr_zufang"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <!--小区成交记录模块-->
             <FrameLayout
                 android:id="@+id/fr_house_deal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -73,10 +73,56 @@
 
     </ScrollView>
 
-    <Button
+    <View style="@style/divide_style" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="contact"
-        android:text="经纪人" />
+        android:layout_height="56dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:onClick="contact"
+            android:layout_width="0dp"
+            android:layout_weight="154"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_agent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/common_blue"
+                android:layout_height="wrap_content"
+                android:text="胡强强 个人" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="208"
+            android:layout_height="match_parent"
+            android:background="@color/common_blue"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="电话咨询" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

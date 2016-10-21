@@ -7,24 +7,13 @@
     <RelativeLayout
         android:id="@+id/rl_around_equipment"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical">
-
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView"
-            android:layout_marginLeft="@dimen/margin_lr"
-            android:text="周边配套"
-            android:textColor="@color/text_dark" />
+            style="@style/card_title_tv"
+            android:text="周边配套" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin_lr"
-            android:src="@drawable/right" />
+        <ImageView style="@style/card_arrow" />
     </RelativeLayout>
 
     <View style="@style/divide_style" />
@@ -93,6 +82,13 @@
                 style="@style/map_poi_style"
                 android:drawableTop="@drawable/food"
                 android:text="美食" />
+
+            <TextView
+                android:id="@+id/tv_health"
+                style="@style/map_poi_style"
+                android:drawableTop="@drawable/btn_health"
+                android:text="健身" />
+
         </LinearLayout>
 
     </HorizontalScrollView>

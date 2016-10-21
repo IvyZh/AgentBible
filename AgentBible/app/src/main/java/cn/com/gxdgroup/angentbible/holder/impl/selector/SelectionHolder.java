@@ -64,7 +64,7 @@ public class SelectionHolder extends BaseHolder {
         int blueColor = UIUtils.getColor(R.color.common_blue);
         int normalColor = UIUtils.getColor(R.color.text_grey);
         Drawable up = UIUtils.getDrawable(R.drawable.btn_up_back);
-        Drawable down = UIUtils.getDrawable(R.drawable.pull_down);
+        Drawable down = UIUtils.getDrawable(R.drawable.btn_pulldown);
         switch (view.getId()) {
             case R.id.ll_first:
                 tvLocation.setTextColor(blueColor);

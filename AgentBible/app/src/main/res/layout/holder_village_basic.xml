@@ -6,70 +6,27 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:id="@+id/tv_publish_time"
+    <RelativeLayout
+        android:id="@+id/rl_around_equipment"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textSize="14sp"
-        android:gravity="center_vertical"
-        android:textColor="@color/text_grey"
-        android:text="发布日期：2016-05-06" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/card_title_tv"
+            android:text="基本信息" />
+
+        <ImageView style="@style/card_arrow" />
+    </RelativeLayout>
+
 
     <View style="@style/divide_style" />
+
 
     <LinearLayout
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:orientation="horizontal">
-
-        <LinearLayout style="@style/home_menu_rl">
-
-            <TextView
-                style="@style/home_menu_tv"
-                android:text="售价" />
-
-            <TextView
-                android:id="@+id/tv_house_price"
-                style="@style/second_house_detail"
-                android:text="180万" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/home_menu_rl"
-            android:layout_weight="2">
-
-            <TextView
-                style="@style/home_menu_tv"
-                android:text="房型" />
-
-            <TextView
-                android:id="@+id/tv_house_layout"
-                style="@style/second_house_detail"
-                android:text="2室1厅1卫" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/home_menu_rl">
-
-            <TextView
-                style="@style/home_menu_tv"
-                android:text="面积" />
-
-            <TextView
-                android:id="@+id/tv_house_area"
-                style="@style/second_house_detail"
-                android:text="53.12㎡" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View style="@style/divide_style" />
-
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="162dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -80,13 +37,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
                 <TextView
                     style="@style/house_detail_tv"
-                    android:text="单价:  " />
+                    android:text="小区地址:" />
 
                 <TextView
                     android:id="@+id/tv_unit_price"
@@ -103,7 +60,7 @@
 
                 <TextView
                     style="@style/house_detail_tv"
-                    android:text="装修:  " />
+                    android:text="物业费:  " />
 
                 <TextView
                     android:id="@+id/tv_house_fitment"
@@ -114,12 +71,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/house_detail_tv"
+                    android:text="容积率:  " />
+
+                <TextView
+                    android:id="@+id/tv_house_fitment"
+                    style="@style/home_menu_tv"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/house_detail_tv"
+                    android:text="楼栋数:  " />
+
+                <TextView
+                    android:id="@+id/tv_house_fitment"
+                    style="@style/home_menu_tv"
+                    android:text="35" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
                 <TextView
                     style="@style/house_detail_tv"
-                    android:text="年代:  "
+                    android:text="建筑年代:  "
                     android:id="@+id/textView" />
 
                 <TextView
@@ -143,14 +132,11 @@
                 android:gravity="bottom"
                 android:orientation="horizontal">
 
-                <TextView
-                    style="@style/house_detail_tv"
-                    android:text="楼层:  " />
+                <TextView style="@style/house_detail_tv" />
 
                 <TextView
                     android:id="@+id/tv_house_floor"
-                    style="@style/home_menu_tv"
-                    android:text="共12层" />
+                    style="@style/home_menu_tv" />
             </LinearLayout>
 
 
@@ -160,14 +146,43 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+                <TextView style="@style/house_detail_tv" />
+
+                <TextView
+
+                    style="@style/home_menu_tv" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
                 <TextView
                     style="@style/house_detail_tv"
-                    android:text="朝向:  " />
+                    android:text="绿化率:" />
 
                 <TextView
                     android:id="@+id/tv_house_orientation"
                     style="@style/home_menu_tv"
-                    android:text="南" />
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/house_detail_tv"
+                    android:text="建筑类别:  " />
+
+                <TextView
+                    android:id="@+id/tv_house_orientation"
+                    style="@style/home_menu_tv"
+                    android:text="--" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,55 +193,16 @@
 
                 <TextView
                     style="@style/house_detail_tv"
-                    android:text="区域:  " />
+                    android:text="建筑结构:  " />
 
                 <TextView
                     android:id="@+id/tv_house_location"
                     style="@style/home_menu_tv"
-                    android:text="徐汇田林" />
+                    android:text="--" />
             </LinearLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>
-
-    <View style="@style/divide_style" />
-
-
-    <RelativeLayout
-        android:id="@+id/rl_garden_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:id="@+id/tv_garden_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_light"
-            android:text="小区:" />
-
-        <TextView
-            android:id="@+id/tv_garden_name"
-            android:layout_marginLeft="6dp"
-            android:layout_toRightOf="@id/tv_garden_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_dark"
-            android:text="湖滨半岛公馆" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/right"
-            android:layout_marginRight="@dimen/margin_lr" />
-
-    </RelativeLayout>
 
 
 </LinearLayout>

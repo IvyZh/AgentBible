@@ -29,7 +29,7 @@
                 android:background="@color/white" />
             <!-- 小区基本信息-->
             <FrameLayout
-                android:id="@+id/fr_house_feature"
+                android:id="@+id/fr_village_basic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white" />

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.bigkoo.alertview.AlertView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
@@ -60,6 +62,15 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
             }
         });
 
+        mTitleView.showRightImageView(true);
+        mTitleView.setRightButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertView mAlertView = new AlertView("标题", "内容", "取消", new String[]{"确定"}, null, mContext, AlertView.Style.Alert, null).setCancelable(true);
+                mAlertView.show();
+            }
+        });
+
 
         bannerHolder = new BannerHolder(this);
         featureHolder = new HouseFeatureHolder(this);
@@ -69,13 +80,13 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
         secondHandHouseInDetailsHolder = new SecondHandHouseInDetailsHolder(this);
         dealInDetailsHolder = new HouseDealInDetailsHolder(this);
 
-        mFrBanner.addView(bannerHolder.getContentView());
-        mFrHouseFeature.addView(featureHolder.getContentView());
-        mFrHouseIntro.addView(introHolder.getContentView());
-        mFrGardenPrice.addView(trendChartHolder.getContentView());
-        mFrZufang.addView(zuFangInDetailsHolder.getContentView());
-        mFrSecondHouse.addView(secondHandHouseInDetailsHolder.getContentView());
-        mFrHouseDeal.addView(dealInDetailsHolder.getContentView());
+        mFrBanner.addView(bannerHolder.getContentView());//轮播
+        mFrHouseFeature.addView(featureHolder.getContentView());//房源特征
+        mFrHouseIntro.addView(introHolder.getContentView());//房源介绍
+        mFrGardenPrice.addView(trendChartHolder.getContentView());//小区价格走势
+        mFrZufang.addView(zuFangInDetailsHolder.getContentView());//小区租房
+        mFrSecondHouse.addView(secondHandHouseInDetailsHolder.getContentView());//小区二手房
+        mFrHouseDeal.addView(dealInDetailsHolder.getContentView());//小区成交记录
     }
 
     @Override

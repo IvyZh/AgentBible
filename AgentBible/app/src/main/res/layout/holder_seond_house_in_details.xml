@@ -4,15 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="174dp">
+    <TextView
+        style="@style/card_title_tv"
+        android:text="小区二手房(123)" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="小区二手房" />
+    <View style="@style/divide_style" />
 
-    </FrameLayout>
+    <include layout="@layout/item_house_info" />
 
 </LinearLayout>

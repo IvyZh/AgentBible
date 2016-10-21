@@ -84,4 +84,14 @@ dependencies {
 
     //PickerView
     compile 'com.bigkoo:pickerview:2.1.1'
+
+    //alertview
+    compile 'com.bigkoo:alertview:1.0.3'
+
+    //circleimageview
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    //photoview
+    compile 'com.bm.photoview:library:1.4.1'
+
 }

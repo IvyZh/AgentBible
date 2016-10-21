@@ -7,7 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="@dimen/margin_lr">
+        android:paddingLeft="@dimen/margin_lr"
+        android:paddingRight="@dimen/margin_lr"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
 
         <ImageView
             android:id="@+id/iv_cover"

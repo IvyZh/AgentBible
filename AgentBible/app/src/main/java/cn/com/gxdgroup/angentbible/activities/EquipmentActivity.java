@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.baidu.mapapi.map.TextureMapView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
@@ -24,7 +26,7 @@ public class EquipmentActivity extends BaseActivity {
     TitleView mTitleView;
     @BindView(R.id.fr_map)
     FrameLayout mFrMap;
-
+    private TextureMapView mMapView;
     private boolean isMap = true;
 
     @Override
@@ -34,13 +36,13 @@ public class EquipmentActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        final AroundEquipmentHolder holder = new AroundEquipmentHolder(this);
+        final AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
         final EquipmentMapDetialsHolder detialsHolder = new EquipmentMapDetialsHolder(this);
 
-        holder.showMapTitleBar(false);
+        equipmentHolder.showMapTitleBar(false);
 
 
-        mFrMap.addView(holder.getContentView());
+        mFrMap.addView(equipmentHolder.getContentView());
         mFrMap.addView(detialsHolder.getContentView());
 
         detialsHolder.getContentView().setVisibility(View.GONE);
@@ -53,20 +55,45 @@ public class EquipmentActivity extends BaseActivity {
         });
 
         mTitleView.showRightImageView(false);
+        mTitleView.showRightText(true);
+
         mTitleView.setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isMap) {
-                    holder.getContentView().setVisibility(View.GONE);
+                    equipmentHolder.getContentView().setVisibility(View.GONE);
                     detialsHolder.getContentView().setVisibility(View.VISIBLE);
                 } else {
                     detialsHolder.getContentView().setVisibility(View.GONE);
-                    holder.getContentView().setVisibility(View.VISIBLE);
+                    equipmentHolder.getContentView().setVisibility(View.VISIBLE);
                 }
                 isMap = !isMap;
             }
         });
 
+
+        mMapView = equipmentHolder.getMapView();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        mMapView.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+        mMapView.onPause();
+    }
 }

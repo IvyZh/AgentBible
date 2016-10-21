@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,8 +16,10 @@ import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.overlayutil.PoiOverlay;
@@ -30,6 +31,7 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.poi.PoiSortType;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,8 +49,6 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
  */
 
 public class AroundEquipmentHolder extends BaseHolder {
-    @BindView(R.id.imageView)
-    ImageView imageView;
     @BindView(R.id.mTexturemap)
     TextureMapView mMapView;
     @BindView(R.id.tv_bank)
@@ -67,6 +67,8 @@ public class AroundEquipmentHolder extends BaseHolder {
     TextView tvFood;
     @BindView(R.id.rl_around_equipment)
     RelativeLayout mRlAroundEquipment;
+    @BindView(R.id.tv_health)
+    TextView mTvHealth;
     private PoiSearch mPoiSearch;
     private OnGetPoiSearchResultListener poiListener;
     private BaiduMap mBaiduMap;
@@ -122,11 +124,14 @@ public class AroundEquipmentHolder extends BaseHolder {
         poiListener = new OnGetPoiSearchResultListener() {
             public void onGetPoiResult(PoiResult result) {
                 //获取POI检索结果
-                L.v("---获取POI检索结果--");
+
 
                 if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
+                    L.v("search--error");
                     return;
                 }
+
+                L.v("---获取POI检索结果--" + result.getAllPoi().size());
                 if (result.error == SearchResult.ERRORNO.NO_ERROR) {
                     mBaiduMap.clear();
                     //创建PoiOverlay
@@ -199,19 +204,20 @@ public class AroundEquipmentHolder extends BaseHolder {
             });
         }
 
-        navigateTo(31.1882, 121.433346);
+        locationTo(31.1882, 121.433346);
     }
 
 
-    private void navigateTo(double latitude, double longitude) {
+    private void locationTo(double latitude, double longitude) {
         LatLng latLng = new LatLng(latitude, longitude);
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         // 构造定位数据
         MyLocationData locData = new MyLocationData.Builder()
-                .accuracy(100)
+                .accuracy(0)////自定义误差半径
                 // 此处设置开发者获取到的方向信息，顺时针0-360
-                .direction(100).latitude(latitude)
+                .direction(0)
+                .latitude(latitude)
                 .longitude(longitude).build();
 
         int zoom = 15;//地图缩放级别 3~21
@@ -224,10 +230,25 @@ public class AroundEquipmentHolder extends BaseHolder {
 
         // 设置定位数据
         mBaiduMap.setMyLocationData(locData);
+
         // 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
-        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.icon_geo);
-        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
-        mBaiduMap.setMyLocationConfigeration(config);
+//        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.ico_house);
+//        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
+//        mBaiduMap.setMyLocationConfigeration(config);
+
+
+        //定义Maker坐标点
+        //构建Marker图标
+//        BitmapDescriptor bitmap = BitmapDescriptorFactory
+//                .fromResource(R.drawable.ico_house);
+//        //构建MarkerOption，用于在地图上添加Marker
+//
+//        OverlayOptions option = new MarkerOptions()
+//                .position(latLng)
+//                .icon(bitmap);
+//        //在地图上添加Marker，并显示
+//        mBaiduMap.addOverlay(option);
+
 
         // 当不需要定位图层时关闭定位图层
 //        mBaiduMap.setMyLocationEnabled(false);
@@ -277,13 +298,14 @@ public class AroundEquipmentHolder extends BaseHolder {
 
 
             //创建InfoWindow展示的view
-            Button button = new Button(mActivity);
-            button.setText(info.name);
-            button.setBackgroundResource(R.drawable.popup);
+
+            View view = UIUtils.inflate(R.layout.view_map_pop_maker);
+            TextView tvName = (TextView) view.findViewById(R.id.tv_name);
+            tvName.setText(info.name);
             //定义用于显示该InfoWindow的坐标点
             LatLng pt = info.location;
             //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
-            InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
+            InfoWindow mInfoWindow = new InfoWindow(view, pt, -47);
             //显示InfoWindow
             mBaiduMap.showInfoWindow(mInfoWindow);
 
@@ -321,6 +343,9 @@ public class AroundEquipmentHolder extends BaseHolder {
             case "美食":
                 sourceId = R.drawable.food2;
                 break;
+            case "健身":
+                sourceId = R.drawable.btn_health2;
+                break;
         }
         return sourceId;
 //        return BitmapDescriptorFactory.fromResource(sourceId);
@@ -332,7 +357,7 @@ public class AroundEquipmentHolder extends BaseHolder {
 
     }
 
-    @OnClick({R.id.tv_bank, R.id.tv_bus, R.id.tv_subway, R.id.tv_edu, R.id.tv_hospital, R.id.tv_shopping, R.id.tv_food})
+    @OnClick({R.id.tv_bank, R.id.tv_bus, R.id.tv_subway, R.id.tv_edu, R.id.tv_hospital, R.id.tv_shopping, R.id.tv_food, R.id.tv_health})
     public void onClick(View view) {
 
         // 恢复状态
@@ -345,6 +370,7 @@ public class AroundEquipmentHolder extends BaseHolder {
         tvHospital.setTextColor(colorLight);
         tvShopping.setTextColor(colorLight);
         tvFood.setTextColor(colorLight);
+        mTvHealth.setTextColor(colorLight);
 
 
         tvBank.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.bank), null, null);
@@ -354,6 +380,7 @@ public class AroundEquipmentHolder extends BaseHolder {
         tvHospital.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.hospital), null, null);
         tvShopping.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.supermaket), null, null);
         tvFood.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.food), null, null);
+        mTvHealth.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.btn_health), null, null);
 
         mKeyWord = "银行";
         switch (view.getId()) {
@@ -369,6 +396,7 @@ public class AroundEquipmentHolder extends BaseHolder {
                 break;
             case R.id.tv_subway:
                 mKeyWord = "地铁";
+//                mKeyWord = "公交";
                 tvSubway.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.subwa_press), null, null);
                 tvSubway.setTextColor(colorBlue);
                 break;
@@ -392,6 +420,11 @@ public class AroundEquipmentHolder extends BaseHolder {
                 tvFood.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.food_press), null, null);
                 tvFood.setTextColor(colorBlue);
                 break;
+            case R.id.tv_health:
+                mKeyWord = "健身";
+                mTvHealth.setCompoundDrawables(null, UIUtils.getDrawable(R.drawable.btn_health_press), null, null);
+                mTvHealth.setTextColor(colorBlue);
+                break;
         }
 
         L.v("search.1..." + mKeyWord);
@@ -400,8 +433,10 @@ public class AroundEquipmentHolder extends BaseHolder {
         PoiNearbySearchOption searchOption = new PoiNearbySearchOption();
         searchOption.keyword(mKeyWord)
                 .location(pt)
-                .pageNum(10)
-                .radius(3000);
+                .pageCapacity(10)
+                .pageNum(1)
+                .sortType(PoiSortType.distance_from_near_to_far)
+                .radius(5000);
 
 
         mPoiSearch.searchNearby(searchOption);

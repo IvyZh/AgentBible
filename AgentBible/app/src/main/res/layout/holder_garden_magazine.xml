@@ -4,15 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/rl_around_equipment"
         android:layout_width="match_parent"
-        android:layout_height="174dp">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/card_title_tv"
             android:text="小区月报" />
 
-    </FrameLayout>
+        <ImageView style="@style/card_arrow" />
+    </RelativeLayout>
+
+    <View style="@style/divide_style" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_lr"
+        android:textSize="15sp"
+        android:lineSpacingExtra="3dp"
+        android:maxLines="3"
+        android:lineSpacingMultiplier="1.5"
+        android:text="本小区9月成交均价30000元/平米，环比上月上涨10.00%， 成交二手房100套，环比上月上涨10.00%， 新增挂牌10套，环比上月上涨10.00%"
+        android:textColor="@color/text_dark" />
+
 
 </LinearLayout>
