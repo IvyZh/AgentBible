@@ -24,3 +24,7 @@
 	* 3：首页-最新成交Menu
 	* 4：我-收藏房源-Item
 	* 5：我-收藏客源-Item
+
+
+* DataAnalysisActivity
+	* mDataType;//数据分析的类型
