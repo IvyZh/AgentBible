@@ -52,7 +52,7 @@ public class HouseResourcesListActivity extends BaseActivity {
             mAppTitle.showMode(AppTitleView.MODE.SEARCH, mMenuType, this);
         }
 
-        mAppTitle.setListener(new SimpleAppTitleListener(HouseResourcesListActivity.this) {
+        mAppTitle.setListener(new SimpleAppTitleListener(mContext) {
             @Override
             public void OnrlSearch() {
                 startActivity(new Intent(HouseResourcesListActivity.this, SearchActivity.class));

@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Ivy on 2016/10/14.
  *
- * @description:
+ * @description: 豆瓣的Fragment
  */
 
 public class DataAnalysisFragments2 extends BaseFragment {

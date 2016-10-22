@@ -11,7 +11,7 @@ import cn.com.gxdgroup.angentbible.base.BaseActivity;
  */
 
 public class SimpleAppTitleListener implements AppTitleListener {
-    private BaseActivity mContext;
+    private BaseActivity mContext;//用于finishActivity
 
     public SimpleAppTitleListener(BaseActivity context) {
         mContext = context;
