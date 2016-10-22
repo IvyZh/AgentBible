@@ -44,6 +44,9 @@ public class HouseInfoAdapter extends CommonAdapter<String> {
     @Override
     public void convert(ViewHolder holder, String item) {
 
+        String s = "" + ((new Random().nextInt(1000) % (1000 - 100 + 1) + 100) + "万");
+//
+        holder.setText(R.id.tv_total_price, s);
 
         holder.setImageByUrl(R.id.iv_cover, list.get(new Random().nextInt(list.size())));
 

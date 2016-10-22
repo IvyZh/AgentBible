@@ -43,7 +43,7 @@ public class DataAnalysisFragments extends BaseFragment {
     @Override
     protected void initView(View view) {
 
-//        mAppTitle.
+        mAppTitle.showMode(AppTitleView.MODE.DATA_ANALYSIS, -1, null);
 
         mFrHot.addView(new HotHolder(mActivity).getContentView());
         mFrPort.addView(new PortHolder(mActivity).getContentView());

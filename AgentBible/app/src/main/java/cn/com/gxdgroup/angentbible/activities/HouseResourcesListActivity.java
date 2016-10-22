@@ -38,7 +38,7 @@ public class HouseResourcesListActivity extends BaseActivity {
 
     @Override
     protected void setContentView() {
-        setContentView(R.layout.activity_second_hand_house);
+        setContentView(R.layout.activity_house_res_list);
     }
 
     @Override

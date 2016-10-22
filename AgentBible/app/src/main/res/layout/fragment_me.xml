@@ -44,7 +44,9 @@
                     />
             </RelativeLayout>
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+                style="@style/me_item"
+                android:id="@+id/rl_collection_house">
 
                 <ImageView
                     android:id="@+id/iv_scfy"
@@ -62,7 +64,9 @@
 
             <View style="@style/divide_style_left" />
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+                style="@style/me_item"
+                android:id="@+id/rl_collection_people">
 
                 <ImageView
                     android:id="@+id/iv_scky"
@@ -84,7 +88,9 @@
                 android:background="@color/common_bg" />
 
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+                style="@style/me_item"
+                android:id="@+id/rl_feedback">
 
                 <ImageView
                     android:id="@+id/iv_reflact"
@@ -102,7 +108,9 @@
 
             <View style="@style/divide_style_left" />
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+                style="@style/me_item"
+                android:id="@+id/rl_invite">
 
                 <ImageView
                     android:id="@+id/iv_invite"
@@ -120,7 +128,9 @@
 
             <View style="@style/divide_style_left" />
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+                style="@style/me_item"
+                android:id="@+id/rl_update">
 
                 <ImageView
                     android:id="@+id/iv_update"
@@ -138,7 +148,10 @@
 
             <View style="@style/divide_style_left" />
 
-            <RelativeLayout style="@style/me_item">
+            <RelativeLayout
+
+                android:id="@+id/rl_setting"
+                style="@style/me_item">
 
                 <ImageView
                     android:id="@+id/iv_setting"

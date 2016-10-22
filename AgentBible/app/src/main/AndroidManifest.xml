@@ -40,6 +40,7 @@
         <activity android:name=".activities.EquipmentActivity" />
         <activity android:name=".activities.ContactActivity" />
         <activity android:name=".activities.PhotoViewerActivity" />
+        <activity android:name=".activities.CollectionActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

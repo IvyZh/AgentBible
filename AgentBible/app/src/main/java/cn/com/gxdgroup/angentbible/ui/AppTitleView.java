@@ -31,16 +31,16 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
     private Context mContext;
 
     private int mMenuType;
-    private ImageView ivBack, ivRight;
+    private ImageView ivBack, ivRight, ivArrowDown;
     private Button btTabLeft, btTabRight;
-    private View rlSearch, llTab;
-    private TextView tvRight, tvTitle;
+    private View rlSearch, llTab, rlSearchArrow;
+    private TextView tvRight, tvTitle, tvTitleLocation;
     private AppTitleListener mListener;
     private FrameLayout frSelection;
     private SelectionHolder selectionHolder;
 
     public static enum MODE {
-        SEARCH, TAB, TITLE, TITLE_R_TV, TITLE_R_IV;
+        SEARCH, TAB, TITLE, TITLE_R_TV, TITLE_R_IV, DATA_ANALYSIS;
     }
 
     private String mTitleMsg, mRightMsg, mTabRightMsg, mTabLeftMsg;
@@ -64,13 +64,16 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
         LayoutInflater.from(context).inflate(R.layout.app_title_view, this);
 
         ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivArrowDown = (ImageView) findViewById(R.id.iv_arrow_down);
         rlSearch = findViewById(R.id.rl_search);
+        rlSearchArrow = findViewById(R.id.rl_search_arrow);
         llTab = findViewById(R.id.ll_tab);
         btTabLeft = (Button) findViewById(R.id.bt_tab_left);
         btTabRight = (Button) findViewById(R.id.bt_tab_right);
         ivRight = (ImageView) findViewById(R.id.iv_right);
         tvRight = (TextView) findViewById(R.id.tv_right);
         tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitleLocation = (TextView) findViewById(R.id.tv_location);
         frSelection = (FrameLayout) findViewById(R.id.fr_selection);
 
         ivBack.setOnClickListener(this);
@@ -107,6 +110,12 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
     public void setTabLeftMsg(String tabLeftMsg) {
         mTabLeftMsg = tabLeftMsg;
         btTabLeft.setText(tabLeftMsg);
+    }
+
+    public AppTitleView setTabMsg(String tabLeftMsg, String tabRightMsg) {
+        setTabLeftMsg(tabLeftMsg);
+        setTabRightMsg(tabRightMsg);
+        return this;
     }
 
     //点击事件
@@ -161,10 +170,12 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
 
     /**
      * 设置显示模式
-     * @param menuType 0-二手房，1-租房，2-客源，3-最新成交 【后来发现可以不用传进来因为已经传进来了上下文，可以通过它来获取menuType判断，但是要保证是否这个界面还有其他的入口？】
-     * 感觉还是通过传入menuType来判断比较安全，因为用户有可能会从搜索界面进来。
+     *
+     * @param menuType -1 :去掉 SelectionHolder,0-二手房，1-租房，2-客源，3-最新成交 【后来发现可以不用传进来因为已经传进来了上下文，可以通过它来获取menuType判断，但是要保证是否这个界面还有其他的入口？】
+     *                 感觉还是通过传入menuType来判断比较安全，因为用户有可能会从搜索界面进来。
+     * @param activity 用于SelectionHolder的引用，当不存在SelectionHolder的时候可以传null
      */
-    public void showMode(MODE mode, int menuType, FragmentActivity activity) {
+    public AppTitleView showMode(MODE mode, int menuType, FragmentActivity activity) {
         this.mMenuType = menuType;
         switch (mode) {
             case SEARCH:
@@ -180,6 +191,9 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
             case TAB:
                 setVisible(false, rlSearch, tvTitle, ivRight, tvRight).setVisible(true, llTab);
                 break;
+            case DATA_ANALYSIS:
+                setVisible(false, llTab, tvRight, ivRight, tvTitle, rlSearch, ivBack).setVisible(true, rlSearchArrow, ivArrowDown, tvTitleLocation);
+                break;
         }
 
         if (menuType == -1) {
@@ -189,6 +203,8 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
             selectionHolder = new SelectionHolder(activity, menuType);
             frSelection.addView(selectionHolder.getContentView());
         }
+
+        return this;
     }
 
     /**

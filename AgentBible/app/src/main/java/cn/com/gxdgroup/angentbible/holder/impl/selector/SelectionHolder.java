@@ -83,14 +83,17 @@ public class SelectionHolder extends BaseHolder {
      */
     @Override
     public View getContentView() {
-        namesList = new ArrayList<>();
-        namesList.add(new String[]{"区域", "价格", "来源", "更多"});// 二手房
-        namesList.add(new String[]{"区域", "租金", "方式", "更多"});// 租房
-        namesList.add(new String[]{"区域", "房型", "来源"});// 客源-购房
-//        namesList.add(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房(这个放到后面单独处理)
-        namesList.add(new String[]{"区域", "价格", "房型", "面积"});// 最新成交
 
-        setShowMode(namesList.get(menuType));
+        if (menuType != -1) {
+            namesList = new ArrayList<>();
+            namesList.add(new String[]{"区域", "价格", "来源", "更多"});// 二手房
+            namesList.add(new String[]{"区域", "租金", "方式", "更多"});// 租房
+            namesList.add(new String[]{"区域", "房型", "来源"});// 客源-购房
+//        namesList.add(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房(这个放到后面单独处理)
+            namesList.add(new String[]{"区域", "价格", "房型", "面积"});// 最新成交
+            setShowMode(namesList.get(menuType)); //TODO
+        }
+
 
         return super.getContentView();
     }
