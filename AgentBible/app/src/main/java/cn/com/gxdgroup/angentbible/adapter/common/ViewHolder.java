@@ -158,4 +158,11 @@ public class ViewHolder {
         }
         return this;
     }
+
+    public ViewHolder setVisible(int visivle, int... viewIds) {
+        for (int id : viewIds) {
+            getView(id).setVisibility(visivle);
+        }
+        return this;
+    }
 }

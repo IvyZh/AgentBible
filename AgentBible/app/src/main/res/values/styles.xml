@@ -232,4 +232,8 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+
+    <style name="house_feature_tv" parent="home_menu_tv">
+        <item name="android:layout_marginLeft">4dp</item>
+    </style>
 </resources>

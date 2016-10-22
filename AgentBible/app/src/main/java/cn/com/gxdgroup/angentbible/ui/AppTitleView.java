@@ -159,11 +159,10 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
         }
     }
 
-
     /**
      * 设置显示模式
-     *
-     * @param menuType 0-二手房，1-租房，2-客源，3-最新成交
+     * @param menuType 0-二手房，1-租房，2-客源，3-最新成交 【后来发现可以不用传进来因为已经传进来了上下文，可以通过它来获取menuType判断，但是要保证是否这个界面还有其他的入口？】
+     * 感觉还是通过传入menuType来判断比较安全，因为用户有可能会从搜索界面进来。
      */
     public void showMode(MODE mode, int menuType, FragmentActivity activity) {
         this.mMenuType = menuType;

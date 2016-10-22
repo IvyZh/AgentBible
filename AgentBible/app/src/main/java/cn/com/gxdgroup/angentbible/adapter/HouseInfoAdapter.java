@@ -1,6 +1,7 @@
 package cn.com.gxdgroup.angentbible.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 
@@ -24,6 +25,7 @@ public class HouseInfoAdapter extends CommonAdapter<String> {
     private ArrayList<String> list = new ArrayList<>();
     private int mMenuType;
 
+
     public HouseInfoAdapter(Context context, List<String> mDatas, int itemLayoutId, int menuType) {
         super(context, mDatas, itemLayoutId);
         mMenuType = menuType;
@@ -45,8 +47,12 @@ public class HouseInfoAdapter extends CommonAdapter<String> {
 
         holder.setImageByUrl(R.id.iv_cover, list.get(new Random().nextInt(list.size())));
 
-        if (mMenuType == 1) {
+        if (mMenuType == 1 || mMenuType == 2) {
             holder.setVisible(false, R.id.tv_unit_price);
         }
+        if (mMenuType == 2) {
+            holder.setVisible(View.GONE, R.id.iv_cover);
+        }
+
     }
 }

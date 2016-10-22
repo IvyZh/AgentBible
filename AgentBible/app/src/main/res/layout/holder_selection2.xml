@@ -11,6 +11,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_weight="0"
             android:id="@+id/ll_first"
             style="@style/item_select_style">
 
@@ -25,12 +26,11 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/second_weight_view"
-            style="@style/weight_view" />
+        <View style="@style/weight_view" />
 
         <LinearLayout
             android:id="@+id/ll_second"
+            android:layout_weight="0"
             style="@style/item_select_style">
 
             <TextView
@@ -46,10 +46,12 @@
 
         <View
             android:id="@+id/third_weight_view"
+
             style="@style/weight_view" />
 
         <LinearLayout
             android:id="@+id/ll_third"
+
             style="@style/item_select_style">
 
             <TextView
@@ -63,12 +65,11 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/last_weight_view"
-            style="@style/weight_view" />
+        <View style="@style/weight_view" />
 
         <LinearLayout
             android:id="@+id/ll_last"
+            android:layout_weight="0"
             style="@style/item_select_style">
 
             <TextView

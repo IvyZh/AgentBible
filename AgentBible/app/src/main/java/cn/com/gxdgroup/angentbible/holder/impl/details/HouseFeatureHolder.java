@@ -1,7 +1,6 @@
 package cn.com.gxdgroup.angentbible.holder.impl.details;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,6 +10,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.activities.HouseDetailsActivity;
 import cn.com.gxdgroup.angentbible.activities.VillageInfoActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
@@ -23,6 +23,7 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 public class HouseFeatureHolder extends BaseHolder {
 
+    private final int mMenuType;
     @BindView(R.id.tv_publish_time)
     TextView mTvPublishTime;
     @BindView(R.id.tv_house_price)
@@ -49,14 +50,41 @@ public class HouseFeatureHolder extends BaseHolder {
     TextView mTvGardenName;
     @BindView(R.id.rl_garden_name)
     RelativeLayout mRlGardenName;
+    @BindView(R.id.tv_price_type)
+    TextView mTvPriceType;
+    @BindView(R.id.tv_price_way)
+    TextView mTvPriceWay;
+    @BindView(R.id.textView)
+    TextView mTextView;
+    @BindView(R.id.tv_area_status)
+    TextView mTvAreaStatus;
 
-    public HouseFeatureHolder(FragmentActivity activity) {
+
+    public HouseFeatureHolder(HouseDetailsActivity activity, int menuType) {
         super(activity);
+        this.mMenuType = menuType;
     }
 
     @Override
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_house_feature);
+    }
+
+    /**
+     * 同样的原因，需要根据传入的mMenuType来修改布局之后才能返回。{思路，是否可以依据此解决先前页面未加载完成，设置数据为null的情况，PS考虑使用RxJava Retrofit }
+     *
+     * @return
+     */
+    @Override
+    public View getContentView() {
+        if (mMenuType == 1) {//租房
+            mTvPriceType.setText("租金:");
+            mTvPriceWay.setText("方式：");
+            mTvAreaStatus.setText("现状:");
+        }
+
+
+        return super.getContentView();
     }
 
     @Override

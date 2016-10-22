@@ -2,7 +2,6 @@ package cn.com.gxdgroup.angentbible.holder.impl.selector;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,6 +49,10 @@ public class SelectionHolder extends BaseHolder {
     ImageView mIvLastArrow;
     @BindView(R.id.ll_last)
     LinearLayout mLlLast;
+    @BindView(R.id.second_weight_view)
+    View mSecondWeightView;
+    @BindView(R.id.last_weight_view)
+    View mLastWeightView;
     private int menuType;
     private ArrayList<String[]> namesList;
 
@@ -114,13 +117,38 @@ public class SelectionHolder extends BaseHolder {
         mTvThird.setText(names[2]);
 
         if (names.length == 3) {
-            mThirdWeightView.setVisibility(View.GONE);
+
             mLlThird.setVisibility(View.GONE);
             mTvLast.setText(names[2]);
+
+            // 需要的操作 gone 掉weightview llselection 的 weight 设置成1
+            mSecondWeightView.setVisibility(View.GONE);
+            mThirdWeightView.setVisibility(View.GONE);
+            mLastWeightView.setVisibility(View.GONE);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
+            params.weight = 1.0f;
+            mLlFirst.setLayoutParams(params);
+            mLlSecond.setLayoutParams(params);
+            mLlLast.setLayoutParams(params);
+
         } else if (names.length == 4) {
             mTvLast.setText(names[3]);
             mLlThird.setVisibility(View.VISIBLE);
             mThirdWeightView.setVisibility(View.VISIBLE);
+
+
+            // 需要的操作 visible 掉weightview llselection 的 weight 设置成0
+            mSecondWeightView.setVisibility(View.VISIBLE);
+            mThirdWeightView.setVisibility(View.VISIBLE);
+            mLastWeightView.setVisibility(View.VISIBLE);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
+            params.weight = 0.0f;
+            mLlFirst.setLayoutParams(params);
+            mLlSecond.setLayoutParams(params);
+            mLlLast.setLayoutParams(params);
+
         }
     }
 

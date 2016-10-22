@@ -17,13 +17,13 @@
             android:layout_width="124dp"
             android:layout_height="92dp"
             android:scaleType="centerCrop"
+            android:layout_marginRight="10dp"
             android:src="@drawable/ico_picture" />
 
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_cover"
             android:ellipsize="end"
             android:singleLine="true"
@@ -37,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_address"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_cover"
             android:text="2室2厅1卫"
@@ -61,7 +60,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_layout"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/iv_cover"
             android:text="90㎡"
@@ -86,7 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_area"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/iv_cover"
             android:text="张先生 个人"

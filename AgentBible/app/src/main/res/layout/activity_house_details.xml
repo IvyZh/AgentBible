@@ -69,6 +69,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <!--补充说明模块-->
+            <FrameLayout
+                android:id="@+id/fr_remark"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
     </ScrollView>
