@@ -22,9 +22,12 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 public class HouseInfoAdapter extends CommonAdapter<String> {
 
     private ArrayList<String> list = new ArrayList<>();
+    private int mMenuType;
 
-    public HouseInfoAdapter(Context context, List<String> mDatas, int itemLayoutId) {
+    public HouseInfoAdapter(Context context, List<String> mDatas, int itemLayoutId, int menuType) {
         super(context, mDatas, itemLayoutId);
+        mMenuType = menuType;
+
         list.add("http://cdn1.dooioo.com/gimage10/M00/4F/BF/ChYCZ1crapaAItWeAAAphhDd-DE261.jpg");
         list.add("http://cdn1.dooioo.com/fetch/vp/fy/gi/20160902/ee555266-74b0-47b2-903f-ebe1b09b37d0.jpg_600x450.jpg");
         list.add("http://cdn1.dooioo.com/fetch/vp/fy/gi/20160519/657e62ef-ea3d-48df-b7cd-a7e917cea088.jpg_600x450.jpg");
@@ -32,6 +35,8 @@ public class HouseInfoAdapter extends CommonAdapter<String> {
         list.add("http://cdn1.dooioo.com/fetch/vp/fy/gi/20160906/1e3a7037-c14b-483c-9946-0013aa28f4b0.jpg_600x450.jpg");
         list.add("http://cdn1.dooioo.com/fetch/vp/fy/gi/20160916/096818ff-dc56-4827-9caa-955bfdee03f2.jpg_600x450.jpg");
         list.add("http://cdn1.dooioo.com/fetch/vp/fy/gi/20160914/b0eadb9f-7a49-409f-bab1-3a3fa3f5d446.jpg_600x450.jpg");
+
+
     }
 
     @Override
@@ -39,5 +44,9 @@ public class HouseInfoAdapter extends CommonAdapter<String> {
 
 
         holder.setImageByUrl(R.id.iv_cover, list.get(new Random().nextInt(list.size())));
+
+        if (mMenuType == 1) {
+            holder.setVisible(false, R.id.tv_unit_price);
+        }
     }
 }

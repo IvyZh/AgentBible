@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/head_search_view" />
+        <cn.com.gxdgroup.angentbible.ui.AppTitleView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <!--热门-->
         <FrameLayout

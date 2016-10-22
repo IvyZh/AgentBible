@@ -1,23 +1,19 @@
 package cn.com.gxdgroup.angentbible.activities;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.adapter.HouseInfoAdapter;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
-import cn.com.gxdgroup.angentbible.holder.impl.selector.SelectionHolder;
+import cn.com.gxdgroup.angentbible.interfaces.SimpleAppTitleListener;
+import cn.com.gxdgroup.angentbible.ui.AppTitleView;
 
 /**
  * Created by Ivy on 2016/10/18.
@@ -27,16 +23,18 @@ import cn.com.gxdgroup.angentbible.holder.impl.selector.SelectionHolder;
 
 public class HouseResourcesListActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.iv_search)
-    ImageView ivSearch;
-    @BindView(R.id.rl_search)
-    RelativeLayout rlSearch;
-    @BindView(R.id.fr_selection)
-    FrameLayout frSelection;
     @BindView(R.id.lv_house_res)
     ListView lvHouseRes;
+    @BindView(R.id.app_title)
+    AppTitleView mAppTitle;
+
+    private int mMenuType = 0;//0-二手房，1-租房，2-客源，3-最新成交
+
+    public static void startActivity(Activity ba, int menuType) {
+        Intent intent = new Intent(ba, HouseResourcesListActivity.class);
+        intent.putExtra("mMenuType", menuType);
+        ba.startActivity(intent);
+    }
 
     @Override
     protected void setContentView() {
@@ -46,10 +44,30 @@ public class HouseResourcesListActivity extends BaseActivity {
     @Override
     protected void initView() {
 
-        SelectionHolder selectionHolder = new SelectionHolder(this);
-        frSelection.addView(selectionHolder.getContentView());
+        mMenuType = getIntent().getIntExtra("mMenuType", 0);
 
-//        selectionHolder.setSelectText(new String[]{"1","2","","5"});
+        if (mMenuType == 2) {// 客源单独处理+要显示TAB
+            mAppTitle.showMode(AppTitleView.MODE.TAB, mMenuType, this);
+        } else {
+            mAppTitle.showMode(AppTitleView.MODE.SEARCH, mMenuType, this);
+        }
+
+        mAppTitle.setListener(new SimpleAppTitleListener(HouseResourcesListActivity.this) {
+            @Override
+            public void OnrlSearch() {
+                startActivity(new Intent(HouseResourcesListActivity.this, SearchActivity.class));
+            }
+
+            @Override
+            public void onTabLeft() {
+                super.onTabLeft();
+            }
+
+            @Override
+            public void onTabRight() {
+                super.onTabRight();
+            }
+        });
     }
 
     @Override
@@ -64,28 +82,18 @@ public class HouseResourcesListActivity extends BaseActivity {
             data.add("zhang san " + i);
         }
 
-        HouseInfoAdapter adapter = new HouseInfoAdapter(this, data, R.layout.item_house_info);
+        HouseInfoAdapter adapter = new HouseInfoAdapter(this, data, R.layout.item_house_info, mMenuType);
 
         lvHouseRes.setAdapter(adapter);
         lvHouseRes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
-                startActivity(new Intent(mContext, SeconHandHouseDetailsActivity.class));
+//                startActivity(new Intent(mContext, HouseDetailsActivity.class));
+                HouseDetailsActivity.startActivity(mContext, mMenuType);
             }
         });
 
     }
 
 
-    @OnClick({R.id.iv_back, R.id.rl_search})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.rl_search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-        }
-    }
 }

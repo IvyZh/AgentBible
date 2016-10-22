@@ -1,19 +1,17 @@
 package cn.com.gxdgroup.angentbible.activities;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.bigkoo.alertview.AlertView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.BannerHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.details.GardenPriceHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseDealInDetailsHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseFeatureHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseIntroHolder;
@@ -25,10 +23,10 @@ import cn.com.gxdgroup.angentbible.ui.TitleView;
 /**
  * Created by Ivy on 2016/10/18.
  *
- * @description: 二手房详情界面
+ * @description: 二手房详情界面+租房（mMenuType）
  */
 
-public class SeconHandHouseDetailsActivity extends BaseActivity {
+public class HouseDetailsActivity extends BaseActivity {
     @BindView(R.id.fr_banner)
     FrameLayout mFrBanner;
     @BindView(R.id.fr_house_intro)
@@ -48,6 +46,14 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
 
     private BaseHolder featureHolder, introHolder, bannerHolder, trendChartHolder, zuFangInDetailsHolder, secondHandHouseInDetailsHolder, dealInDetailsHolder;
 
+    private int mMenuType;
+
+    public static void startActivity(Activity ba, int menuType) {
+        Intent intent = new Intent(ba, HouseDetailsActivity.class);
+        intent.putExtra("menuType", menuType);
+        ba.startActivity(intent);
+    }
+
     @Override
     protected void setContentView() {
         setContentView(R.layout.activity_second_hand_house_details);
@@ -55,6 +61,9 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mMenuType = getIntent().getIntExtra("menuType", 0);
+
+
         mTitleView.setLeftButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,18 +84,24 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
         bannerHolder = new BannerHolder(this);
         featureHolder = new HouseFeatureHolder(this);
         introHolder = new HouseIntroHolder(this);
-        trendChartHolder = new TrendChartHolder(this);
-        zuFangInDetailsHolder = new ZuFangInDetailsHolder(this);
-        secondHandHouseInDetailsHolder = new SecondHandHouseInDetailsHolder(this);
-        dealInDetailsHolder = new HouseDealInDetailsHolder(this);
+
 
         mFrBanner.addView(bannerHolder.getContentView());//轮播
         mFrHouseFeature.addView(featureHolder.getContentView());//房源特征
         mFrHouseIntro.addView(introHolder.getContentView());//房源介绍
-        mFrGardenPrice.addView(trendChartHolder.getContentView());//小区价格走势
-        mFrZufang.addView(zuFangInDetailsHolder.getContentView());//小区租房
-        mFrSecondHouse.addView(secondHandHouseInDetailsHolder.getContentView());//小区二手房
-        mFrHouseDeal.addView(dealInDetailsHolder.getContentView());//小区成交记录
+
+        if (mMenuType == 0) {
+            trendChartHolder = new TrendChartHolder(this);
+            zuFangInDetailsHolder = new ZuFangInDetailsHolder(this);
+            secondHandHouseInDetailsHolder = new SecondHandHouseInDetailsHolder(this);
+            dealInDetailsHolder = new HouseDealInDetailsHolder(this);
+
+            mFrGardenPrice.addView(trendChartHolder.getContentView());//小区价格走势
+            mFrZufang.addView(zuFangInDetailsHolder.getContentView());//小区租房
+            mFrSecondHouse.addView(secondHandHouseInDetailsHolder.getContentView());//小区二手房
+            mFrHouseDeal.addView(dealInDetailsHolder.getContentView());//小区成交记录
+        }
+
     }
 
     @Override
@@ -96,11 +111,13 @@ public class SeconHandHouseDetailsActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        featureHolder.setData();
-        ((TrendChartHolder) trendChartHolder).setLineDataNum(2);
-        ((TrendChartHolder) trendChartHolder).setTitle("小区价格走势");
-        ((TrendChartHolder) trendChartHolder).setLocationVisibility(false);
-        trendChartHolder.setData();
+        if (mMenuType == 0) {
+            featureHolder.setData();
+            ((TrendChartHolder) trendChartHolder).setLineDataNum(2);
+            ((TrendChartHolder) trendChartHolder).setTitle("小区价格走势");
+            ((TrendChartHolder) trendChartHolder).setLocationVisibility(false);
+            trendChartHolder.setData();
+        }
     }
 
 

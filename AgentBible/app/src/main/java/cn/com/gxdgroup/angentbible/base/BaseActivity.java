@@ -14,7 +14,7 @@ import cn.com.gxdgroup.angentbible.utils.L;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected Context mContext;
+    protected BaseActivity mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

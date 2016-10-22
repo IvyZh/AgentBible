@@ -35,15 +35,16 @@ public class HomeMenuHolder extends BaseHolder {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_second_hand_house:
-                mActivity.startActivity(new Intent(mActivity, HouseResourcesListActivity.class));
+                HouseResourcesListActivity.startActivity(mActivity, 0);
                 break;
             case R.id.rl_tenement:
-                mActivity.startActivity(new Intent(mActivity, HouseResourcesListActivity.class));
+                HouseResourcesListActivity.startActivity(mActivity, 1);
                 break;
             case R.id.rl_keyuan:
+                HouseResourcesListActivity.startActivity(mActivity, 2);
                 break;
             case R.id.rl_deal:
-                mActivity.startActivity(new Intent(mActivity, HouseResourcesListActivity.class));
+                HouseResourcesListActivity.startActivity(mActivity, 3);
                 break;
         }
     }

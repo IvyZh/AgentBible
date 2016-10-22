@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import cn.com.gxdgroup.angentbible.base.MyApplication;
 
 /**
@@ -148,6 +149,13 @@ public class ViewHolder {
     public ViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
         view.setOnClickListener(listener);
+        return this;
+    }
+
+    public ViewHolder setVisible(boolean show, int... viewIds) {
+        for (int id : viewIds) {
+            getView(id).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+        }
         return this;
     }
 }

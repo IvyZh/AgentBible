@@ -368,7 +368,7 @@ public class Transformer {
         Matrix tmp = mPixelsToValueMatrixBuffer;
         tmp.reset();
 
-        // invert all matrixes to convert back to the original value
+        // invert all matrixes to convert onBack to the original value
         mMatrixOffset.invert(tmp);
         tmp.mapPoints(pixels);
 

@@ -194,7 +194,7 @@ public class ClusterManager<T extends ClusterItem> implements
     }
 
     /**
-     * Runs the clustering algorithm in a background thread, then re-paints when results come back.
+     * Runs the clustering algorithm in a background thread, then re-paints when results come onBack.
      */
     private class ClusterTask extends AsyncTask<Float, Void, Set<? extends Cluster<T>>> {
         @Override

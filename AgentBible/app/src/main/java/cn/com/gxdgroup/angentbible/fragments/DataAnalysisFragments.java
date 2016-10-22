@@ -13,6 +13,7 @@ import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.CompanyHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.HotHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.dataanalysis.PortHolder;
+import cn.com.gxdgroup.angentbible.ui.AppTitleView;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 
@@ -31,6 +32,8 @@ public class DataAnalysisFragments extends BaseFragment {
     FrameLayout mFrPort;
     @BindView(R.id.fr_company)
     FrameLayout mFrCompany;
+    @BindView(R.id.app_title)
+    AppTitleView mAppTitle;
 
     @Override
     public View setContentView(LayoutInflater inflater) {
@@ -39,6 +42,8 @@ public class DataAnalysisFragments extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+
+//        mAppTitle.
 
         mFrHot.addView(new HotHolder(mActivity).getContentView());
         mFrPort.addView(new PortHolder(mActivity).getContentView());

@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.HouseResourcesListActivity" />
-        <activity android:name=".activities.SeconHandHouseDetailsActivity" />
+        <activity android:name=".activities.HouseDetailsActivity" />
         <activity android:name=".activities.VillageInfoActivity" />
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.EquipmentActivity" />

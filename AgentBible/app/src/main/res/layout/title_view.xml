@@ -25,6 +25,7 @@
         android:layout_centerVertical="true"
         android:text="Title" />
 
+
     <ImageView
         android:id="@+id/iv_operation"
         android:layout_centerVertical="true"
