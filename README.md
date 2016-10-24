@@ -1,6 +1,16 @@
 
 使用豆瓣Demo的框架进行开发
 
+
+* 签名打包的时候出现：
+
+	- http://stackoverflow.com/questions/34031395/errorexecution-failed-for-task-apptransformresourceswithmergejavaresfordebug
+	- http://blog.csdn.net/lvshuchangyin/article/details/51803154
+	- http://blog.csdn.net/github_14899071/article/details/51280390
+
+	* 打包前 13.5MB，使用反编译工具之后可以看到里面的内容
+	* 混淆之后 12.4MB 反编译之后，activity的东西是看得到的，其他内容被混淆了
+
 参数说明：
 
 * mMenuType
