@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.CollectionActivity;
+import cn.com.gxdgroup.angentbible.activities.LoginActivity;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
@@ -68,7 +69,7 @@ public class MeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.rl_collection_house, R.id.rl_collection_people, R.id.rl_feedback, R.id.rl_invite, R.id.rl_update, R.id.rl_setting})
+    @OnClick({R.id.iv_portrait, R.id.rl_collection_house, R.id.rl_collection_people, R.id.rl_feedback, R.id.rl_invite, R.id.rl_update, R.id.rl_setting})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_collection_house:
@@ -85,6 +86,18 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.rl_setting:
                 break;
+            case R.id.iv_portrait:
+                startActivity(new Intent(mActivity, LoginActivity.class));
+                break;
         }
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
 }
