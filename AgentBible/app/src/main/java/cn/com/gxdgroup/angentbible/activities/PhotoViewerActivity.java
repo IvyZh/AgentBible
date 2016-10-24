@@ -36,7 +36,7 @@ public class PhotoViewerActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
 
         urlList.add("http://cdn1.dooioo.com/gimage10/M00/4F/BF/ChYCZ1crapaAItWeAAAphhDd-DE261.jpg");

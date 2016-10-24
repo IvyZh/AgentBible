@@ -16,7 +16,7 @@ public class ContactActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
     }
 }

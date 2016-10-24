@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import cn.com.gxdgroup.angentbible.base.MyApplication;
+import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 /**
  * Created by Ivy on 2016/10/12.
@@ -167,4 +168,9 @@ public class ViewHolder {
     }
 
 
+    public ViewHolder setTextColor(int id, int colorId) {
+        TextView v = getView(id);
+        v.setTextColor(UIUtils.getColor(colorId));
+        return this;
+    }
 }

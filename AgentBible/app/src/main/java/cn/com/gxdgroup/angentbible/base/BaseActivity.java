@@ -17,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected BaseActivity mContext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
         AppManager.getAppManager().addActivity(this);// 添加Activity到堆栈
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化View中控件
      */
-    protected abstract void initView();
+    public abstract void initView();
 
     /**
      * 给控件添加点击监听事件(选填，一般也可以使用ButterKnife)
@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         // 结束Activity&从堆栈中移除
         AppManager.getAppManager().finishActivity(this);

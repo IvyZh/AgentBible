@@ -63,7 +63,7 @@ public class HouseDetailsActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         mMenuType = getIntent().getIntExtra("menuType", 0);
 
 

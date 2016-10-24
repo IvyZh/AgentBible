@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -58,7 +62,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
         fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
@@ -76,8 +80,22 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        mVpMain.setCurrentItem(1);//TOD 最后可以去掉
-        selectPosAndLoadData(1);// TODO 0
+//        mVpMain.setCurrentItem(1);//TOD 最后可以去掉
+        selectPosAndLoadData(0);// TODO 0
+
+        EventBus.getDefault().register(this);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void helloEventBus(String message) {
+        L.v("--2--" + message);
     }
 
 

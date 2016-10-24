@@ -81,7 +81,7 @@ public class DataAnalysisActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
 
         mTitleView.setListener(new SimpleAppTitleListener(this));
@@ -169,13 +169,6 @@ public class DataAnalysisActivity extends BaseActivity {
 
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.tv_city_ana, R.id.tv_hot_area, R.id.tv_hot_bankuai, R.id.tv_hot_garden})
     public void onClick(View view) {

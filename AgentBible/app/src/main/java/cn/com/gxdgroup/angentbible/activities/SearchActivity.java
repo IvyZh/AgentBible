@@ -26,7 +26,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         searchHeadView.setClickEventListener(new SearchHeadView.ClickEventListener() {
             @Override
             public void cancel() {
