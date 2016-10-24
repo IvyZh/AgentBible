@@ -92,24 +92,28 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
         mListener = listener;
     }
 
-    public void setTitleMsg(String titleMsg) {
+    public AppTitleView setTitleMsg(String titleMsg) {
         mTitleMsg = titleMsg;
         tvTitle.setText(titleMsg);
+        return this;
     }
 
-    public void setRightMsg(String rightMsg) {
+    public AppTitleView setRightMsg(String rightMsg) {
         mRightMsg = rightMsg;
         tvRight.setText(rightMsg);
+        return this;
     }
 
-    public void setTabRightMsg(String tabRightMsg) {
+    public AppTitleView setTabRightMsg(String tabRightMsg) {
         mTabRightMsg = tabRightMsg;
         btTabRight.setText(tabRightMsg);
+        return this;
     }
 
-    public void setTabLeftMsg(String tabLeftMsg) {
+    public AppTitleView setTabLeftMsg(String tabLeftMsg) {
         mTabLeftMsg = tabLeftMsg;
         btTabLeft.setText(tabLeftMsg);
+        return this;
     }
 
     public AppTitleView setTabMsg(String tabLeftMsg, String tabRightMsg) {

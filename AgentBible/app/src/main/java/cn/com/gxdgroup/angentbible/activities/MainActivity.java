@@ -76,7 +76,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        selectPosAndLoadData(0);
+        mVpMain.setCurrentItem(1);//TOD 最后可以去掉
+        selectPosAndLoadData(1);// TODO 0
     }
 
 

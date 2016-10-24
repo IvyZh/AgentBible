@@ -40,7 +40,7 @@
             android:paddingRight="10dp"
             android:layout_marginLeft="4dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/pull_down" />
+            android:src="@drawable/btn_pulldown_data" />
 
 
         <RelativeLayout

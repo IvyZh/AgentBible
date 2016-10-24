@@ -10,7 +10,63 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/ll_tite_listview"
+        android:layout_below="@id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="@dimen/margin_lr"
+                android:id="@id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="17sp"
+                android:textColor="@color/text_dark"
+                android:text="x排名" />
+
+            <TextView
+                android:layout_toRightOf="@id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_grey"
+                android:text="2016-月" />
+
+            <Switch
+                android:id="@+id/tab_month_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textOn="月"
+                android:textOff="年"
+                android:checked="true"
+                android:layout_marginRight="@dimen/margin_lr" />
+
+        </RelativeLayout>
+
+        <View style="@style/divide_style" />
+
+        <ListView
+            android:id="@+id/lv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+
+    <cn.com.gxdgroup.angentbible.ui.ObservableScrollView
+        android:id="@+id/sv_city_ana"
+        android:visibility="gone"
         android:layout_below="@id/titleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,9 +106,10 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </cn.com.gxdgroup.angentbible.ui.ObservableScrollView>
 
     <LinearLayout
+        android:id="@+id/ll_bottom_tab"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
