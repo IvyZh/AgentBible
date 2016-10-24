@@ -79,7 +79,7 @@
                     android:text="容积率:  " />
 
                 <TextView
-                    android:id="@+id/tv_house_fitment"
+                    android:id="@+id/tv_plot_ratio"
                     style="@style/home_menu_tv"
                     android:text="--" />
             </LinearLayout>
@@ -95,7 +95,7 @@
                     android:text="楼栋数:  " />
 
                 <TextView
-                    android:id="@+id/tv_house_fitment"
+                    android:id="@+id/tv_house_num"
                     style="@style/home_menu_tv"
                     android:text="35" />
             </LinearLayout>
@@ -164,7 +164,7 @@
                     android:text="绿化率:" />
 
                 <TextView
-                    android:id="@+id/tv_house_orientation"
+                    android:id="@+id/tv_green_rate"
                     style="@style/home_menu_tv"
                     android:text="--" />
             </LinearLayout>

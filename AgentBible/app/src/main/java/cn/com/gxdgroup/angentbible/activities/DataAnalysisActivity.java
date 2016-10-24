@@ -125,16 +125,16 @@ public class DataAnalysisActivity extends BaseActivity {
             mLlTiteListview.setVisibility(View.VISIBLE);
             mTitleView.showMode(AppTitleView.MODE.TAB, -1, null)
                     .setTabLeftMsg("二手房发布量").setTabRightMsg("租房发布量");
-        } else if (mDataType == 5) {//签约量
-            mSvCityAna.setVisibility(View.GONE);
-            mLlTiteListview.setVisibility(View.VISIBLE);
-            mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
-                    .setTitleMsg("签约量");
-        } else if (mDataType == 6) {//网站经纪人数
+        } else if (mDataType == 5) {//网站经纪人数
             mSvCityAna.setVisibility(View.GONE);
             mLlTiteListview.setVisibility(View.VISIBLE);
             mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
                     .setTitleMsg("网站经纪人数");
+        } else if (mDataType == 6) {// 签约量
+            mSvCityAna.setVisibility(View.GONE);
+            mLlTiteListview.setVisibility(View.VISIBLE);
+            mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
+                    .setTitleMsg("签约量");
         } else if (mDataType == 7) {//端口数
             mSvCityAna.setVisibility(View.GONE);
             mLlTiteListview.setVisibility(View.VISIBLE);
