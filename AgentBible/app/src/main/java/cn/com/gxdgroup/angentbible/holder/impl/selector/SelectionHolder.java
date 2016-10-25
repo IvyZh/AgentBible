@@ -2,6 +2,8 @@ package cn.com.gxdgroup.angentbible.holder.impl.selector;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.text.TextUtilsCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,7 +31,9 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 public class SelectionHolder extends BaseHolder {
 
     private SelectPopupWindow selectPopWindow;
-
+    /**
+     * 选择条件的初始值，用于对比是否发生了改变
+     */
     private String[] selectTabText;//选择条件的文本
     @BindView(R.id.tv_first)
     TextView mTvFirst;
@@ -62,6 +66,7 @@ public class SelectionHolder extends BaseHolder {
     @BindView(R.id.last_weight_view)
     View mLastWeightView;
     private int menuType;
+
     private ArrayList<String[]> selectTabNames;
     List<String> parentData = new ArrayList<>();
     List<List<String>> childData = new ArrayList<List<String>>();
@@ -71,6 +76,9 @@ public class SelectionHolder extends BaseHolder {
     private String selectedSelection2 = "";
     private String selectedSelection3 = "";
     private String selectedSelection4 = "";
+    private String tab1Selected, tab2Selected;
+
+    private TextView[] tvArrs;
 
     public SelectionHolder(FragmentActivity activity) {
         super(activity);
@@ -84,6 +92,17 @@ public class SelectionHolder extends BaseHolder {
     @Override
     public View setContentView() {
         return UIUtils.inflate(R.layout.holder_selection);
+    }
+
+
+    @Override
+    public void initView() {
+        tvArrs = new TextView[4];
+        tvArrs[0] = mTvFirst;
+        tvArrs[1] = mTvSecond;
+        tvArrs[2] = mTvThird;
+        tvArrs[3] = mTvLast;
+
     }
 
     @Override
@@ -123,10 +142,101 @@ public class SelectionHolder extends BaseHolder {
     public void setSelectionByTabIndex(int index) {
         L.v("mMenuType " + menuType + ",index " + index);
         if (menuType == 2) {
-            if (index == 0)
-                setShowMode(selectTabNames.get(2));
-            else if (index == 1)
-                setShowMode(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房(这个放到后面单独处理,在这里处理了)
+            // 在切换页签之前要保留之前的内容 124
+
+            if (index == 1) {// 保留租房的，区域、房型、来源三个值
+                tab1Selected = selectedSelection1 + "##" + selectedSelection2 + "##" + selectedSelection4;
+            } else if (index == 0) {// 保留 区域、房型、方式、来源四个值
+                tab2Selected = selectedSelection1 + "##" + selectedSelection2 + "##" + selectedSelection3 + "##" + selectedSelection4;
+            }
+
+
+            if (index == 0) {
+                if (TextUtils.isEmpty(selectedSelection1) && TextUtils.isEmpty(selectedSelection2) && TextUtils.isEmpty(selectedSelection4)) {
+                    setShowMode(selectTabNames.get(2));//TODO
+                } else {
+                    setShowMode(selectTabNames.get(2));//TODO
+                    if (tab1Selected == null) return;
+                    String[] split = tab1Selected.split("##");//[   ""-##-1-1--1+##-"]
+                    for (int i = 0; i < split.length; i++) {
+                        L.v("----split--:" + split[i]);
+                        if (!TextUtils.isEmpty(split[i])) {
+
+                            if (i == 0) {
+                                selectedSelection1 = split[0];
+                            } else if (i == 1) {
+                                selectedSelection2 = split[1];
+                            } else if (i == 2) {
+                                selectedSelection4 = split[2];
+                            }
+
+
+                            // i: 表示要给第几个TAB赋值
+                            prepareData(i);//TODO
+                            String[] split1 = split[i].split("_");
+
+                            for (String s : split1) {
+                                L.v("xxx--:" + s);
+                            }
+
+                            if (TextUtils.isEmpty(split1[2]) || Integer.valueOf(split1[2]) == -1) {//只有父类
+                                Integer indexParent = Integer.valueOf(split1[1]);
+                                tvArrs[i].setText(parentData.get(indexParent));
+                            } else {
+                                Integer indexParent = Integer.valueOf(split1[1]);
+                                Integer indexChild = Integer.valueOf(split1[2]);
+                                tvArrs[i].setText(childData.get(indexParent).get(indexChild));
+                            }
+
+
+                        }
+                    }
+
+                }
+            } else if (index == 1) {
+                if (TextUtils.isEmpty(selectedSelection1) && TextUtils.isEmpty(selectedSelection2) && TextUtils.isEmpty(selectedSelection3) && TextUtils.isEmpty(selectedSelection4)) {
+                    setShowMode(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房(这个放到后面单独处理,在这里处理了)
+                } else {
+                    setShowMode(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房(这个放到后面单独处理,在这里处理了)
+
+                    if (tab2Selected == null) return;
+
+
+                    String[] split = tab2Selected.split("##");
+                    for (int i = 0; i < split.length; i++) {
+                        L.v("----split--:" + split[i]);
+                        if (!TextUtils.isEmpty(split[i])) {
+
+                            if (i == 0) {
+                                selectedSelection1 = split[0];
+                            } else if (i == 1) {
+                                selectedSelection2 = split[1];
+                            } else if (i == 2) {
+                                selectedSelection3 = split[2];
+                            } else if (i == 3) {
+                                selectedSelection4 = split[3];
+                            }
+
+
+                            // i: 表示要给第几个TAB赋值
+                            prepareData(i);//TODO
+                            String[] split1 = split[i].split("_");
+
+                            if (Integer.valueOf(split1[2]) == -1) {//只有父类
+                                Integer indexParent = Integer.valueOf(split1[1]);
+                                tvArrs[i].setText(parentData.get(indexParent));
+                            } else {
+                                Integer indexParent = Integer.valueOf(split1[1]);
+                                Integer indexChild = Integer.valueOf(split1[2]);
+                                tvArrs[i].setText(childData.get(indexParent).get(indexChild));
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
         }
     }
 
@@ -135,6 +245,13 @@ public class SelectionHolder extends BaseHolder {
         mTvFirst.setText(names[0]);
         mTvSecond.setText(names[1]);
         mTvThird.setText(names[2]);
+
+        int color = UIUtils.getColor(R.color.text_grey);
+        mTvFirst.setTextColor(color);
+        mTvSecond.setTextColor(color);
+        mTvThird.setTextColor(color);
+        mTvLast.setTextColor(color);
+
 
         if (names.length == 3) {
 
@@ -211,38 +328,75 @@ public class SelectionHolder extends BaseHolder {
         }
 
         if (parentData != null) {
-            selectPopWindow = new SelectPopupWindow(parentData, childData, mActivity, selectedSel,new SelectPopupWindow.SelectCategory() {
+            selectPopWindow = new SelectPopupWindow(parentData, childData, mActivity, selectedSel, new SelectPopupWindow.SelectCategory() {
 
                 @Override
                 public void selectCategory(int parPos, String tvParent, int childPos, String tvChild) {
                     L.v("---" + parPos + "," + tvParent + "," + childPos + "," + tvChild);
-
+                    String oriText = "全部";
+                    int normalColor = UIUtils.getColor(R.color.text_grey);
+                    int blueColor = UIUtils.getColor(R.color.common_blue);
+                    String s = mSelectIndex + "_" + parPos + "_" + childPos;
                     if (mSelectIndex == 0) {
-                        selectedSelection1 = mSelectIndex + "-" + parPos + "-" + childPos;
+                        selectedSelection1 = s;
                         mTvFirst.setText(tvChild);
+                        if (TextUtils.equals(oriText, mTvFirst.getText().toString().trim())) {
+                            mTvFirst.setTextColor(normalColor);
+                            mTvFirst.setText(selectTabText[0]);
+                        } else {
+                            mTvFirst.setTextColor(blueColor);
+                        }
+
                     } else if (mSelectIndex == 1) {
-                        selectedSelection2 = mSelectIndex + "-" + parPos + "-" + childPos;
+                        selectedSelection2 = s;
                         if (childPos == -1) {
                             mTvSecond.setText(tvParent);
                         } else {
                             mTvSecond.setText(tvChild);
                         }
+                        mTvSecond.setTextColor(UIUtils.getColor(R.color.common_blue));
+
+                        if (TextUtils.equals(oriText, mTvSecond.getText().toString().trim())) {
+                            mTvSecond.setTextColor(normalColor);
+                            mTvSecond.setText(selectTabText[1]);
+                        } else {
+                            mTvSecond.setTextColor(blueColor);
+                        }
+
 
                     } else if (mSelectIndex == 2) {
-                        selectedSelection3 = mSelectIndex + "-" + parPos + "-" + childPos;
+                        selectedSelection3 = s;
                         if (childPos == -1) {
                             mTvThird.setText(tvParent);
                         } else {
                             mTvThird.setText(tvChild);
                         }
+                        if (TextUtils.equals(oriText, mTvThird.getText().toString().trim())) {
+                            mTvThird.setTextColor(normalColor);
+                            mTvThird.setText(selectTabText[2]);
+                        } else {
+                            mTvThird.setTextColor(blueColor);
+                        }
                     } else if (mSelectIndex == 3) {
-                        selectedSelection4 = mSelectIndex + "-" + parPos + "-" + childPos;
+                        selectedSelection4 = s;
                         if (childPos == -1) {
                             mTvLast.setText(tvParent);
                         } else {
                             mTvLast.setText(tvChild);
                         }
+                        mTvLast.setTextColor(UIUtils.getColor(R.color.common_blue));
+                        if (TextUtils.equals(oriText, mTvLast.getText().toString().trim())) {
+                            mTvLast.setTextColor(normalColor);
 
+                            if (selectTabText.length == 3) {
+                                mTvLast.setText(selectTabText[2]);
+                            } else {
+                                mTvLast.setText(selectTabText[3]);
+                            }
+
+                        } else {
+                            mTvLast.setTextColor(blueColor);
+                        }
                     }
 
                 }
@@ -253,14 +407,37 @@ public class SelectionHolder extends BaseHolder {
                     // 需要将剪头反转
                     int normalColor = UIUtils.getColor(R.color.text_grey);
                     Drawable down = UIUtils.getDrawable(R.drawable.btn_pulldown);
-                    mTvFirst.setTextColor(normalColor);
+//                    mTvFirst.setTextColor(normalColor);
                     mIvFirstArrow.setImageDrawable(down);
-                    mTvSecond.setTextColor(normalColor);
+//                    mTvSecond.setTextColor(normalColor);
                     mIvSecondArrow.setImageDrawable(down);
-                    mTvThird.setTextColor(normalColor);
+//                    mTvThird.setTextColor(normalColor);
                     mIvThirdArrow.setImageDrawable(down);
-                    mTvLast.setTextColor(normalColor);
+//                    mTvLast.setTextColor(normalColor);
                     mIvLastArrow.setImageDrawable(down);
+
+                    // 检测是否需要恢复文字颜色
+
+                    if (TextUtils.equals(mTvFirst.getText().toString(), selectTabText[0])) {
+                        mTvFirst.setTextColor(normalColor);
+                    }
+                    if (TextUtils.equals(mTvSecond.getText().toString(), selectTabText[1])) {
+                        mTvSecond.setTextColor(normalColor);
+                    }
+                    if (TextUtils.equals(mTvThird.getText().toString(), selectTabText[2])) {
+                        mTvThird.setTextColor(normalColor);
+                    }
+                    if (selectTabText.length == 3) {
+                        if (TextUtils.equals(mTvLast.getText().toString(), selectTabText[2])) {
+                            mTvLast.setTextColor(normalColor);
+                        }
+                    } else {
+                        if (TextUtils.equals(mTvLast.getText().toString(), selectTabText[3])) {
+                            mTvLast.setTextColor(normalColor);
+                        }
+                    }
+
+
                 }
             });
 
@@ -288,7 +465,7 @@ public class SelectionHolder extends BaseHolder {
             } else if (selectIndex == 2) {
                 parentData = Arrays.asList(new String[]{"全部", "个人", "经纪人"});
                 childData.clear();
-            } else if (selectIndex == 3) {//更多
+            } else if (selectIndex == 3) {//更多 TODO
 
             }
         } else if (menuType == 1) {
@@ -311,9 +488,9 @@ public class SelectionHolder extends BaseHolder {
                 childData.add(Arrays.asList(childSelections1));
                 childData.add(Arrays.asList(childSelections2));
             } else if (selectIndex == 1) {//房型
-                parentData = Arrays.asList(new String[]{"1室", "2室", "3室", "4室", "5室", "5室以上"});
+                parentData = Arrays.asList(new String[]{"全部", "1室", "2室", "3室", "4室", "5室", "5室以上"});
                 childData.clear();
-            } else if (selectIndex == 2) {// null or 方式
+            } else if (selectIndex == 2) {// null or 方式 TODO
                 parentData = Arrays.asList(new String[]{"全部", "整租", "合租"});
                 childData.clear();
             } else if (selectIndex == 3) {//来源

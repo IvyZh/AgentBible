@@ -32,7 +32,7 @@ public class SelectPopupWindow extends PopupWindow {
 
     private List<String> parentStrings;
     private List<List<String>> childrenStrings;
-
+    private String[] split;
     private ListView lvParentCategory = null;
     private ListView lvChildrenCategory = null;
     private ParentCategoryAdapter parentCategoryAdapter = null;
@@ -94,9 +94,17 @@ public class SelectPopupWindow extends PopupWindow {
 
 
         if (!TextUtils.isEmpty(mSelectedSel)) {
-            String[] split = mSelectedSel.split("-");
+            split = mSelectedSel.split("_");
             for (String s : split) {
-                L.v(s);
+                L.v("--split--" + s);
+            }
+            parentCategoryAdapter.setSelectedPosition(Integer.valueOf(split[1]));
+            parentCategoryAdapter.notifyDataSetChanged();
+
+            if (split.length == 3) {
+                childrenCategoryAdapter.setSelectedPosition(Integer.valueOf(split[2]));
+                childrenCategoryAdapter.setDatas(childrenStrings.get(Integer.valueOf(split[1])));
+                childrenCategoryAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -133,6 +141,16 @@ public class SelectPopupWindow extends PopupWindow {
 
                 parentCategoryAdapter.setSelectedPosition(position);
                 parentCategoryAdapter.notifyDataSetChanged();
+
+                if (split != null) {
+                    if (position == Integer.valueOf(split[1])) {
+                        childrenCategoryAdapter.setSelectedPosition(Integer.valueOf(split[2]));
+                    } else {
+                        childrenCategoryAdapter.setSelectedPosition(-1);
+                    }
+
+                }
+
             } else {
                 if (selectCategory != null) {
                     selectCategory.selectCategory(position, parentStrings.get(position), -1, null);

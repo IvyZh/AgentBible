@@ -28,6 +28,8 @@ import cn.com.gxdgroup.angentbible.adapter.common.ViewHolder;
  */
 public class ChildrenCategoryAdapter extends CommonAdapter<String> {
 
+    private int currentPos;
+
     public ChildrenCategoryAdapter(Context context, List<String> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
     }
@@ -35,11 +37,19 @@ public class ChildrenCategoryAdapter extends CommonAdapter<String> {
     @Override
     public void convert(ViewHolder holder, String item) {
         holder.setText(R.id.tv_selection, item);
+        if (currentPos == mDatas.indexOf(item)) {
+            holder.setTextColor(R.id.tv_selection, R.color.common_blue);
+        } else {
+            holder.setTextColor(R.id.tv_selection, R.color.text_grey);
+        }
+
     }
 
     public void setDatas(List<String> data) {
-//        mDatas.clear();
-//        mDatas.addAll(data);
         mDatas = data;
+    }
+
+    public void setSelectedPosition(int position) {
+        currentPos = position;
     }
 }
