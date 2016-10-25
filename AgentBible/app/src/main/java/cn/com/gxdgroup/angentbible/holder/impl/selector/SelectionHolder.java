@@ -71,7 +71,7 @@ public class SelectionHolder extends BaseHolder {
      */
     private int mMenuType;
 
-    private ArrayList<String[]> selectTabNames;
+    private ArrayList<String[]> mSelectTabNames;
     List<String> parentData = new ArrayList<>();
     List<List<String>> childData = new ArrayList<List<String>>();
 
@@ -130,26 +130,80 @@ public class SelectionHolder extends BaseHolder {
     @Override
     public View getContentView() {
         if (mMenuType != -1) {//根据mMenuType来确定显示的选择Tab标签
-            selectTabNames = new ArrayList<>();
-            selectTabNames.add(new String[]{"区域", "价格", "来源", "更多"});// 二手房 0
-            selectTabNames.add(new String[]{"区域", "租金", "方式", "更多"});// 租房   1
-            selectTabNames.add(new String[]{"区域", "房型", "来源"});// 客源-购房      2
-            selectTabNames.add(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房 3
-            selectTabNames.add(new String[]{"区域", "价格", "房型", "面积"});// 最新成交 4
-            initDefaultSelectTab(selectTabNames.get(mMenuType));
+            mSelectTabNames = new ArrayList<>();
+            mSelectTabNames.add(new String[]{"区域", "价格", "来源", "更多"});// 二手房 0
+            mSelectTabNames.add(new String[]{"区域", "租金", "方式", "更多"});// 租房   1
+            mSelectTabNames.add(new String[]{"区域", "房型", "来源"});// 客源-购房      2
+            mSelectTabNames.add(new String[]{"区域", "房型", "方式", "来源"});// 客源-租房 3
+            mSelectTabNames.add(new String[]{"区域", "价格", "房型", "面积"});// 最新成交 4
+            initDefaultSelectTab(mSelectTabNames.get(mMenuType));
         }
         return super.getContentView();
     }
 
 
     /**
-     * 根据TAB的选择来显示下面的Selection
+     * 根据TAB的选择来显示下面的Selection,只有客源才会调用这个方法
      *
-     * @param index
+     * @param mMenuType
      */
-    public void setSelectionByTabIndex(int mMenuType, int index) {
+    public void setSelectionByTabIndex(int mMenuType) {
         this.mMenuType = mMenuType;
-        initDefaultSelectTab(selectTabNames.get(mMenuType));
+        // 切换之前记录当前TAB的状态 index<--
+        if (mMenuType == 3) {//购房-->租房，记录购房的条件
+            String strBuy = tvArrs[0].getText().toString().trim() + "_" + tvArrs[1].getText().toString().trim() + "_" + tvArrs[3].getText().toString().trim();
+            SharedPreUtils.putString("strBuy", strBuy);
+        } else if (mMenuType == 2) {//购房<--租房，记录租房的条件
+            String strRent = tvArrs[0].getText().toString().trim() + "_" + tvArrs[1].getText().toString().trim() + "_" + tvArrs[2].getText().toString().trim() + "_" + tvArrs[3].getText().toString().trim();
+            SharedPreUtils.putString("strRent", strRent);
+        }
+
+        initDefaultSelectTab(mSelectTabNames.get(mMenuType));
+        // 获取index对应的值，如果不为空设置
+        if (mMenuType == 3) {//购房-->租房，
+            String rent = SharedPreUtils.getString("strRent", "");
+            if (!TextUtils.isEmpty(rent)) {
+                isEochTextView(rent);
+            }
+        } else if (mMenuType == 2) {//购房<--租房
+            String buy = SharedPreUtils.getString("strBuy", "");
+            if (!TextUtils.isEmpty(buy)) {
+                isEochTextView(buy);
+            }
+        }
+
+    }
+
+    /**
+     * 客源，切换TAB是否回显
+     *
+     * @param rent
+     */
+    private void isEochTextView(String rent) {
+        String[] split = rent.split("_");
+
+        if (split.length == 3) {//购房
+            for (int i = 0; i < split.length; i++) {
+                int j = i;
+                if (i == 2) {
+                    j = 3;
+                }
+                if (!TextUtils.equals(split[i], mSelectTabNames.get(mMenuType)[i])) {
+                    tvArrs[j].setText(split[i]);
+                    tvArrs[j].setTextColor(UIUtils.getColor(R.color.common_blue));
+                    ivArrows[j].setImageResource(R.drawable.btn_down_blue);
+                }
+            }
+        } else if (split.length == 4) {//租房
+            for (int i = 0; i < split.length; i++) {
+                if (!TextUtils.equals(split[i], mSelectTabNames.get(mMenuType)[i])) {
+                    tvArrs[i].setText(split[i]);
+                    tvArrs[i].setTextColor(UIUtils.getColor(R.color.common_blue));
+                    ivArrows[i].setImageResource(R.drawable.btn_down_blue);
+                }
+            }
+        }
+
     }
 
     /**
@@ -248,8 +302,8 @@ public class SelectionHolder extends BaseHolder {
     /**
      * 根据点击位置和MenuType的值来准备数据
      *
-     * @param index
-     * @param menuType
+     * @param index    013，0123
+     * @param menuType 01234
      */
     private void preparePopData(int index, int menuType) {
         String[] regionParentSelections = {"区域", "距离"};
@@ -306,7 +360,7 @@ public class SelectionHolder extends BaseHolder {
                     childData.add(Arrays.asList(regionchildSelections2));
                 } else if (index == 1) {//房型
                     parentData = Arrays.asList(houseStructParentSelections);
-                } else if (index == 2) {//来源
+                } else if (index == 3) {//来源
                     parentData = Arrays.asList(originParentSelections);
                 }
                 break;
@@ -370,7 +424,15 @@ public class SelectionHolder extends BaseHolder {
             @Override
             public void onDismiss() {
                 ivArrows[index].setImageResource(R.drawable.btn_down_blue);//针对点了同样的tab下面的选择条件，无论怎么样都要放下来
-                if (TextUtils.equals(tvArrs[index].getText().toString(), selectTabNames.get(menuType)[index])) {//如果两者相等，就要恢复到原来状态,针对第一步点击tab，第二部点击tab
+
+                L.v("onDismiss index:" + index + " type:" + menuType);
+
+                int strTabIndex = index;
+                if (index == 3 && menuType == 2) {
+                    strTabIndex = 2;
+                }
+
+                if (TextUtils.equals(tvArrs[index].getText().toString(), mSelectTabNames.get(menuType)[strTabIndex])) {//如果两者相等，就要恢复到原来状态,针对第一步点击tab，第二部点击tab
                     recoverOriText(index, menuType);
                 }
             }
@@ -416,7 +478,13 @@ public class SelectionHolder extends BaseHolder {
     private void recoverOriText(int index, int type) {
         tvArrs[index].setTextColor(UIUtils.getColor(R.color.text_grey));
         ivArrows[index].setImageResource(R.drawable.btn_pulldown);
-        tvArrs[index].setText(selectTabNames.get(type)[index]);
+        L.v("recoverOriText index:" + index + " type:" + type);
+
+        int strTabIndex = index;
+        if (index == 3 && type == 2) {
+            strTabIndex = 2;
+        }
+        tvArrs[index].setText(mSelectTabNames.get(type)[strTabIndex]);
     }
 
 

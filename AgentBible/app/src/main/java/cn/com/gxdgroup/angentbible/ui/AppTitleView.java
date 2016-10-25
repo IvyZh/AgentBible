@@ -170,8 +170,7 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
             } else if (index == 1) {
                 mMenuType = 3;
             }
-            L.v("do..." + mMenuType);
-            selectionHolder.setSelectionByTabIndex(mMenuType, index);
+            selectionHolder.setSelectionByTabIndex(mMenuType);
         }
     }
 
