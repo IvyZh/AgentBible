@@ -15,6 +15,7 @@ import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.CollectionActivity;
 import cn.com.gxdgroup.angentbible.activities.LoginActivity;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
+import cn.com.gxdgroup.angentbible.constant.MenuType;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
@@ -73,10 +74,10 @@ public class MeFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_collection_house:
-                CollectionActivity.startActivity(mActivity, 4);
+                CollectionActivity.startActivity(mActivity, MenuType.COLL_HOUSE);
                 break;
             case R.id.rl_collection_people:
-                CollectionActivity.startActivity(mActivity, 5);
+                CollectionActivity.startActivity(mActivity, MenuType.COLL_KE);
                 break;
             case R.id.rl_feedback:
                 break;

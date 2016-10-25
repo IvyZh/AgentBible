@@ -12,6 +12,7 @@ import butterknife.BindView;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.adapter.HouseInfoAdapter;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
+import cn.com.gxdgroup.angentbible.constant.MenuType;
 import cn.com.gxdgroup.angentbible.interfaces.SimpleAppTitleListener;
 import cn.com.gxdgroup.angentbible.ui.AppTitleView;
 
@@ -23,13 +24,14 @@ import cn.com.gxdgroup.angentbible.ui.AppTitleView;
 
 public class CollectionActivity extends BaseActivity {
 
+
     @BindView(R.id.lv_house_res)
     ListView lvHouseRes;
     @BindView(R.id.app_title)
     AppTitleView mAppTitle;
     int adapterMenuType; //需要依据mMenuType进行转换
 
-    private int mMenuType = 0;//0-二手房，1-租房，2-客源，3-最新成交
+    private int mMenuType = MenuType.SENCOND_HAND;//0-二手房，1-租房，2-客源，3-最新成交
 
     public static void startActivity(Activity ba, int menuType) {
         Intent intent = new Intent(ba, CollectionActivity.class);
@@ -49,9 +51,9 @@ public class CollectionActivity extends BaseActivity {
 
         mAppTitle.showMode(AppTitleView.MODE.TAB, -1, this);//mMenuType 传-1是为了隐藏selection
 
-        if (mMenuType == 4) {//房源
+        if (mMenuType == MenuType.COLL_HOUSE) {//房源
             mAppTitle.setTabMsg("二手房", "租房");
-        } else if (mMenuType == 5) {//客源
+        } else if (mMenuType == MenuType.COLL_KE) {//客源
             mAppTitle.setTabMsg("购房客户", "租房客户");
         }
 
@@ -73,9 +75,9 @@ public class CollectionActivity extends BaseActivity {
             public void onTabRight() {
                 super.onTabRight();
                 //mMenuType--> mMenuType 的转换
-                if (mMenuType == 4) {//房源
+                if (mMenuType == MenuType.COLL_HOUSE) {//房源
                     adapterMenuType = 1;//对应-->1：首页-租房Menu
-                } else if (mMenuType == 5) {//客源
+                } else if (mMenuType == MenuType.COLL_KE) {//客源
                     adapterMenuType = 2;  //注意TAB的区分可以不在这个地方设置，但是为了界面加载布局先加载好，似乎又得需要传入一个客源的tab值（购房客户+租房客户）。以便下一个Activity预加载好布局
                 }
                 loadData();
@@ -90,9 +92,9 @@ public class CollectionActivity extends BaseActivity {
      */
     private void defaultConvert() {
         //mMenuType--> mMenuType 的转换
-        if (mMenuType == 4) {//房源
+        if (mMenuType == MenuType.COLL_HOUSE) {//房源
             adapterMenuType = 0;//对应-->0：首页-二手房Menu
-        } else if (mMenuType == 5) {//客源
+        } else if (mMenuType == MenuType.COLL_KE) {//客源
             adapterMenuType = 2;  //注意TAB的区分可以不在这个地方设置，但是为了界面加载布局先加载好，似乎又得需要传入一个客源的tab值（购房客户+租房客户）。以便下一个Activity预加载好布局
         }
     }

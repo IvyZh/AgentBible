@@ -53,10 +53,11 @@
 
 
             <!--周边配套模块 地图-->
+
             <FrameLayout
                 android:id="@+id/fr_arround_equipment"
                 android:layout_width="match_parent"
-                android:layout_height="366dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/white" />
 

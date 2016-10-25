@@ -42,7 +42,9 @@
         <activity android:name=".activities.PhotoViewerActivity" />
         <activity android:name=".activities.CollectionActivity" />
         <activity android:name=".activities.DataAnalysisActivity" />
-        <activity android:name=".activities.LoginActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:theme="@style/AppThemeFullScreen" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

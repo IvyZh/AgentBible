@@ -1,23 +1,25 @@
 package cn.com.gxdgroup.angentbible.activities;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.baidu.mapapi.map.TextureMapView;
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.BannerHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.HouseDealInDetailsHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.details.HouseFeatureHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.SecondHandHouseInDetailsHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.details.ZuFangInDetailsHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.TrendChartHolder;
-import cn.com.gxdgroup.angentbible.holder.impl.village.AroundEquipmentHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.GardenMagazineHolder;
+import cn.com.gxdgroup.angentbible.holder.impl.village.StaticMapHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.VillageBasicHolder;
 import cn.com.gxdgroup.angentbible.ui.TitleView;
 
@@ -50,9 +52,11 @@ public class VillageInfoActivity extends BaseActivity {
     TitleView mTitleView;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+//    @BindView(R.id.iv_map)
+//    ImageView mIvMap;
 
     private BaseHolder trendChartHolder;
-    private TextureMapView mMapView;
+//    private TextureMapView mMapView;
 
     @Override
     protected void setContentView() {
@@ -64,15 +68,20 @@ public class VillageInfoActivity extends BaseActivity {
 
         trendChartHolder = new TrendChartHolder(this);
 
+        //http://api.map.baidu.com/staticimage?width=720&height=400&center=121.433346,31.1882&zoom=15&markers=121.433346,31.1882&markerStyles=l,0
 
-        AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
+//        AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
+
         mFrBanner.addView(new BannerHolder(this).getContentView());
         mFrVillageBasic.addView(new VillageBasicHolder(this).getContentView());
         mFrGardenPrice.addView(trendChartHolder.getContentView());
 
 
         mFrGardenMagazine.addView(new GardenMagazineHolder(this).getContentView());
-        mFrArroundEquipment.addView(equipmentHolder.getContentView());
+
+        StaticMapHolder staticMapHolder = new StaticMapHolder(this);
+
+        mFrArroundEquipment.addView(staticMapHolder.getContentView());
 
 
         mFrZufang.addView(new ZuFangInDetailsHolder(this).getContentView());
@@ -88,7 +97,10 @@ public class VillageInfoActivity extends BaseActivity {
         });
 
 
-        mMapView = equipmentHolder.getMapView();
+//        mMapView = equipmentHolder.getMapView();
+
+//        String url = "http://api.map.baidu.com/staticimage?width=720&height=400&center=121.433346,31.1882&zoom=15&markers=121.433346,31.1882&markerStyles=l,0";
+//        Glide.with(mContext).load(url).into(mIvMap);
 
 
     }
@@ -107,24 +119,26 @@ public class VillageInfoActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        mMapView.onDestroy();
+//        mMapView.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        mMapView.onResume();
+//        mMapView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        mMapView.onPause();
+//        mMapView.onPause();
     }
 
     public ScrollView getScrollView() {
         return scrollView;
     }
+
+
 }

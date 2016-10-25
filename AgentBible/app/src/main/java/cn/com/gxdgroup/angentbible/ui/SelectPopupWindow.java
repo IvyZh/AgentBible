@@ -1,9 +1,11 @@
 package cn.com.gxdgroup.angentbible.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -33,6 +35,10 @@ public class SelectPopupWindow extends PopupWindow {
     private ChildrenCategoryAdapter childrenCategoryAdapter = null;
     private int pPos, cPos;
 
+
+    /**
+     * 除更多之外都可以用的Popupwind
+     */
     public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, Activity activity, SelectCategory selectCategory) {
         this.selectCategory = selectCategory;
         this.mParentData = parentData;
@@ -42,12 +48,23 @@ public class SelectPopupWindow extends PopupWindow {
 
 
         View contentView = LayoutInflater.from(activity).inflate(R.layout.layout_quyu_choose_view, null);
+
+        this.setContentView(contentView);
+
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm); // 获取手机屏幕的大小
 
-        this.setContentView(contentView);
+        int bottomStatusHeight = UIUtils.getBottomStatusHeight(activity);
+        int screenHeight = UIUtils.getScreenHeight(activity);
+        int statusHeight = UIUtils.getStatusHeight(activity);
+
+        L.v("screenHeight:" + screenHeight + ",bottomStatusHeight:" + bottomStatusHeight + ",statusHeight:" + statusHeight + ",dm.heightPixels:" + dm.heightPixels);
+
+
         this.setWidth(dm.widthPixels);
-        this.setHeight(dm.heightPixels * 1);
+        this.setHeight(dm.heightPixels - UIUtils.dip2px(94) - statusHeight);
+
+
 //        this.setHeight(dm.heightPixels * 7 / 10);
 
 		/* 设置背景显示 */

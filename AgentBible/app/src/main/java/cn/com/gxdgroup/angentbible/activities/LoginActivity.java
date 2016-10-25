@@ -12,6 +12,7 @@ import cn.com.gxdgroup.angentbible.base.BaseActivity;
 public class LoginActivity extends BaseActivity {
     @Override
     protected void setContentView() {
+
         setContentView(R.layout.activity_login);
     }
 
