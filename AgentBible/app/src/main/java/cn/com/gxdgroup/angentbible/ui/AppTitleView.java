@@ -1,8 +1,6 @@
 package cn.com.gxdgroup.angentbible.ui;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,13 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.holder.impl.selector.SelectionHolder;
 import cn.com.gxdgroup.angentbible.interfaces.AppTitleListener;
-import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
@@ -167,8 +164,14 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
 
         // 判断是否menuType==2,如果是的话还要修改SelectionHolder的显示布局
 
-        if (mMenuType == 2) {
-            selectionHolder.setSelectionByTabIndex(index);
+        if (mMenuType == 2 || mMenuType == 3) {
+            if (index == 0) {
+                mMenuType = 2;
+            } else if (index == 1) {
+                mMenuType = 3;
+            }
+            L.v("do..." + mMenuType);
+            selectionHolder.setSelectionByTabIndex(mMenuType, index);
         }
     }
 

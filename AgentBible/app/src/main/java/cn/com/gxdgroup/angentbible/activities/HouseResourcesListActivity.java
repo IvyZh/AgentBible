@@ -14,6 +14,7 @@ import cn.com.gxdgroup.angentbible.adapter.HouseInfoAdapter;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.interfaces.SimpleAppTitleListener;
 import cn.com.gxdgroup.angentbible.ui.AppTitleView;
+import cn.com.gxdgroup.angentbible.utils.SharedPreUtils;
 
 /**
  * Created by Ivy on 2016/10/18.
@@ -28,7 +29,17 @@ public class HouseResourcesListActivity extends BaseActivity {
     @BindView(R.id.app_title)
     AppTitleView mAppTitle;
 
-    private int mMenuType = 0;//0-二手房，1-租房，2-客源，3-最新成交
+    /**
+     * -1 ：去掉AppTitleView下面的SelectionHolder
+     * 0：首页-二手房Menu
+     * 1：首页-租房Menu
+     * 2：首页-客源Menu(购房)
+     * 3：首页-客源Menu(租房)
+     * 4：首页-最新成交Menu
+     * 5：我-收藏房源-Item
+     * 6：我-收藏客源-Item
+     */
+    private int mMenuType = 0;
 
     public static void startActivity(Activity ba, int menuType) {
         Intent intent = new Intent(ba, HouseResourcesListActivity.class);
@@ -95,5 +106,10 @@ public class HouseResourcesListActivity extends BaseActivity {
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //需要清空SharePre里面的内容
+        SharedPreUtils.clear();
+    }
 }

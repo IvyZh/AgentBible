@@ -1,7 +1,6 @@
 package cn.com.gxdgroup.angentbible.ui;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.gxdgroup.angentbible.R;
@@ -30,26 +25,21 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 public class SelectPopupWindow extends PopupWindow {
     private SelectCategory selectCategory;
 
-    private List<String> parentStrings;
-    private List<List<String>> childrenStrings;
-    private String[] split;
+    private List<String> mParentData;
+    private List<List<String>> mChildData;
     private ListView lvParentCategory = null;
     private ListView lvChildrenCategory = null;
     private ParentCategoryAdapter parentCategoryAdapter = null;
     private ChildrenCategoryAdapter childrenCategoryAdapter = null;
-    private String mSelectedSel;
+    private int pPos, cPos;
 
-    /**
-     * @param parentStrings   字类别数据
-     * @param childrenStrings 字类别二位数组
-     * @param activity
-     * @param selectCategory  回调接口注入
-     */
-    public SelectPopupWindow(List parentStrings, List<List<String>> childrenStrings, Activity activity, String selectedSel, SelectCategory selectCategory) {
+    public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, Activity activity, SelectCategory selectCategory) {
         this.selectCategory = selectCategory;
-        this.parentStrings = parentStrings;
-        this.childrenStrings = childrenStrings;
-        this.mSelectedSel = selectedSel;
+        this.mParentData = parentData;
+        this.mChildData = childData;
+        this.pPos = parentSelectPos;
+        this.cPos = childSelectPos;
+
 
         View contentView = LayoutInflater.from(activity).inflate(R.layout.layout_quyu_choose_view, null);
         DisplayMetrics dm = new DisplayMetrics();
@@ -75,44 +65,32 @@ public class SelectPopupWindow extends PopupWindow {
 
         //父类别适配器
         lvParentCategory = (ListView) contentView.findViewById(R.id.lv_parent_category);
-        parentCategoryAdapter = new ParentCategoryAdapter(activity, parentStrings, R.layout.item_selection);
+        parentCategoryAdapter = new ParentCategoryAdapter(activity, parentData, R.layout.item_selection);
         lvParentCategory.setAdapter(parentCategoryAdapter);
+        //设置默认选中的状态，父类和子类都需要
+        L.v("select pos:" + parentSelectPos + "," + childSelectPos);
+
+        parentCategoryAdapter.setSelectedPosition(parentSelectPos);
+        parentCategoryAdapter.notifyDataSetInvalidated();
+
 
         //子类别适配器
         lvChildrenCategory = (ListView) contentView.findViewById(R.id.lv_children_category);
 
-        if (childrenStrings != null && childrenStrings.size() > 0) {
-            childrenCategoryAdapter = new ChildrenCategoryAdapter(activity, childrenStrings.get(0), R.layout.item_selection);
+        if (mChildData != null && mChildData.size() > 0) {
+            childrenCategoryAdapter = new ChildrenCategoryAdapter(activity, mChildData.get(parentSelectPos), R.layout.item_selection);
             lvChildrenCategory.setAdapter(childrenCategoryAdapter);
+            childrenCategoryAdapter.setSelectedPosition(childSelectPos);
+            childrenCategoryAdapter.notifyDataSetChanged();
         } else {
             lvChildrenCategory.setVisibility(View.GONE);
         }
-
 
         lvParentCategory.setOnItemClickListener(parentItemClickListener);
         lvChildrenCategory.setOnItemClickListener(childrenItemClickListener);
 
 
-        if (!TextUtils.isEmpty(mSelectedSel)) {
-            split = mSelectedSel.split("_");
-            for (String s : split) {
-                L.v("--split--" + s);
-            }
-            parentCategoryAdapter.setSelectedPosition(Integer.valueOf(split[1]));
-            parentCategoryAdapter.notifyDataSetChanged();
-
-            if (split.length == 3) {
-                childrenCategoryAdapter.setSelectedPosition(Integer.valueOf(split[2]));
-                childrenCategoryAdapter.setDatas(childrenStrings.get(Integer.valueOf(split[1])));
-                childrenCategoryAdapter.notifyDataSetChanged();
-            }
-        }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void helloEventBus(String message) {
-        L.v("--helloEventBus--" + message);
-    }//收不到
 
     /**
      * 子类别点击事件
@@ -121,7 +99,7 @@ public class SelectPopupWindow extends PopupWindow {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (selectCategory != null) {
-                selectCategory.selectCategory(parentCategoryAdapter.getPos(), parentStrings.get(parentCategoryAdapter.getPos()), position, childrenStrings.get(parentCategoryAdapter.getPos()).get(position));
+                selectCategory.selectCategory(parentCategoryAdapter.getPos(), mParentData.get(parentCategoryAdapter.getPos()), position, mChildData.get(parentCategoryAdapter.getPos()).get(position));
             }
             dismiss();
         }
@@ -133,27 +111,23 @@ public class SelectPopupWindow extends PopupWindow {
     private AdapterView.OnItemClickListener parentItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            L.v("--position--" + position);
 
-            if (childrenStrings != null && childrenStrings.size() > 0) {
-                childrenCategoryAdapter.setDatas(childrenStrings.get(position));
-                childrenCategoryAdapter.notifyDataSetChanged();
+            if (mChildData != null && mChildData.size() > 0) {
 
                 parentCategoryAdapter.setSelectedPosition(position);
                 parentCategoryAdapter.notifyDataSetChanged();
 
-                if (split != null) {
-                    if (position == Integer.valueOf(split[1])) {
-                        childrenCategoryAdapter.setSelectedPosition(Integer.valueOf(split[2]));
-                    } else {
-                        childrenCategoryAdapter.setSelectedPosition(-1);
-                    }
-
+                if (position == pPos) {
+                    childrenCategoryAdapter.setSelectedPosition(cPos);
+                } else {
+                    childrenCategoryAdapter.setSelectedPosition(0);
                 }
+                childrenCategoryAdapter.setDatas(mChildData.get(position));
+                childrenCategoryAdapter.notifyDataSetChanged();
 
             } else {
                 if (selectCategory != null) {
-                    selectCategory.selectCategory(position, parentStrings.get(position), -1, null);
+                    selectCategory.selectCategory(position, mParentData.get(position), -1, "");
                 }
                 dismiss();
             }
@@ -167,13 +141,14 @@ public class SelectPopupWindow extends PopupWindow {
      * @author apple
      */
     public interface SelectCategory {
+
         /**
-         * 把选中的下标通过方法回调回来
-         *
-         * @param parentSelectposition   父类别选中下标
-         * @param childrenSelectposition 子类别选中下标
+         * @param pPos 父类选中的位置
+         * @param tvP  父类选中的文字
+         * @param cPos 子类选中的位置 -1
+         * @param tvC  子类选中的文字 ""
          */
-        public void selectCategory(int parentSelectposition, String tvParent, int childrenSelectposition, String tvChild);
+        public void selectCategory(int pPos, String tvP, int cPos, String tvC);
     }
 
 }
