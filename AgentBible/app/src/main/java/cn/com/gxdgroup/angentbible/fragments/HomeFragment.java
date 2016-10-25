@@ -27,7 +27,8 @@ public class HomeFragment extends BaseFragment {
     FrameLayout mFrMenu;
     @BindView(R.id.fr_market)
     FrameLayout mFrMarket;
-    BaseHolder homeMarketHolder, carouselHolder, menuHolder;
+    BaseHolder carouselHolder, menuHolder;
+    TrendChartHolder homeMarketHolder;
 
     @Override
     public void loadData() {
@@ -38,7 +39,7 @@ public class HomeFragment extends BaseFragment {
         UIUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(homeMarketHolder!=null){
+                if (homeMarketHolder != null) {
                     homeMarketHolder.setData();//有可能null TODO
                 }
             }
@@ -59,6 +60,8 @@ public class HomeFragment extends BaseFragment {
         mFrImgsAd.addView(carouselHolder.getContentView());
         mFrMenu.addView(menuHolder.getContentView());
         mFrMarket.addView(homeMarketHolder.getContentView());
+
+        homeMarketHolder.setLocationVisibility(true);
     }
 
 }

@@ -74,6 +74,8 @@ public class HouseDetailsActivity extends BaseActivity {
             }
         });
 
+        mTitleView.setTitle("湖滨半岛公馆");
+
         mTitleView.showRightImageView(true);
         mTitleView.setRightButtonListener(new View.OnClickListener() {
             @Override

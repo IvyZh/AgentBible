@@ -40,7 +40,7 @@
                 android:id="@+id/fr_garden_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/white" />
 
             <!--小区月报模块-->
@@ -48,7 +48,7 @@
                 android:id="@+id/fr_garden_magazine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/white" />
 
 
@@ -58,7 +58,7 @@
                 android:id="@+id/fr_arround_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/white" />
 
             <!--小区二手房模块-->
@@ -66,21 +66,21 @@
                 android:id="@+id/fr_second_house"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/white" />
             <!--小区租房模块-->
             <FrameLayout
                 android:id="@+id/fr_zufang"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white" />
             <!--小区成交记录模块-->
             <FrameLayout
                 android:id="@+id/fr_house_deal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white" />
 
         </LinearLayout>

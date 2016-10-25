@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
 
     <TextView
-        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/tv_publish_time"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:textSize="14sp"
         android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="发布日期：2016-05-06"
         android:textColor="@color/text_grey"
-        android:text="发布日期：2016-05-06" />
+        android:textSize="14sp" />
 
     <View style="@style/divide_style" />
 
     <LinearLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="76dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout style="@style/home_menu_rl">
@@ -68,9 +68,9 @@
     <View style="@style/divide_style" />
 
     <LinearLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="118dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -120,9 +120,9 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView"
                     style="@style/house_detail_tv"
-                    android:text="年代:"
-                    android:id="@+id/textView" />
+                    android:text="年代:" />
 
                 <TextView
                     android:id="@+id/tv_house_old"
@@ -200,34 +200,35 @@
     <RelativeLayout
         android:id="@+id/rl_garden_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_common">
 
         <TextView
-            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:id="@+id/tv_garden_name_label"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:textColor="@color/text_light"
-            android:text="小区:" />
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="小区:"
+            android:textColor="@color/text_light" />
 
         <TextView
             android:id="@+id/tv_garden_name"
-            android:layout_marginLeft="6dp"
-            android:layout_toRightOf="@id/tv_garden_name_label"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/tv_garden_name_label"
             android:gravity="center_vertical"
-            android:textColor="@color/text_dark"
-            android:text="湖滨半岛公馆" />
+            android:text="湖滨半岛公馆"
+            android:textColor="@color/text_dark" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/right"
-            android:layout_marginRight="@dimen/margin_lr" />
+            android:layout_marginRight="@dimen/margin_lr"
+            android:src="@drawable/right" />
 
     </RelativeLayout>
 

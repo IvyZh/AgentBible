@@ -6,11 +6,11 @@
 
 
     <TextView
-        style="@style/card_title_tv"
+        style="@style/card_title_tv_small"
         android:text="小区租房(123)" />
 
     <View style="@style/divide_style" />
 
-    <include layout="@layout/item_house_info" />
+    <include layout="@layout/item_house_info_inside" />
 
 </LinearLayout>

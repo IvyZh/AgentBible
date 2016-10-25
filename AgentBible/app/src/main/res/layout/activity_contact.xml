@@ -6,7 +6,7 @@
     android:background="@color/common_bg"
     android:baselineAligned="false">
 
-    <cn.com.gxdgroup.angentbible.ui.TitleView
+    <cn.com.gxdgroup.angentbible.ui.AppTitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

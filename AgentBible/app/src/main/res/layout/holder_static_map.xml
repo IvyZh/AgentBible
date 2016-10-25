@@ -8,6 +8,7 @@
         android:id="@+id/rl_around_equipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_common"
         android:gravity="center_vertical">
 
         <TextView
@@ -23,9 +24,9 @@
         android:id="@+id/iv_static_map"
         android:layout_width="fill_parent"
         android:layout_height="294dp"
-        android:src="@drawable/icon_temp_carousel"
+        android:clickable="true"
         android:scaleType="fitXY"
-        android:clickable="true" />
+        android:src="@drawable/icon_temp_carousel" />
 
 
 </LinearLayout>
