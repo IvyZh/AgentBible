@@ -41,6 +41,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_common</item>
     </style>
 
     <style name="home_menu_iv">
@@ -155,7 +156,7 @@
     <style name="me_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/selector_common</item>
     </style>
 
 

@@ -6,18 +6,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/selector_common"
+        android:paddingBottom="8dp"
         android:paddingLeft="@dimen/margin_lr"
         android:paddingRight="@dimen/margin_lr"
-        android:paddingBottom="8dp"
         android:paddingTop="8dp">
 
         <ImageView
             android:id="@+id/iv_cover"
             android:layout_width="124dp"
             android:layout_height="92dp"
-            android:scaleType="centerCrop"
             android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ico_picture" />
 
         <TextView
