@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.constant.MenuType;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.ui.SelectPopupWindow;
 import cn.com.gxdgroup.angentbible.utils.L;
@@ -80,6 +82,9 @@ public class SelectionHolder extends BaseHolder {
     private int[] llTabIds;//Linarlayout Tab的Id 数组
     private ImageView[] ivArrows;// Tab Arrow 数组
     private int parentSelectPos, childSelectPos;
+    private boolean isMoreSelect = false;//表示是否点击了更多的选择项
+    private boolean isMoreMapDataNull = true;//表示更多选择的map是否为空
+    private HashMap<String, String> moreSeletMap;
 
     public SelectionHolder(FragmentActivity activity, int menuType) {
         super(activity);
@@ -290,10 +295,54 @@ public class SelectionHolder extends BaseHolder {
         preparePopData(index, mMenuType);
 
 
-        if (parentData.size() > 0) {
-            showPopUpWindow(index, mMenuType);
+        if (isMoreSelect) {
+            SelectPopupWindow popupWindow = new SelectPopupWindow(mActivity, moreSeletMap, new SelectPopupWindow.MoreSelectionInterface() {
+                @Override
+                public void clearData() {
+                    isMoreMapDataNull = true;
+                    moreSeletMap = null;
+                    mTvLast.setTextColor(UIUtils.getColor(R.color.text_grey));
+                    ivArrows[3].setImageResource(R.drawable.btn_pulldown);
+                }
+
+                @Override
+                public void confirm(HashMap<String, String> map) {
+                    moreSeletMap = map;
+                    UIUtils.sopMap(map);
+                    String houseLayout = map.get("houseLayout");
+                    String houseOri = map.get("houseOri");
+                    String houseArea = map.get("houseArea");
+                    String houseYear = map.get("houseYear");
+
+                    if (TextUtils.isEmpty(houseArea) && TextUtils.isEmpty(houseOri) && TextUtils.isEmpty(houseYear) && TextUtils.isEmpty(houseLayout)) {
+                        isMoreMapDataNull = true;
+                        mTvLast.setTextColor(UIUtils.getColor(R.color.text_grey));
+                        ivArrows[3].setImageResource(R.drawable.btn_pulldown);
+                    } else {
+                        isMoreMapDataNull = false;
+                        mTvLast.setTextColor(UIUtils.getColor(R.color.common_blue));
+                        ivArrows[3].setImageResource(R.drawable.btn_down_blue);
+                    }
+
+
+                }
+            });
+            popupWindow.showAsDropDown(mLlFirst, 0, 1);
+
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    if (isMoreMapDataNull) {//表示更多条件选项map为空，则恢复到原始状态
+                        mTvLast.setTextColor(UIUtils.getColor(R.color.text_grey));
+                        ivArrows[3].setImageResource(R.drawable.btn_pulldown);
+                    } else {
+                        mTvLast.setTextColor(UIUtils.getColor(R.color.common_blue));
+                        ivArrows[3].setImageResource(R.drawable.btn_down_blue);
+                    }
+                }
+            });
         } else {
-            UIUtils.showToast("待完善");
+            showPopUpWindow(index, mMenuType);
         }
 
     }
@@ -306,9 +355,10 @@ public class SelectionHolder extends BaseHolder {
      * @param menuType 01234
      */
     private void preparePopData(int index, int menuType) {
+        isMoreSelect = false;
         String[] regionParentSelections = {"区域", "距离"};
-        String[] regionchildSelections1 = {"全部", "浦东", "闵行", "徐汇", "长宁", "普陀", "静安", "卢湾", "黄浦", "闸北", "虹口", "杨浦", "宝山", "嘉定", "青浦", "松江", "金山", "奉贤", "南汇", "崇明"};
-        String[] regionchildSelections2 = {"全部", "500米以内", "1000米以内", "2000米以内", "3000米以内"};
+        String[] regionChildSelections1 = {"全部", "浦东", "闵行", "徐汇", "长宁", "普陀", "静安", "卢湾", "黄浦", "闸北", "虹口", "杨浦", "宝山", "嘉定", "青浦", "松江", "金山", "奉贤", "南汇", "崇明"};
+        String[] regionChildSelections2 = {"全部", "500米以内", "1000米以内", "2000米以内", "3000米以内"};
 
         String[] priceParentSelections = {"全部", "200万以下", "200-250万", "250-300万", "300-400万", "400-500万", "500-800万", "800-1000万", "1000万以上"};
         String[] originParentSelections = {"全部", "个人", "经纪人"};
@@ -328,14 +378,14 @@ public class SelectionHolder extends BaseHolder {
             case 0://二手房
                 if (index == 0) {//区域
                     parentData = Arrays.asList(regionParentSelections);
-                    childData.add(Arrays.asList(regionchildSelections1));
-                    childData.add(Arrays.asList(regionchildSelections2));
+                    childData.add(Arrays.asList(regionChildSelections1));
+                    childData.add(Arrays.asList(regionChildSelections2));
                 } else if (index == 1) {//价格
                     parentData = Arrays.asList(priceParentSelections);
                 } else if (index == 2) {//来源
                     parentData = Arrays.asList(originParentSelections);
-                } else if (index == 4) {//更多 TODO
-
+                } else if (index == 3) {//更多 TODO
+                    isMoreSelect = true;
                 }
 
                 break;
@@ -343,21 +393,21 @@ public class SelectionHolder extends BaseHolder {
 
                 if (index == 0) {//区域
                     parentData = Arrays.asList(regionParentSelections);
-                    childData.add(Arrays.asList(regionchildSelections1));
-                    childData.add(Arrays.asList(regionchildSelections2));
+                    childData.add(Arrays.asList(regionChildSelections1));
+                    childData.add(Arrays.asList(regionChildSelections2));
                 } else if (index == 1) {//租金
                     parentData = Arrays.asList(rentParentSelections);
                 } else if (index == 2) {//方式
                     parentData = Arrays.asList(wayParentSelections);
-                } else if (index == 4) {//更多 TODO
-
+                } else if (index == 3) {//更多 TODO
+                    isMoreSelect = true;
                 }
                 break;
             case 2://客源-购房
                 if (index == 0) {//区域
                     parentData = Arrays.asList(regionParentSelections);
-                    childData.add(Arrays.asList(regionchildSelections1));
-                    childData.add(Arrays.asList(regionchildSelections2));
+                    childData.add(Arrays.asList(regionChildSelections1));
+                    childData.add(Arrays.asList(regionChildSelections2));
                 } else if (index == 1) {//房型
                     parentData = Arrays.asList(houseStructParentSelections);
                 } else if (index == 3) {//来源
@@ -368,8 +418,8 @@ public class SelectionHolder extends BaseHolder {
 
                 if (index == 0) {//区域
                     parentData = Arrays.asList(regionParentSelections);
-                    childData.add(Arrays.asList(regionchildSelections1));
-                    childData.add(Arrays.asList(regionchildSelections2));
+                    childData.add(Arrays.asList(regionChildSelections1));
+                    childData.add(Arrays.asList(regionChildSelections2));
                 } else if (index == 1) {//房型
                     parentData = Arrays.asList(houseStructParentSelections);
                 } else if (index == 2) {//方式
@@ -383,8 +433,8 @@ public class SelectionHolder extends BaseHolder {
 
                 if (index == 0) {//区域
                     parentData = Arrays.asList(regionParentSelections);
-                    childData.add(Arrays.asList(regionchildSelections1));
-                    childData.add(Arrays.asList(regionchildSelections2));
+                    childData.add(Arrays.asList(regionChildSelections1));
+                    childData.add(Arrays.asList(regionChildSelections2));
                 } else if (index == 1) {//价格
                     parentData = Arrays.asList(priceParentSelections);
                 } else if (index == 2) {//房型
@@ -406,10 +456,17 @@ public class SelectionHolder extends BaseHolder {
      */
     private void showPopUpWindow(final int index, final int menuType) {
 
+        boolean isFooterView = false;
         parentSelectPos = SharedPreUtils.getInt(menuType + "_" + index + "_p", 0);
         childSelectPos = SharedPreUtils.getInt(menuType + "_" + index + "_c", 0);
 
-        SelectPopupWindow popupWindow = new SelectPopupWindow(parentData, childData, parentSelectPos, childSelectPos, mActivity, new SelectPopupWindow.SelectCategory() {
+        if (index == 1) {
+            if (menuType == MenuType.SENCOND_HAND || menuType == MenuType.RECENT_DEAL || menuType == MenuType.RENT_HOUSE) {
+                isFooterView = true;
+            }
+        }
+
+        SelectPopupWindow popupWindow = new SelectPopupWindow(parentData, childData, parentSelectPos, childSelectPos, isFooterView, mActivity, new SelectPopupWindow.SelectCategory() {
             @Override
             public void selectCategory(int pPos, String tvP, int cPos, String tvC) {
                 L.v("selectCategory:" + pPos + "," + tvP + "," + cPos + "," + tvC);

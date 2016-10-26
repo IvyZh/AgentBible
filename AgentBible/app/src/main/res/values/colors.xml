@@ -25,6 +25,7 @@
 
     <color name="white">#ffffff</color>
 
+    <color name="shape_select_stroke">#BFBFBF</color>
 
     <!--SearchBar-->
     <color name="internal_search_blue">#007aff</color>

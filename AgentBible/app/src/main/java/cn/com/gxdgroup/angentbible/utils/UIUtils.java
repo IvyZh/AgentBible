@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import cn.com.gxdgroup.angentbible.base.MyApplication;
 
@@ -177,6 +178,12 @@ public class UIUtils {
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.heightPixels;
+    }
+
+    public static void sopMap(Map<String, String> map) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            L.v("key= " + entry.getKey() + "   , value= " + entry.getValue());
+        }
     }
 
 

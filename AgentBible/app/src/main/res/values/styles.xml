@@ -240,7 +240,7 @@
 
     <style name="weight_view">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
     </style>
 
@@ -287,6 +287,19 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+
+    <!--筛选-更多-->
+
+    <style name="cb_select">
+        <item name="android:textColor">@drawable/selector_tv_selection_more</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/selector_selection_more</item>
     </style>
 
 

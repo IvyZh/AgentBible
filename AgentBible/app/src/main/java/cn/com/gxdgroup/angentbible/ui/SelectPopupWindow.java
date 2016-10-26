@@ -2,14 +2,17 @@ package cn.com.gxdgroup.angentbible.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import java.util.HashMap;
 import java.util.List;
 
 import cn.com.gxdgroup.angentbible.R;
@@ -34,12 +37,179 @@ public class SelectPopupWindow extends PopupWindow {
     private ParentCategoryAdapter parentCategoryAdapter = null;
     private ChildrenCategoryAdapter childrenCategoryAdapter = null;
     private int pPos, cPos;
+    private CheckBox[] houseLayout, houseOri, houseArea, houseYear;
+
+
+    //--------------------------------------------------------------------
+
+
+    public SelectPopupWindow(Activity activity, HashMap<String, String> map, final MoreSelectionInterface moreInterface) {
+        View v = LayoutInflater.from(activity).inflate(R.layout.popup_more_selection, null);
+        this.setContentView(v);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm); // 获取手机屏幕的大小
+        int statusHeight = UIUtils.getStatusHeight(activity);
+        this.setWidth(dm.widthPixels);
+        this.setHeight(dm.heightPixels - UIUtils.dip2px(94) - statusHeight);
+        /* 设置背景显示 */
+        setBackgroundDrawable(UIUtils.getDrawable(R.color.white));
+        /* 设置触摸外面时消失 */
+        setOutsideTouchable(true);
+        setTouchable(true);
+        setFocusable(true); /*设置点击menu以外其他地方以及返回键退出 */
+        v.setFocusableInTouchMode(true);
+
+
+        View clear = v.findViewById(R.id.ll_clear);
+        View confirm = v.findViewById(R.id.ll_confirm);
+
+        //checkbox的findviewbyid
+
+        CheckBox cbLayout1 = (CheckBox) v.findViewById(R.id.cb_house_layout_1);
+        CheckBox cbLayout2 = (CheckBox) v.findViewById(R.id.cb_house_layout_2);
+        CheckBox cbLayout3 = (CheckBox) v.findViewById(R.id.cb_house_layout_3);
+        CheckBox cbLayout4 = (CheckBox) v.findViewById(R.id.cb_house_layout_4);
+        CheckBox cbLayout5 = (CheckBox) v.findViewById(R.id.cb_house_layout_5);
+        CheckBox cbLayout6 = (CheckBox) v.findViewById(R.id.cb_house_layout_6);
+
+        houseLayout = new CheckBox[6];
+        houseLayout[0] = cbLayout1;
+        houseLayout[1] = cbLayout2;
+        houseLayout[2] = cbLayout3;
+        houseLayout[3] = cbLayout4;
+        houseLayout[4] = cbLayout5;
+        houseLayout[5] = cbLayout6;
+
+        CheckBox cbOrientation1 = (CheckBox) v.findViewById(R.id.cb_house_orientation_1);
+        CheckBox cbOrientation2 = (CheckBox) v.findViewById(R.id.cb_house_orientation_2);
+        CheckBox cbOrientation3 = (CheckBox) v.findViewById(R.id.cb_house_orientation_3);
+        CheckBox cbOrientation4 = (CheckBox) v.findViewById(R.id.cb_house_orientation_4);
+        CheckBox cbOrientation5 = (CheckBox) v.findViewById(R.id.cb_house_orientation_5);
+
+        houseOri = new CheckBox[5];
+        houseOri[0] = cbOrientation1;
+        houseOri[1] = cbOrientation2;
+        houseOri[2] = cbOrientation3;
+        houseOri[3] = cbOrientation4;
+        houseOri[4] = cbOrientation5;
+
+
+        CheckBox cbArea1 = (CheckBox) v.findViewById(R.id.cb_house_area_1);
+        CheckBox cbArea2 = (CheckBox) v.findViewById(R.id.cb_house_area_2);
+        CheckBox cbArea3 = (CheckBox) v.findViewById(R.id.cb_house_area_3);
+        CheckBox cbArea4 = (CheckBox) v.findViewById(R.id.cb_house_area_4);
+        CheckBox cbArea5 = (CheckBox) v.findViewById(R.id.cb_house_area_5);
+        CheckBox cbArea6 = (CheckBox) v.findViewById(R.id.cb_house_area_6);
+        CheckBox cbArea7 = (CheckBox) v.findViewById(R.id.cb_house_area_7);
+
+
+        houseArea = new CheckBox[7];
+        houseArea[0] = cbArea1;
+        houseArea[1] = cbArea2;
+        houseArea[2] = cbArea3;
+        houseArea[3] = cbArea4;
+        houseArea[4] = cbArea5;
+        houseArea[5] = cbArea6;
+        houseArea[6] = cbArea7;
+
+        CheckBox cbYear1 = (CheckBox) v.findViewById(R.id.cb_house_year_1);
+        CheckBox cbYear2 = (CheckBox) v.findViewById(R.id.cb_house_year_2);
+        CheckBox cbYear3 = (CheckBox) v.findViewById(R.id.cb_house_year_3);
+        CheckBox cbYear4 = (CheckBox) v.findViewById(R.id.cb_house_year_4);
+
+
+        houseYear = new CheckBox[4];
+        houseYear[0] = cbYear1;
+        houseYear[1] = cbYear2;
+        houseYear[2] = cbYear3;
+        houseYear[3] = cbYear4;
+
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (moreInterface != null) {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("houseLayout", getChecked(houseLayout));
+                    map.put("houseOri", getChecked(houseOri));
+                    map.put("houseArea", getChecked(houseArea));
+                    map.put("houseYear", getChecked(houseYear));
+
+                    moreInterface.confirm(map);
+                }
+
+                dismiss();
+            }
+        });
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (moreInterface != null) {
+                    moreInterface.clearData();
+                }
+                dismiss();
+            }
+        });
+
+        // 回显数据
+        if (map != null && map.size() > 0) {
+            String houseLayouts = map.get("houseLayout");
+            String houseOris = map.get("houseOri");
+            String houseAreas = map.get("houseArea");
+            String houseYears = map.get("houseYear");
+
+            if (!TextUtils.isEmpty(houseLayouts)) {
+                String[] split = houseLayouts.split("_");
+                for (int i = 0; i < split.length; i++) {
+                    houseLayout[Integer.valueOf(split[i])].setChecked(true);
+                }
+            }
+            if (!TextUtils.isEmpty(houseOris)) {
+                String[] split = houseOris.split("_");
+                for (int i = 0; i < split.length; i++) {
+                    houseOri[Integer.valueOf(split[i])].setChecked(true);
+                }
+            }
+            if (!TextUtils.isEmpty(houseAreas)) {
+                String[] split = houseAreas.split("_");
+                for (int i = 0; i < split.length; i++) {
+                    houseArea[Integer.valueOf(split[i])].setChecked(true);
+                }
+            }
+            if (!TextUtils.isEmpty(houseYears)) {
+                String[] split = houseYears.split("_");
+                for (int i = 0; i < split.length; i++) {
+                    houseYear[Integer.valueOf(split[i])].setChecked(true);
+                }
+            }
+
+
+        }
+    }
+
+    private String getChecked(CheckBox[] cbs) {
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < cbs.length; i++) {
+            boolean checked = cbs[i].isChecked();
+            if (checked) {
+                sb.append(i).append("_");
+            }
+        }
+        String s = sb.toString();
+        if (s.endsWith("_")) {
+            s = s.substring(0, s.length() - 1);
+        }
+        return s;
+    }
 
 
     /**
      * 除更多之外都可以用的Popupwind
      */
-    public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, Activity activity, SelectCategory selectCategory) {
+
+    public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, boolean isFooterView, Activity activity, SelectCategory selectCategory) {
         this.selectCategory = selectCategory;
         this.mParentData = parentData;
         this.mChildData = childData;
@@ -82,6 +252,13 @@ public class SelectPopupWindow extends PopupWindow {
 
         //父类别适配器
         lvParentCategory = (ListView) contentView.findViewById(R.id.lv_parent_category);
+
+        //是否给ListView加footerview
+        if (isFooterView) {
+            View footerView = UIUtils.inflate(R.layout.footer_view_select);
+            lvParentCategory.addFooterView(footerView);
+        }
+
         parentCategoryAdapter = new ParentCategoryAdapter(activity, parentData, R.layout.item_selection);
         lvParentCategory.setAdapter(parentCategoryAdapter);
         //设置默认选中的状态，父类和子类都需要
@@ -166,6 +343,12 @@ public class SelectPopupWindow extends PopupWindow {
          * @param tvC  子类选中的文字 ""
          */
         public void selectCategory(int pPos, String tvP, int cPos, String tvC);
+    }
+
+    public interface MoreSelectionInterface {
+        void clearData();
+
+        void confirm(HashMap<String, String> map);
     }
 
 }
