@@ -1,4 +1,21 @@
 
+
+## 2016.10.25
+
+* 修改mMenuType的对应值
+
+	* -1 ：去掉AppTitleView下面的SelectionHolder
+	* 0：首页-二手房Menu
+	* 1：首页-租房Menu
+	* 2：首页-客源Menu(购房)
+	* 3：首页-客源Menu(租房)
+	
+	* 4：首页-最新成交Menu
+	* 5：我-收藏房源-Item
+	* 6：我-收藏客源-Item
+
+
+## 2016.10.24
 使用豆瓣Demo的框架进行开发
 
 
