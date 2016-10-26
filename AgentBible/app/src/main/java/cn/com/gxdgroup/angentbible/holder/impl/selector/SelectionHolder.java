@@ -475,6 +475,13 @@ public class SelectionHolder extends BaseHolder {
 
                 echoTextView(menuType, index, tvP, tvC);
             }
+
+            @Override
+            public void price(int max, int min) {
+                tvArrs[1].setText(min + "-" + max + "万");
+                tvArrs[1].setTextColor(UIUtils.getColor(R.color.common_blue));
+                ivArrows[1].setImageResource(R.drawable.btn_down_blue);
+            }
         });
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

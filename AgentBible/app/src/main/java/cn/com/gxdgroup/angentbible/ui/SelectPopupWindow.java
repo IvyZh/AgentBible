@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -209,7 +210,7 @@ public class SelectPopupWindow extends PopupWindow {
      * 除更多之外都可以用的Popupwind
      */
 
-    public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, boolean isFooterView, Activity activity, SelectCategory selectCategory) {
+    public SelectPopupWindow(List parentData, List<List<String>> childData, int parentSelectPos, int childSelectPos, boolean isFooterView, Activity activity, final SelectCategory selectCategory) {
         this.selectCategory = selectCategory;
         this.mParentData = parentData;
         this.mChildData = childData;
@@ -257,6 +258,32 @@ public class SelectPopupWindow extends PopupWindow {
         if (isFooterView) {
             View footerView = UIUtils.inflate(R.layout.footer_view_select);
             lvParentCategory.addFooterView(footerView);
+
+            View confirm = footerView.findViewById(R.id.bt_confirm);
+            final EditText etMax = (EditText) footerView.findViewById(R.id.et_max);
+            final EditText etMin = (EditText) footerView.findViewById(R.id.et_min);
+
+
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String max = etMax.getText().toString().trim();
+                    String min = etMin.getText().toString().trim();
+                    if (TextUtils.isEmpty(max) || TextUtils.isEmpty(min)) {
+                        UIUtils.showToast("价格区间填写错误");
+                        return;
+                    }
+                    int maxInt = Integer.valueOf(max);
+                    int minInt = Integer.valueOf(min);
+
+
+                    if (selectCategory != null) {
+                        selectCategory.price(maxInt, minInt);
+                    }
+
+                    dismiss();
+                }
+            });
         }
 
         parentCategoryAdapter = new ParentCategoryAdapter(activity, parentData, R.layout.item_selection);
@@ -343,12 +370,18 @@ public class SelectPopupWindow extends PopupWindow {
          * @param tvC  子类选中的文字 ""
          */
         public void selectCategory(int pPos, String tvP, int cPos, String tvC);
+
+        void price(int max, int min);
     }
 
     public interface MoreSelectionInterface {
         void clearData();
 
         void confirm(HashMap<String, String> map);
+    }
+
+    public interface PriceInterface {
+        void choicePrice(int max, int min);
     }
 
 }

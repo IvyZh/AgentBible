@@ -10,8 +10,10 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/et_min"
             android:layout_marginLeft="@dimen/margin_lr"
             android:layout_width="wrap_content"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:textColorHint="@color/text_light"
             android:hint="最低价格" />
@@ -24,6 +26,8 @@
             android:background="@color/text_dark" />
 
         <EditText
+            android:id="@+id/et_max"
+            android:inputType="number"
             android:layout_width="wrap_content"
             android:textColorHint="@color/text_light"
             android:layout_height="wrap_content"
@@ -32,6 +36,7 @@
         <View style="@style/weight_view" />
 
         <Button
+            android:id="@+id/bt_confirm"
             android:layout_marginRight="@dimen/margin_lr"
             android:layout_width="68dp"
             android:textColor="@color/common_blue"
