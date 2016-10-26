@@ -5,14 +5,15 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rl_around_equipment"
+        android:id="@+id/rl_village_magazine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_common"
         android:gravity="center_vertical">
 
-        <Button
+        <TextView
             style="@style/card_title_tv"
-            android:background="@drawable/selector_common"
+
             android:text="小区月报" />
 
         <ImageView style="@style/card_arrow" />

@@ -244,8 +244,50 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-
     <style name="house_feature_tv" parent="home_menu_tv">
         <item name="android:layout_marginLeft">4dp</item>
     </style>
+
+
+    <!--小区信息-配套+基本信息tv-->
+
+
+    <style name="valliage_basic_label_tv">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxWidth">70dp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_marginLeft">@dimen/margin_lr</item>
+        <item name="android:textColor">@color/text_light</item>
+    </style>
+
+    <style name="valliage_basic_label_tv_l" parent="valliage_basic_label_tv">
+        <item name="android:gravity">left</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+
+    <style name="valliage_basic_label_tv_no_margin" parent="valliage_basic_label_tv">
+        <item name="android:layout_marginLeft">0dp</item>
+    </style>
+
+    <style name="valliage_basic_tv">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_lr</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+
+    <style name="valliage_basic_ll">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+
 </resources>

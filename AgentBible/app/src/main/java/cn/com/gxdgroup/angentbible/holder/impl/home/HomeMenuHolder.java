@@ -7,6 +7,7 @@ import android.view.View;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.HouseResourcesListActivity;
+import cn.com.gxdgroup.angentbible.constant.MenuType;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
@@ -35,16 +36,16 @@ public class HomeMenuHolder extends BaseHolder {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_second_hand_house:
-                HouseResourcesListActivity.startActivity(mActivity, 0);
+                HouseResourcesListActivity.startActivity(mActivity, MenuType.SENCOND_HAND);
                 break;
             case R.id.rl_tenement:
-                HouseResourcesListActivity.startActivity(mActivity, 1);
+                HouseResourcesListActivity.startActivity(mActivity, MenuType.RENT_HOUSE);
                 break;
             case R.id.rl_keyuan:
-                HouseResourcesListActivity.startActivity(mActivity, 2);
+                HouseResourcesListActivity.startActivity(mActivity, MenuType.KE_BUY);
                 break;
             case R.id.rl_deal:
-                HouseResourcesListActivity.startActivity(mActivity, 3);
+                HouseResourcesListActivity.startActivity(mActivity, MenuType.RECENT_DEAL);
                 break;
         }
     }

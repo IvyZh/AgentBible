@@ -42,6 +42,8 @@
         <activity android:name=".activities.PhotoViewerActivity" />
         <activity android:name=".activities.CollectionActivity" />
         <activity android:name=".activities.DataAnalysisActivity" />
+        <activity android:name=".activities.VillageBasicInfoActivity" />
+        <activity android:name=".activities.VillageMagazineActivity" />
         <activity
             android:name=".activities.LoginActivity"
             android:theme="@style/AppThemeFullScreen" />

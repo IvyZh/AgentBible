@@ -119,6 +119,13 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
         return this;
     }
 
+
+    public AppTitleView setRightIvRes(int resId) {
+        ivRight.setImageResource(resId);
+        return this;
+    }
+
+
     //点击事件
 
     @Override
