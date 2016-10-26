@@ -164,14 +164,25 @@ public class DataAnalysisActivity extends BaseActivity {
                 FrameLayout frChart = (FrameLayout) view1.findViewById(R.id.fr_chart);
                 int visibility = frChart.getVisibility();
                 if (visibility == View.GONE) {
-                    frChart.setVisibility(View.VISIBLE);
-                    CommonChartHolder chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
-                    frChart.removeAllViews();
-                    frChart.addView(chartHolder.getContentView());
+                    CommonChartHolder chartHolder;
+                    if (frChart.getChildCount() == 0) {
+                        chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
+                        frChart.addView(chartHolder.getContentView());
+                        frChart.setTag(chartHolder);
+                    } else {
+                        chartHolder = (CommonChartHolder) frChart.getTag();
+                    }
+
+                    //frChart.removeAllViews();
+
                     chartHolder.setData(null);
+
+                    frChart.setVisibility(View.VISIBLE);
                 } else {
                     frChart.setVisibility(View.GONE);
                 }
+
+//                frChart.setTag(frChart.getVisibility());
 
             }
         });
