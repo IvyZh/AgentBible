@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.adapter.common.DataRankAdapter;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
+import cn.com.gxdgroup.angentbible.holder.impl.chart.CommonChartHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.home.TrendChartHolder;
 import cn.com.gxdgroup.angentbible.interfaces.SimpleAppTitleListener;
 import cn.com.gxdgroup.angentbible.ui.AppTitleView;
@@ -155,14 +157,21 @@ public class DataAnalysisActivity extends BaseActivity {
             }
         });
 
-        mLvData.setOnScrollListener(new AbsListView.OnScrollListener() {
+        mLvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int i) {
+            public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int i, int i1, int i2) {
+                FrameLayout frChart = (FrameLayout) view1.findViewById(R.id.fr_chart);
+                int visibility = frChart.getVisibility();
+                if (visibility == View.GONE) {
+                    frChart.setVisibility(View.VISIBLE);
+                    CommonChartHolder chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
+                    frChart.removeAllViews();
+                    frChart.addView(chartHolder.getContentView());
+                    chartHolder.setData(null);
+                } else {
+                    frChart.setVisibility(View.GONE);
+                }
 
             }
         });

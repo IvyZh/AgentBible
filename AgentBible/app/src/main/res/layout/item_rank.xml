@@ -5,6 +5,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:background="@drawable/selector_common"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -56,13 +57,11 @@
 
         </RelativeLayout>
 
-        <View style="@style/divide_style" />
-
-        <View
+        <FrameLayout
             android:visibility="gone"
-            android:id="@+id/chart"
+            android:id="@+id/fr_chart"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:background="#eeff00" />
     </LinearLayout>
 </RelativeLayout>

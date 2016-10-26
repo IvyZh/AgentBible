@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_yaxis_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr"
+        android:layout_marginRight="@dimen/margin_lr">
+
+        <TextView
+            android:id="@+id/tv_yaxis_left"
+            android:text="均价(元/平米)"
+            style="@style/tv_12_grey_style" />
+
+        <TextView
+            android:id="@+id/tv_yaxis_right"
+            android:layout_alignParentRight="true"
+            android:text="成交量(套)"
+            style="@style/tv_12_grey_style" />
+
+    </RelativeLayout>
+
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="@dimen/margin_lr"
+        android:layout_marginRight="@dimen/margin_lr"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_char_legend"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_line1_legend"
+            android:drawablePadding="4dp"
+            android:drawableLeft="@drawable/ico_price"
+            android:text="价格"
+            android:padding="5dp"
+            style="@style/tv_12_grey_style" />
+
+        <TextView
+            android:id="@+id/tv_line2_legend"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/ico_price"
+            android:padding="5dp"
+            android:drawablePadding="4dp"
+            android:text="成交套数"
+            style="@style/tv_12_grey_style" />
+
+        <TextView
+            android:id="@+id/tv_bar_legend"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/ico_price"
+            android:padding="5dp"
+            android:drawablePadding="4dp"
+            android:text="成交套数"
+            style="@style/tv_12_grey_style" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,10 +2,12 @@ package cn.com.gxdgroup.angentbible.adapter.common;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import java.util.List;
 
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.holder.impl.chart.CommonChartHolder;
 
 /**
  * Created by Ivy on 2016/10/24.
@@ -21,16 +23,22 @@ public class DataRankAdapter extends CommonAdapter<String> {
     @Override
     public void convert(final ViewHolder holder, String item) {
         holder.setText(R.id.tv_rank_number, item);
-        holder.setOnClickListener(R.id.iv_arrow, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int visibility = holder.getView(R.id.chart).getVisibility();
-                if (visibility == View.GONE) {
-                    holder.getView(R.id.chart).setVisibility(View.VISIBLE);
-                } else {
-                    holder.getView(R.id.chart).setVisibility(View.GONE);
-                }
-            }
-        });
+
+//        holder.setOnClickListener(R.id.iv_arrow, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int visibility = holder.getView(R.id.fr_chart).getVisibility();
+//                if (visibility == View.GONE) {
+//                    holder.getView(R.id.fr_chart).setVisibility(View.VISIBLE);
+//                    FrameLayout frChart = holder.getView(R.id.fr_chart);
+//                    CommonChartHolder chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
+//                    frChart.removeAllViews();
+//                    frChart.addView(chartHolder.getContentView());
+//                    chartHolder.setData(null);
+//                } else {
+//                    holder.getView(R.id.fr_chart).setVisibility(View.GONE);
+//                }
+//            }
+//        });
     }
 }

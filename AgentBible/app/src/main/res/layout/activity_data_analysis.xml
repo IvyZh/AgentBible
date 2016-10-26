@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg">
+    android:background="@color/white">
 
     <cn.com.gxdgroup.angentbible.ui.AppTitleView
         android:id="@+id/titleView"
@@ -61,7 +61,12 @@
         <ListView
             android:id="@+id/lv_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent"
+            android:divider="@drawable/list_divider_lr"
+            android:cacheColorHint="#00000000"
+            android:dividerHeight="0.5dp"
+
+            />
     </LinearLayout>
 
     <cn.com.gxdgroup.angentbible.ui.ObservableScrollView
