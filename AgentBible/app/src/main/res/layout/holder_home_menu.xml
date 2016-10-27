@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="122dp"
+        android:background="@color/white"
+        android:elevation="10dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -16,15 +17,15 @@
 
             <ImageView
                 android:id="@+id/iv_second_hand_house"
-                android:src="@drawable/icon_ersf"
-                style="@style/home_menu_iv" />
+                style="@style/home_menu_iv"
+                android:src="@drawable/icon_ersf" />
 
             <TextView
                 android:id="@+id/tv_second_hand_house"
                 style="@style/home_menu_tv"
-                android:text="二手房"
                 android:layout_below="@+id/iv_second_hand_house"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:text="二手房" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -33,13 +34,13 @@
 
             <ImageView
                 android:id="@+id/iv_tenement"
-                android:src="@drawable/icon_zufang"
-                style="@style/home_menu_iv" />
+                style="@style/home_menu_iv"
+                android:src="@drawable/icon_zufang" />
 
             <TextView
                 android:id="@+id/tv_tenement"
-                android:layout_below="@id/iv_tenement"
                 style="@style/home_menu_tv"
+                android:layout_below="@id/iv_tenement"
                 android:text="租房" />
         </RelativeLayout>
 
@@ -49,13 +50,13 @@
 
             <ImageView
                 android:id="@+id/iv_keyuan"
-                android:src="@drawable/icon_keyuan"
-                style="@style/home_menu_iv" />
+                style="@style/home_menu_iv"
+                android:src="@drawable/icon_keyuan" />
 
             <TextView
                 android:id="@+id/tv_keyuan"
-                android:layout_below="@id/iv_keyuan"
                 style="@style/home_menu_tv"
+                android:layout_below="@id/iv_keyuan"
                 android:text="客源" />
         </RelativeLayout>
 
@@ -65,13 +66,13 @@
 
             <ImageView
                 android:id="@+id/iv_deal"
-                android:src="@drawable/icon_deal"
-                style="@style/home_menu_iv" />
+                style="@style/home_menu_iv"
+                android:src="@drawable/icon_deal" />
 
             <TextView
                 android:id="@+id/tv_deal"
-                android:layout_below="@id/iv_deal"
                 style="@style/home_menu_tv"
+                android:layout_below="@id/iv_deal"
                 android:text="最新成交" />
         </RelativeLayout>
 

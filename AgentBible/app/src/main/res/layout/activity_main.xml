@@ -16,6 +16,7 @@
 
     <include
         android:id="@+id/ll_bottom"
-        layout="@layout/layout_main_bottom" />
+        layout="@layout/layout_main_bottom"
+        android:translationZ="10dp" />
 
 </LinearLayout>

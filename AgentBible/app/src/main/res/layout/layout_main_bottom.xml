@@ -7,6 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:translationZ="10dp"
+        android:elevation="10dp"
         android:background="@color/white">
 
         <LinearLayout
