@@ -10,7 +10,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.DataAnalysisActivity;
-import cn.com.gxdgroup.angentbible.fragments.DataAnalysisFragments2;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 

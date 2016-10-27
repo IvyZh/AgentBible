@@ -1,12 +1,10 @@
 package cn.com.gxdgroup.angentbible.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.utils.AppManager;
-import cn.com.gxdgroup.angentbible.utils.L;
 
 
 /**
