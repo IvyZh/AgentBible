@@ -25,7 +25,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/bg" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_portrait"
                     android:src="@drawable/ico_personality"
                     android:layout_width="86dp"
@@ -33,6 +33,7 @@
                     android:layout_centerInParent="true" />
 
                 <TextView
+                    android:id="@+id/tv_nickname"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/iv_portrait"
                     android:layout_width="wrap_content"
