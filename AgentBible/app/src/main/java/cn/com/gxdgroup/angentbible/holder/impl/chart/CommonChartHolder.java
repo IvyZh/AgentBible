@@ -3,6 +3,7 @@ package cn.com.gxdgroup.angentbible.holder.impl.chart;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,11 +57,27 @@ public class CommonChartHolder extends BaseHolder {
     TextView mTvBarLegend;
     @BindView(R.id.ll_char_legend)
     LinearLayout mLlCharLegend;
+    @BindView(R.id.tv_char_title)
+    TextView mTvCharTitle;
+    @BindView(R.id.tv_second_title)
+    TextView mTvSecondTitle;
+    @BindView(R.id.tv_number)
+    TextView mTvNumber;
+    @BindView(R.id.tv_unit)
+    TextView mTvUnit;
+    @BindView(R.id.tv_rate)
+    TextView mTvRate;
+    @BindView(R.id.iv_rate_arrow)
+    ImageView mIvRateArrow;
+    @BindView(R.id.rl_rate)
+    RelativeLayout mRlRate;
+    @BindView(R.id.ll_char_title)
+    LinearLayout mLlCharTitle;
 
     private ChartType mChartType = ChartType.BAR;//默认是柱状图
 
     public enum ChartType {
-        BAR, LINE, LINE2, BAR_LINE, BAR_LINE2
+        BAR, LINE, LINE2, BAR_LINE, BAR_LINE2, LINE_TITLE
     }
 
     public CommonChartHolder(FragmentActivity activity, ChartType chartType) {
@@ -144,7 +161,6 @@ public class CommonChartHolder extends BaseHolder {
         leftAxis.setGridColor(gridColorId);//设置该轴的网格线颜色。
         leftAxis.setLabelCount(6);
         //xAxis.setAvoidFirstLastClipping(true);//如果设置为true，则在绘制时会避免“剪掉”在x轴上的图表或屏幕边缘的第一个和最后一个坐标轴标签项。
-        // 根据ChartType 来判断显示的表格类型
 
         return super.getContentView();
     }
@@ -177,6 +193,8 @@ public class CommonChartHolder extends BaseHolder {
         int gridColorId = Color.rgb(239, 239, 239);//分割线的颜色
         int labelTextColor = Color.rgb(112, 112, 112);//x y周的label的颜色
 
+
+        // 根据ChartType 来判断显示的表格类型
         if (mChartType == ChartType.BAR) {//柱状图-1
             mTvLine1Legend.setVisibility(View.GONE);
             mTvLine2Legend.setVisibility(View.GONE);
@@ -185,6 +203,15 @@ public class CommonChartHolder extends BaseHolder {
         } else if (mChartType == ChartType.LINE) {//折线图-1
             mTvLine2Legend.setVisibility(View.GONE);
             mTvBarLegend.setVisibility(View.GONE);
+
+            data.setData(generateLineData(R.color.common_blue, xAxisLabels.length));
+        } else if (mChartType == ChartType.LINE_TITLE) {// 折线图+TITLE
+            mTvLine2Legend.setVisibility(View.GONE);
+            mTvBarLegend.setVisibility(View.GONE);
+            mLlCharTitle.setVisibility(View.VISIBLE);
+
+            YAxis right = mChart.getAxisRight();
+            right.setEnabled(false);
 
             data.setData(generateLineData(R.color.common_blue, xAxisLabels.length));
         } else if (mChartType == ChartType.BAR_LINE) {//柱状-1 + 折线-1
@@ -218,8 +245,8 @@ public class CommonChartHolder extends BaseHolder {
             rightAxis.setAxisMinValue(0);
 
             data.setData(generateBarData(20, xAxisLabels.length));
-            data.setData(generateLineData(R.color.common_blue, xAxisLabels.length));
-            data.setData(generateLineData(R.color.common_orange, xAxisLabels.length));
+            data.setData(generateLineData(UIUtils.getColor(R.color.common_blue), xAxisLabels.length));
+            data.setData(generateLineData(UIUtils.getColor(R.color.common_orange), xAxisLabels.length));
         }
 
 
@@ -309,6 +336,11 @@ public class CommonChartHolder extends BaseHolder {
 
     public CommonChartHolder setTvBarLegend(String msg) {
         mTvBarLegend.setText(msg);
+        return this;
+    }
+
+    public CommonChartHolder setChartTitle(String msg) {
+        mTvCharTitle.setText(msg);
         return this;
     }
 }

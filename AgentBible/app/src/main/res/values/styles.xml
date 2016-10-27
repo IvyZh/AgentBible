@@ -302,5 +302,8 @@
         <item name="android:background">@drawable/selector_selection_more</item>
     </style>
 
+    <style name="cb_month_year" parent="cb_select">
+        <item name="android:background">@drawable/selector_selection_more</item>
+    </style>
 
 </resources>

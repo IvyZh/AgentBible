@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import java.util.List;
+import java.util.Random;
 
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.holder.impl.chart.CommonChartHolder;
@@ -23,7 +24,7 @@ public class DataRankAdapter extends CommonAdapter<String> {
     @Override
     public void convert(final ViewHolder holder, String item) {
         holder.setText(R.id.tv_rank_number, item);
-
+        holder.setText(R.id.tv_number, new Random().nextInt(1000) + "套");
 //        holder.setOnClickListener(R.id.iv_arrow, new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

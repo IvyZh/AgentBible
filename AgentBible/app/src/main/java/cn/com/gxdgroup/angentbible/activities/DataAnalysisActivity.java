@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Switch;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +37,19 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 public class DataAnalysisActivity extends BaseActivity {
 
+
+    @BindView(R.id.titleView)
+    AppTitleView mTitleView;
+    @BindView(R.id.tv_list_title)
+    TextView mTvListTitle;
+    @BindView(R.id.tab_month_year)
+    LinearLayout mTabMonthYear;
+    @BindView(R.id.rl_list_title)
+    RelativeLayout mRlListTitle;
+    @BindView(R.id.lv_data)
+    ListView mLvData;
+    @BindView(R.id.ll_tite_listview)
+    LinearLayout mLlTiteListview;
     @BindView(R.id.fr_deal_analysis)
     FrameLayout mFrDealAnalysis;
     @BindView(R.id.fr_deal_volume_analysis)
@@ -45,8 +58,8 @@ public class DataAnalysisActivity extends BaseActivity {
     FrameLayout mFrQuotedAnalysis;
     @BindView(R.id.fr_pv_analysis)
     FrameLayout mFrPvAnalysis;
-    @BindView(R.id.titleView)
-    AppTitleView mTitleView;
+    @BindView(R.id.sv_city_ana)
+    ObservableScrollView mSvCityAna;
     @BindView(R.id.tv_city_ana)
     TextView mTvCityAna;
     @BindView(R.id.tv_hot_area)
@@ -55,19 +68,16 @@ public class DataAnalysisActivity extends BaseActivity {
     TextView mTvHotBankuai;
     @BindView(R.id.tv_hot_garden)
     TextView mTvHotGarden;
-    @BindView(R.id.sv_city_ana)
-    ObservableScrollView mSvCityAna;
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
-    @BindView(R.id.ll_tite_listview)
-    LinearLayout mLlTiteListview;
     @BindView(R.id.ll_bottom_tab)
     LinearLayout mLlBottomTab;
-    @BindView(R.id.tab_month_year)
-    Switch mTabMonthYear;
-    @BindView(R.id.lv_data)
-    ListView mLvData;
+    @BindView(R.id.cb_month)
+    RadioButton mCbMonth;
+    @BindView(R.id.cb_year)
+    RadioButton mCbYear;
+    @BindView(R.id.tv_rank_date)
+    TextView mTvRankDate;
     private int mDataType;//数据分析的类型
+    private boolean isAddCityView = false;
 
     public static void startActivity(Activity ba, int dataType) {
         Intent intent = new Intent(ba, DataAnalysisActivity.class);
@@ -86,7 +96,19 @@ public class DataAnalysisActivity extends BaseActivity {
     public void initView() {
 
 
-        mTitleView.setListener(new SimpleAppTitleListener(this));
+        mTitleView.setListener(new SimpleAppTitleListener(this) {
+            @Override
+            public void onTabLeft() {
+                loadData();
+                mCbMonth.setChecked(true);
+            }
+
+            @Override
+            public void onTabRight() {
+                loadData();
+                mCbMonth.setChecked(true);
+            }
+        });
 
         mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
                 .setTitleMsg("全市分析");
@@ -102,21 +124,11 @@ public class DataAnalysisActivity extends BaseActivity {
 
         if (mDataType == 0) {
             //全市分析
-            TrendChartHolder dealHolder = new TrendChartHolder(this);//成交分析
-            dealHolder.setTitle("成交分析");
-            mFrDealAnalysis.addView(dealHolder.getContentView());
+            if (!isAddCityView) {
+                prepareAddCityView();
+            }
 
-            TrendChartHolder dealVolumenHolder = new TrendChartHolder(this);//成交总金额分析
-            dealVolumenHolder.setTitle("成交总金额分析");
-            mFrDealVolumeAnalysis.addView(dealVolumenHolder.getContentView());
 
-            TrendChartHolder quotedHolder = new TrendChartHolder(this);//挂牌分析
-            quotedHolder.setTitle("挂牌分析");
-            mFrQuotedAnalysis.addView(quotedHolder.getContentView());
-
-            TrendChartHolder pvHolder = new TrendChartHolder(this);//浏览量分析
-            pvHolder.setTitle("浏览量分析");
-            mFrPvAnalysis.addView(pvHolder.getContentView());
         } else if (mDataType >= 1 && mDataType <= 3) {//热门区域 热门板块 热门小区
             mSvCityAna.setVisibility(View.GONE);
             mLlTiteListview.setVisibility(View.VISIBLE);
@@ -126,7 +138,7 @@ public class DataAnalysisActivity extends BaseActivity {
             mSvCityAna.setVisibility(View.GONE);
             mLlTiteListview.setVisibility(View.VISIBLE);
             mTitleView.showMode(AppTitleView.MODE.TAB, -1, null)
-                    .setTabLeftMsg("二手房发布量").setTabRightMsg("租房发布量");
+                    .setTabLeftMsg("二手房").setTabRightMsg("租房");
         } else if (mDataType == 5) {//网站经纪人数
             mSvCityAna.setVisibility(View.GONE);
             mLlTiteListview.setVisibility(View.VISIBLE);
@@ -161,32 +173,114 @@ public class DataAnalysisActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
 
-                FrameLayout frChart = (FrameLayout) view1.findViewById(R.id.fr_chart);
-                int visibility = frChart.getVisibility();
-                if (visibility == View.GONE) {
-                    CommonChartHolder chartHolder;
-                    if (frChart.getChildCount() == 0) {
-                        chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
-                        frChart.addView(chartHolder.getContentView());
-                        frChart.setTag(chartHolder);
+                if (mDataType != 3) {
+                    FrameLayout frChart = (FrameLayout) view1.findViewById(R.id.fr_chart);
+                    int visibility = frChart.getVisibility();
+                    if (visibility == View.GONE) {
+                        CommonChartHolder chartHolder;
+                        if (frChart.getChildCount() == 0) {
+                            chartHolder = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
+                            frChart.addView(chartHolder.getContentView());
+                            frChart.setTag(chartHolder);
+                        } else {
+                            chartHolder = (CommonChartHolder) frChart.getTag();
+                        }
+
+                        chartHolder.setData(null);
+                        frChart.setVisibility(View.VISIBLE);
                     } else {
-                        chartHolder = (CommonChartHolder) frChart.getTag();
+                        frChart.setVisibility(View.GONE);
                     }
-
-                    //frChart.removeAllViews();
-
-                    chartHolder.setData(null);
-
-                    frChart.setVisibility(View.VISIBLE);
                 } else {
-                    frChart.setVisibility(View.GONE);
+                    View chartContainer = view1.findViewById(R.id.ll_charts_container);
+                    int visibility = chartContainer.getVisibility();
+                    if (visibility == View.GONE) {
+                        FrameLayout frChart1 = (FrameLayout) view1.findViewById(R.id.fr_chart1);
+                        FrameLayout frChart2 = (FrameLayout) view1.findViewById(R.id.fr_chart2);
+                        CommonChartHolder chartHolder1, chartHolder2;
+                        if (frChart1.getChildCount() == 0) {
+                            chartHolder1 = new CommonChartHolder(null, CommonChartHolder.ChartType.BAR_LINE);
+                            chartHolder2 = new CommonChartHolder(null, CommonChartHolder.ChartType.LINE);
+                            frChart1.addView(chartHolder1.getContentView());
+                            frChart2.addView(chartHolder2.getContentView());
+
+                            frChart1.setTag(chartHolder1);
+                            frChart2.setTag(chartHolder2);
+                        } else {
+                            chartHolder1 = (CommonChartHolder) frChart1.getTag();
+                            chartHolder2 = (CommonChartHolder) frChart2.getTag();
+                        }
+
+                        chartHolder1.setData(null);
+                        chartHolder2.setData(null);
+
+                        chartContainer.setVisibility(View.VISIBLE);
+                    } else {
+                        chartContainer.setVisibility(View.GONE);
+                    }
                 }
-
-//                frChart.setTag(frChart.getVisibility());
-
             }
         });
 
+
+        // 给月和年的CheckBox设置点击事件
+
+        mCbMonth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton button, boolean b) {
+                if (b) {
+                    mTvListTitle.setText("月排名");
+                    mTvRankDate.setText("2016-08");
+                } else {
+                    mTvListTitle.setText("年排名");
+                    mTvRankDate.setText("2016");
+                }
+
+                loadData();
+            }
+        });
+
+        int blueColor = UIUtils.getColor(R.color.common_blue);
+        switch (mDataType) {
+            case 0:
+                mTvCityAna.setTextColor(blueColor);
+                break;
+            case 1:
+                mTvHotArea.setTextColor(blueColor);
+                break;
+            case 2:
+                mTvHotBankuai.setTextColor(blueColor);
+                break;
+            case 3:
+                mTvHotGarden.setTextColor(blueColor);
+                break;
+        }
+
+    }
+
+    private void prepareAddCityView() {
+        isAddCityView = true;
+        TrendChartHolder dealHolder = new TrendChartHolder(this);//成交分析
+        dealHolder.setTitle("成交分析");
+        mFrDealAnalysis.addView(dealHolder.getContentView());
+        dealHolder.setData();
+
+        CommonChartHolder dealVolumenHolder = new CommonChartHolder(this, CommonChartHolder.ChartType.LINE_TITLE);//成交总金额分析
+        dealVolumenHolder.setChartTitle("成交总金额分析");
+        mFrDealVolumeAnalysis.addView(dealVolumenHolder.getContentView());
+        dealVolumenHolder.setData(null);
+
+
+        CommonChartHolder quotedHolder = new CommonChartHolder(this, CommonChartHolder.ChartType.LINE_TITLE);//挂牌分析
+        quotedHolder.setChartTitle("挂牌分析");
+        mFrQuotedAnalysis.addView(quotedHolder.getContentView());
+        quotedHolder.setData(null);
+
+
+        CommonChartHolder pvHolder = new CommonChartHolder(this, CommonChartHolder.ChartType.LINE_TITLE);//浏览量分析
+        pvHolder.setChartTitle("浏览量分析");
+        mFrPvAnalysis.addView(pvHolder.getContentView());
+        pvHolder.setData(null);
     }
 
 
@@ -203,7 +297,11 @@ public class DataAnalysisActivity extends BaseActivity {
 
         switch (view.getId()) {
             case R.id.tv_city_ana:
+                if (!isAddCityView) {
+                    prepareAddCityView();
+                }
                 mSvCityAna.setVisibility(View.VISIBLE);
+                mDataType = 0;
                 mLlTiteListview.setVisibility(View.GONE);
                 mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
                         .setTitleMsg("全市分析");
@@ -211,6 +309,7 @@ public class DataAnalysisActivity extends BaseActivity {
                 break;
             case R.id.tv_hot_area:
                 mSvCityAna.setVisibility(View.GONE);
+                mDataType = 1;
                 mLlTiteListview.setVisibility(View.VISIBLE);
                 mTitleView.showMode(AppTitleView.MODE.TAB, -1, null)
                         .setTabLeftMsg("成交套数").setTabRightMsg("成交总价");
@@ -218,12 +317,14 @@ public class DataAnalysisActivity extends BaseActivity {
                 break;
             case R.id.tv_hot_bankuai:
                 mSvCityAna.setVisibility(View.GONE);
+                mDataType = 2;
                 mLlTiteListview.setVisibility(View.VISIBLE);
                 mTitleView.showMode(AppTitleView.MODE.TAB, -1, null)
                         .setTabLeftMsg("成交套数").setTabRightMsg("成交总价");
                 mTvHotBankuai.setTextColor(blueColor);
                 break;
             case R.id.tv_hot_garden:
+                mDataType = 3;
                 mSvCityAna.setVisibility(View.GONE);
                 mLlTiteListview.setVisibility(View.VISIBLE);
                 mTitleView.showMode(AppTitleView.MODE.TITLE, -1, null)
@@ -231,10 +332,8 @@ public class DataAnalysisActivity extends BaseActivity {
                 mTvHotGarden.setTextColor(blueColor);
                 break;
         }
-    }
 
-    @OnClick(R.id.sv_city_ana)
-    public void onClick() {
+        loadData();
     }
 
 
@@ -248,7 +347,14 @@ public class DataAnalysisActivity extends BaseActivity {
             data.add(i + "");
         }
 
-        DataRankAdapter adapter = new DataRankAdapter(this, data, R.layout.item_rank);
-        mLvData.setAdapter(adapter);
+        if (mDataType == 3) {//热门小区单独处理
+            DataRankAdapter adapter = new DataRankAdapter(this, data, R.layout.item_hot_village_rank);
+            mLvData.setAdapter(adapter);
+        } else {
+            DataRankAdapter adapter = new DataRankAdapter(this, data, R.layout.item_rank);
+            mLvData.setAdapter(adapter);
+        }
+
+
     }
 }
