@@ -187,4 +187,17 @@ public class UIUtils {
     }
 
 
+    public static String getAppInfo() {
+        try {
+            String pkName = getContext().getPackageName();
+            String versionName = getContext().getPackageManager().getPackageInfo(
+                    pkName, 0).versionName;
+            int versionCode = getContext().getPackageManager()
+                    .getPackageInfo(pkName, 0).versionCode;
+            return pkName + "   " + versionName + "  " + versionCode;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

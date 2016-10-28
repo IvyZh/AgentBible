@@ -6,6 +6,8 @@ import android.os.Handler;
 import com.baidu.mapapi.SDKInitializer;
 
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
+import cn.com.gxdgroup.angentbible.utils.L;
+import cn.com.gxdgroup.angentbible.utils.UIUtils;
 import okhttp3.OkHttpClient;
 
 /**
@@ -28,6 +30,8 @@ public class MyApplication extends Application {
         handler = new Handler();
         mainTid = android.os.Process.myTid();
         initOkHttp();//初始化OkHttp
+
+        L.v("--" + UIUtils.getAppInfo());
 
     }
 
