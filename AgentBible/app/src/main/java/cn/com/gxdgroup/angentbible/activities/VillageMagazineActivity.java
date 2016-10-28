@@ -1,12 +1,11 @@
 package cn.com.gxdgroup.angentbible.activities;
 
-import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
+import cn.com.gxdgroup.angentbible.holder.impl.chart.CommonChartHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.VillageMagazineBasicHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.VillageMagazineDealHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.VillageMagazineQuoteHolder;
@@ -40,15 +39,20 @@ public class VillageMagazineActivity extends BaseActivity {
     @Override
     public void initView() {
 
-        mTitleView.showMode(AppTitleView.MODE.TITLE_R_IV, -1, this)
-                .setRightIvRes(R.drawable.btn_share)
+        mTitleView.showMode(AppTitleView.MODE.TITLE, -1, this)
+//                .setRightIvRes(R.drawable.btn_share)
                 .setTitleMsg("小区月报")
                 .setListener(new SimpleAppTitleListener(this));
 
         mFrImgsBasic.addView(new VillageMagazineBasicHolder(this).getContentView());
         mFrDeal.addView(new VillageMagazineDealHolder(this).getContentView());
         mFrQuote.addView(new VillageMagazineQuoteHolder(this).getContentView());
-        mFrVp.addView(new VillageMagazineVpHolder(this).getContentView());
+
+        CommonChartHolder vpChartHolder = new CommonChartHolder(this, CommonChartHolder.ChartType.LINE_TITLE);
+
+        mFrVp.addView(vpChartHolder.getContentView());
+        vpChartHolder.setChartTitle("浏览量");
+        vpChartHolder.setData(null);
 
 
     }

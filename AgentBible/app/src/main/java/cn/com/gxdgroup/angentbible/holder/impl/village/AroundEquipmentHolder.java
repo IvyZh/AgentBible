@@ -33,11 +33,16 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.EquipmentActivity;
 import cn.com.gxdgroup.angentbible.activities.VillageInfoActivity;
+import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.holder.BaseHolder;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
@@ -125,13 +130,22 @@ public class AroundEquipmentHolder extends BaseHolder {
             public void onGetPoiResult(PoiResult result) {
                 //获取POI检索结果
 
+                MessageEvent event = new MessageEvent(1, "123");
+                EventBus.getDefault().post(event);
 
                 if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
                     L.v("search--error");
                     return;
                 }
-
                 L.v("---获取POI检索结果--" + result.getAllPoi().size());
+                List<PoiInfo> allPoi = result.getAllPoi();
+
+                for (int i = 0; i < allPoi.size(); i++) {
+                    PoiInfo p = allPoi.get(i);
+                    L.v(i + "--address:" + p.address + "--name:" + p.name + "--location:" + p.location.longitude + "," + p.location.latitude + "---phoneNum:" + p.phoneNum + "--postCode:" + p.postCode);
+                }
+
+
                 if (result.error == SearchResult.ERRORNO.NO_ERROR) {
                     mBaiduMap.clear();
                     //创建PoiOverlay

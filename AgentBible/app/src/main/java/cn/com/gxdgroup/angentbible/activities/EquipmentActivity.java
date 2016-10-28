@@ -6,13 +6,21 @@ import android.widget.FrameLayout;
 
 import com.baidu.mapapi.map.TextureMapView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
+import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.holder.impl.village.AroundEquipmentHolder;
 import cn.com.gxdgroup.angentbible.holder.impl.village.EquipmentMapDetialsHolder;
+import cn.com.gxdgroup.angentbible.interfaces.SimpleAppTitleListener;
+import cn.com.gxdgroup.angentbible.ui.AppTitleView;
 import cn.com.gxdgroup.angentbible.ui.TitleView;
+import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 /**
@@ -23,7 +31,7 @@ import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
 public class EquipmentActivity extends BaseActivity {
     @BindView(R.id.titleView)
-    TitleView mTitleView;
+    AppTitleView mTitleView;
     @BindView(R.id.fr_map)
     FrameLayout mFrMap;
     private TextureMapView mMapView;
@@ -36,6 +44,9 @@ public class EquipmentActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        //注册事件
+        EventBus.getDefault().register(this);
+
         final AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
         final EquipmentMapDetialsHolder detialsHolder = new EquipmentMapDetialsHolder(this);
 
@@ -47,32 +58,35 @@ public class EquipmentActivity extends BaseActivity {
 
         detialsHolder.getContentView().setVisibility(View.GONE);
 
-        mTitleView.setLeftButtonListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        mTitleView.showRightImageView(false);
-        mTitleView.showRightText(true);
-
-        mTitleView.setRightTextListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMap) {
-                    equipmentHolder.getContentView().setVisibility(View.GONE);
-                    detialsHolder.getContentView().setVisibility(View.VISIBLE);
-                } else {
-                    detialsHolder.getContentView().setVisibility(View.GONE);
-                    equipmentHolder.getContentView().setVisibility(View.VISIBLE);
-                }
-                isMap = !isMap;
-            }
-        });
+        mTitleView.showMode(AppTitleView.MODE.TITLE_R_TV, -1, this)
+                .setRightMsg("详情")
+                .setTitleMsg("周边配套")
+                .setListener(new SimpleAppTitleListener(this) {
+                    @Override
+                    public void OntvRight() {
+                        if (isMap) {
+                            equipmentHolder.getContentView().setVisibility(View.GONE);
+                            detialsHolder.getContentView().setVisibility(View.VISIBLE);
+                        } else {
+                            detialsHolder.getContentView().setVisibility(View.GONE);
+                            equipmentHolder.getContentView().setVisibility(View.VISIBLE);
+                        }
+                        isMap = !isMap;
+                    }
+                });
 
 
         mMapView = equipmentHolder.getMapView();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void helloEventBus(MessageEvent event) {
+        L.v("--equipment activity--event bus0");
+        if (event.getMsgType() == 1) {
+            L.v("--equipment activity--event bus");
+        }
     }
 
 
@@ -81,6 +95,7 @@ public class EquipmentActivity extends BaseActivity {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

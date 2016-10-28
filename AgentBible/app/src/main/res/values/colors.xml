@@ -23,6 +23,8 @@
     <color name="home_menu_text">#434343</color>
 
 
+    <color name="login_title">#29D9EA</color>
+
     <color name="white">#ffffff</color>
 
     <color name="shape_select_stroke">#BFBFBF</color>

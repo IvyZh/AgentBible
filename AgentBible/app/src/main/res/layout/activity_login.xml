@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/shape_login_bg"
     android:orientation="vertical">
 
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ico_close_left"
+        android:layout_marginTop="5dp"
         android:padding="@dimen/margin_lr" />
 
     <TextView
@@ -30,7 +32,7 @@
         android:layout_height="94dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/iv_close"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/ico_logo" />
 
 
@@ -47,8 +49,8 @@
             android:layout_marginLeft="@dimen/margin_lr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/shape_cursor_bg"
-            android:textColorHint="#eeffffff"
+            android:textCursorDrawable="@null"
+            android:textColorHint="#66ffffff"
             android:background="@null"
             android:singleLine="true"
             android:drawableLeft="@drawable/icon_user"
@@ -60,9 +62,10 @@
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:visibility="gone"
             android:layout_marginRight="@dimen/margin_lr"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/close" />
@@ -80,16 +83,16 @@
         android:id="@+id/et_pwd"
         android:layout_marginRight="@dimen/margin_lr"
         android:layout_marginLeft="@dimen/margin_lr"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@null"
         android:singleLine="true"
         android:textColor="@color/white"
         android:maxLength="8"
-        android:textCursorDrawable="@drawable/shape_cursor_bg"
+        android:textCursorDrawable="@null"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_divide"
-        android:textColorHint="#eeffffff"
+        android:textColorHint="#66ffffff"
         android:drawableLeft="@drawable/ico_key"
         android:drawablePadding="8dp"
         android:hint="输入验证码" />
@@ -97,7 +100,7 @@
     <Button
         android:layout_width="96dp"
         android:layout_height="27dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentRight="true"
         android:textColor="@color/white"
         android:layout_marginRight="@dimen/margin_lr"
@@ -117,7 +120,8 @@
     <Button
         android:id="@+id/bt_login"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/margin_lr"
+        android:layout_marginLeft="@dimen/margin_lr"
+        android:layout_marginRight="@dimen/margin_lr"
         android:layout_height="50dp"
         android:text="登录"
         android:textSize="16sp"
@@ -173,14 +177,14 @@
             android:id="@+id/iv_wechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="30dp"
             android:src="@drawable/btn_weichat" />
 
         <ImageView
             android:id="@+id/iv_qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:src="@drawable/btn_qq" />
     </LinearLayout>
 
@@ -193,10 +197,19 @@
         android:layout_alignParentBottom="true">
 
         <TextView
-            android:textColor="@color/white"
+            android:textColor="#66ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登录即表示同意 《用户服务协议》" />
+            android:textSize="12sp"
+            android:text="登录即表示同意" />
+
+        <TextView
+            android:id="@+id/tv_user_handbook"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:layout_height="wrap_content"
+            android:text="《用户服务协议》" />
 
     </LinearLayout>
 </RelativeLayout>

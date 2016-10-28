@@ -198,10 +198,10 @@ public class AppTitleView extends RelativeLayout implements View.OnClickListener
                 setVisible(false, llTab, rlSearch, ivRight, tvRight).setVisible(true, tvTitle);
                 break;
             case TITLE_R_IV:
-                setVisible(false, llTab, rlSearch, tvRight).setVisible(true, ivRight);
+                setVisible(false, llTab, rlSearch, tvRight, tvTitle).setVisible(true, ivRight);
                 break;
             case TITLE_R_TV:
-                setVisible(false, llTab, rlSearch, ivRight).setVisible(true, tvRight);
+                setVisible(false, llTab, rlSearch, ivRight).setVisible(true, tvRight, tvTitle);
                 break;
             case TAB:
                 setVisible(false, rlSearch, tvTitle, ivRight, tvRight).setVisible(true, llTab);

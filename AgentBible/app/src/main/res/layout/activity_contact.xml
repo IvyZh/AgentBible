@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/common_bg"
+    android:fitsSystemWindows="true"
     android:baselineAligned="false">
 
     <cn.com.gxdgroup.angentbible.ui.AppTitleView

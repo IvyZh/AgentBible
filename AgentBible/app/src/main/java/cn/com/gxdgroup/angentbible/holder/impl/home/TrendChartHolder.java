@@ -135,10 +135,9 @@ public class TrendChartHolder extends BaseHolder {
         rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         rightAxis.setTextColor(labelTextColor);//设置轴标签的颜色。
-        rightAxis.setLabelCount(5);
+        rightAxis.setLabelCount(4);
         rightAxis.setDrawAxisLine(false);// 设置为true，则绘制网格线。
         rightAxis.setAxisMaxValue(100);
-        rightAxis.setAxisMinValue(0);
 //
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setEnabled(true);
@@ -152,7 +151,7 @@ public class TrendChartHolder extends BaseHolder {
         leftAxis.setGranularity(1f);
         leftAxis.setAxisLineColor(gridColorId);//设置轴线的轴的颜色。,使用这种引用不行：R.color.grid_color
         leftAxis.setGridColor(gridColorId);//设置该轴的网格线颜色。
-        leftAxis.setLabelCount(6);
+        leftAxis.setLabelCount(4);
 //        xAxis.setAvoidFirstLastClipping(true);//如果设置为true，则在绘制时会避免“剪掉”在x轴上的图表或屏幕边缘的第一个和最后一个坐标轴标签项。
 
 

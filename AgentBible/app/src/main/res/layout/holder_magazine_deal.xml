@@ -30,6 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.5"
         android:textColor="@color/text_dark"
         android:text="湖滨半岛公馆最新成交均价为30000元/㎡，环比上月上 涨10.00%。"></TextView>
 
@@ -97,6 +99,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.5"
         android:text="湖滨半岛公馆本月共成交7套，其中一居1套，两居1套，三居5套，其他0套。"
         android:textColor="@color/text_dark" />
 
@@ -110,18 +114,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_dark"
             android:text="户型/成交日期" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:textColor="@color/text_dark"
             android:text="成交价" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:textColor="@color/text_dark"
             android:text="单价" />
 
         <ListView

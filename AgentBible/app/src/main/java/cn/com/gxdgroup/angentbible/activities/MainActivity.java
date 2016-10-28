@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
+import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.fragments.DataAnalysisFragments;
 import cn.com.gxdgroup.angentbible.fragments.HomeFragment;
 import cn.com.gxdgroup.angentbible.fragments.MeFragment;
@@ -96,9 +97,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void helloEventBus(Object userInfo) {
-        L.v("--EventBus--" + userInfo);
-        meFragment.setAvatar(userInfo);
+    public void helloEventBus(MessageEvent event) {
+        L.v("MainActivity,helloEventBus");
+        if (event.getMsgType() == 0) {
+            meFragment.setAvatar(event.getMsg());
+        }
     }
 
 

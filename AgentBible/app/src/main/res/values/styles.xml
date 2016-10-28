@@ -11,8 +11,8 @@
 
     <style name="AppThemeFullScreen" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">#29D9EA</item>
+        <item name="colorPrimaryDark">#29D9EA</item>
         <!--<item name="android:listDivider">@drawable/divider_bg</item>-->
     </style>
 
