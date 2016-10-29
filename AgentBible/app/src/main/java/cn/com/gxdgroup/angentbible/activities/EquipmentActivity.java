@@ -68,6 +68,7 @@ public class EquipmentActivity extends BaseActivity {
                         if (isMap) {
                             equipmentHolder.getContentView().setVisibility(View.GONE);
                             detialsHolder.getContentView().setVisibility(View.VISIBLE);
+                            detialsHolder.setData();
                         } else {
                             detialsHolder.getContentView().setVisibility(View.GONE);
                             equipmentHolder.getContentView().setVisibility(View.VISIBLE);
