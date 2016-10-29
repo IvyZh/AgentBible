@@ -109,8 +109,7 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile files('libs/mta-sdk-1.6.2.jar')
     compile files('libs/open_sdk_r5756.jar')
-
-
     //CircleImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile files('libs/libammsdk.jar')
 }

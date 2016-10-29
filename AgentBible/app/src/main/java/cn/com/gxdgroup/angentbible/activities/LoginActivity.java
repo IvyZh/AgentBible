@@ -1,12 +1,7 @@
 package cn.com.gxdgroup.angentbible.activities;
 
 import android.content.Intent;
-import android.opengl.ETC1;
-import android.os.SystemClock;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,21 +9,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import cn.com.gxdgroup.angentbible.R;
+import cn.com.gxdgroup.angentbible.wxapi.WXEntryActivity;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
+import cn.com.gxdgroup.angentbible.constant.MyConstants;
 import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.listener.GetQQUserInfoUiListener;
 import cn.com.gxdgroup.angentbible.listener.MyTextWatcher;
@@ -69,10 +71,15 @@ public class LoginActivity extends BaseActivity {
     ImageView mIvWechat;
     @BindView(R.id.iv_qq)
     ImageView mIvQq;
+    // QQ
     private Tencent mTencent;
     private IUiListener qqLoginListener;
     private static boolean isServerSideLogin = false;
     private UserInfo mInfo;
+
+    //WeiXin
+    // IWXAPI 是第三方app和微信通信的openapi接口
+    private IWXAPI api;
 
     @Override
     protected void setContentView() {
@@ -81,6 +88,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        //QQ初始化
         mTencent = Tencent.createInstance("1105165474", this.getApplicationContext());
 
         qqLoginListener = new QQLoginUiListener() {
@@ -91,6 +100,13 @@ public class LoginActivity extends BaseActivity {
             }
         };
 
+        // 微信初始化
+
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        api = WXAPIFactory.createWXAPI(this, MyConstants.APP_ID, false);
+        api.registerApp(MyConstants.APP_ID);
+
+        // 控件初始化
         mEtUsername.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
@@ -117,6 +133,7 @@ public class LoginActivity extends BaseActivity {
 
                 break;
             case R.id.iv_wechat:
+                doWeChat();
                 break;
             case R.id.iv_qq:
                 doQQLogin();
@@ -126,6 +143,41 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
+    //##############################################################################
+    //################                                              ################
+    //################                                              ################
+    //################                 以下是WeChat登陆的逻辑         ################
+    //################                                              ################
+    //################                                              ################
+    //##############################################################################
+    private void doWeChat() {
+
+        //Step 1. 请求code
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+
+        if (!api.isWXAppInstalled()) {
+            UIUtils.showToast("请先安装微信客户端");
+            return;
+        }
+        if (!api.isWXAppSupportAPI()) {
+            UIUtils.showToast("请先更新微信客户端");
+            return;
+        }
+        //调用该方法拉起微信的登录界面
+        api.sendReq(req);
+    }
+
+
+    //##############################################################################
+    //################                                              ################
+    //################                                              ################
+    //################                 以上是WeChat登陆的逻辑         ################
+    //################                                              ################
+    //################                                              ################
+    //##############################################################################
 
 
     //##############################################################################
@@ -192,6 +244,7 @@ public class LoginActivity extends BaseActivity {
             finish();
         }
     }
+
 
     //##############################################################################
     //################                                              ################

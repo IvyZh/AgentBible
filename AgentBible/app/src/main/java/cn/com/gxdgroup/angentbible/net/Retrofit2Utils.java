@@ -1,6 +1,7 @@
 package cn.com.gxdgroup.angentbible.net;
 
 import cn.com.gxdgroup.angentbible.net.api.DouBanServiceApi;
+import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
 import cn.com.gxdgroup.angentbible.net.others.StringConverterFactory;
 
@@ -16,10 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Retrofit2Utils {
-
     private static Retrofit mRetrofit = null;
     private static String BASE_URL = "你的地址";
     private static OkHttpClient mOkHttpClient;
+    private static ServiceApi mServiceApi;
 
     //通用的
     private static Retrofit getRetrofit() {
@@ -43,41 +44,15 @@ public class Retrofit2Utils {
         return mRetrofit;
     }
 
-    private static Retrofit mDouBanRetrofit = null;
-    private static String BASE_DOUBAN_URL = "https://api.douban.com";
-
-    //针对豆瓣的Retrofit
-    private static Retrofit getDouBanRetrofit() {
-
-        if (mDouBanRetrofit == null) {
+    public static ServiceApi getServiceApi() {
+        if (mServiceApi == null) {
             synchronized (Retrofit2Utils.class) {
-                if (mOkHttpClient == null) {
-                    mOkHttpClient = OkHttp3Utils.getOkHttpClient();
-                }
-                if (mDouBanRetrofit == null) {
-                    mDouBanRetrofit = new Retrofit.Builder()
-                            .baseUrl(BASE_DOUBAN_URL)
-                            .addConverterFactory(StringConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                            .client(mOkHttpClient)
-                            .build();
+                if (mServiceApi == null) {
+                    mServiceApi = getRetrofit().create(ServiceApi.class);
                 }
             }
         }
-        return mDouBanRetrofit;
+        return mServiceApi;
     }
 
-    private static DouBanServiceApi mDouBanServiceApi;
-
-    public static DouBanServiceApi getServiceApi() {
-        if (mDouBanServiceApi == null) {
-            synchronized (Retrofit2Utils.class) {
-                if (mDouBanServiceApi == null) {
-                    mDouBanServiceApi = getDouBanRetrofit().create(DouBanServiceApi.class);
-                }
-            }
-        }
-        return mDouBanServiceApi;
-    }
 }
