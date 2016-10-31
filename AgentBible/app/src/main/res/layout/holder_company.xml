@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_below="@id/iv_hot_city_ana"
                     style="@style/home_menu_tv"
-                    android:text="签约量" />
+                    android:text="签约数量" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_below="@id/iv_area"
                     style="@style/home_menu_tv"
-                    android:text="端口数" />
+                    android:text="端口数量" />
             </RelativeLayout>
 
             <RelativeLayout style="@style/home_menu_rl" />

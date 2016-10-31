@@ -39,15 +39,14 @@
                 <TextView
                     android:layout_below="@id/iv_hot_city_ana"
                     style="@style/home_menu_tv"
-                    android:text="发布量" />
+                    android:text="发布数量" />
 
                 <ImageView
                     android:id="@+id/iv_hot_city_ana"
                     android:src="@drawable/ico_publication"
                     style="@style/hot_menu_iv"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="13dp" />
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -57,15 +56,14 @@
                 <TextView
                     android:layout_below="@id/iv_area"
                     style="@style/home_menu_tv"
-                    android:text="经济人数" />
+                    android:text="经纪人数量" />
 
                 <ImageView
                     android:id="@+id/iv_area"
                     android:src="@drawable/ico_agent_num"
                     style="@style/hot_menu_iv"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="12dp" />
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
             <RelativeLayout style="@style/home_menu_rl" />
