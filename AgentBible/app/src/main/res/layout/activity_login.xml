@@ -98,6 +98,7 @@
         android:hint="输入验证码" />
 
     <Button
+        android:id="@+id/bt_get_code"
         android:layout_width="96dp"
         android:layout_height="27dp"
         android:layout_marginTop="15dp"

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -98,9 +97,11 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void helloEventBus(MessageEvent event) {
-        L.v("MainActivity,helloEventBus");
-        if (event.getMsgType() == 0) {
-            meFragment.setAvatar(event.getMsg());
+        L.v("MainActivity,helloEventBus:" + event);
+        if (event.getMsgType() == 0) {// QQ登陆
+            meFragment.setAvatar(event.getMsg(), 0);
+        } else if (event.getMsgType() == 1) {//微信登陆
+            meFragment.setAvatar(event.getMsg(), 1);
         }
     }
 

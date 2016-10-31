@@ -1,5 +1,7 @@
 package cn.com.gxdgroup.angentbible.net.api;
 
+import org.json.JSONObject;
+
 import cn.com.gxdgroup.angentbible.domain.MoviesBean;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -26,6 +29,15 @@ import retrofit2.http.QueryMap;
  */
 
 public interface ServiceApi {
+
+    @GET("https://api.weixin.qq.com/sns/oauth2/access_token?appid={app_id}&secret={app_secret}&code={code}&grant_type=authorization_code")
+    Call<String> getWeiChatToken(@Path("app_id") String app_id, @Path("app_secret") String app_secret, @Path("code") String code);
+
+    @POST("agentBible/app/login/sendMsg")
+    Call<JSONObject> sendMsg(@Body JSONObject parmas);
+
+    @POST("agentBible/app/login/doLogin")
+    Call<JSONObject> login(@Body JSONObject parmas);
 
 
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//

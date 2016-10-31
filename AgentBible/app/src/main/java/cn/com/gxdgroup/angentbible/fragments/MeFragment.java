@@ -1,10 +1,11 @@
 package cn.com.gxdgroup.angentbible.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,25 +13,31 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXImageObject;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.open.utils.Util;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.activities.CollectionActivity;
 import cn.com.gxdgroup.angentbible.activities.LoginActivity;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.constant.MenuType;
+import cn.com.gxdgroup.angentbible.constant.MyConstants;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 
@@ -106,12 +113,83 @@ public class MeFragment extends BaseFragment {
                 shareToQzone();
                 break;
             case R.id.rl_setting:
+                shareToWechat();
                 break;
             case R.id.iv_portrait:
                 startActivity(new Intent(mActivity, LoginActivity.class));
                 break;
         }
     }
+
+    /**
+     * 分享到微信
+     */
+    private void shareToWechat() {
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        IWXAPI api = WXAPIFactory.createWXAPI(mActivity, MyConstants.APP_ID, false);
+        api.registerApp(MyConstants.APP_ID);
+
+        Bitmap bitmap = BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.launcher_logo);
+//        WXImageObject imgObj = new WXImageObject(bitmap);
+
+        WXWebpageObject webPage = new WXWebpageObject();
+        webPage.webpageUrl = "http://www.baidu.com";
+
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = webPage;
+        msg.description = "这是网页描述";
+        msg.title = "网页title";
+
+
+        // 设置缩略图
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, 60, 60, true);
+        bitmap.recycle();
+        msg.thumbData = bmpToByteArray(thumbBmp, true);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+
+        req.transaction = buildTransaction("img");
+
+        req.message = msg;
+
+//        req.scene = SendMessageToWX.Req.WXSceneSession;//分享到好友
+        req.scene = SendMessageToWX.Req.WXSceneTimeline;//分享到朋友圈
+
+        api.sendReq(req);
+    }
+
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+
+    private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
+
+        if (needRecycle) {
+
+            bmp.recycle();
+
+        }
+
+        byte[] result = output.toByteArray();
+
+        try {
+
+            output.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        return result;
+
+    }
+
 
     private void shareToQzone() {
         //分享类型
@@ -178,13 +256,19 @@ public class MeFragment extends BaseFragment {
      *
      * @param info
      */
-    public void setAvatar(Object info) {
+    public void setAvatar(Object info, int type) {
         JSONObject json = (JSONObject) info;
         try {
-            String qq_2Ulr = json.getString("figureurl_qq_2");
-            String nickname = json.getString("nickname");
+            String nickname = "", headimgurl = "";
+            if (type == 0) {
+                headimgurl = json.getString("figureurl_qq_2");
+                nickname = json.getString("nickname");
+            } else if (type == 1) {
+                headimgurl = json.getString("headimgurl");
+                nickname = json.getString("nickname");
+            }
 
-            Glide.with(mActivity).load(qq_2Ulr).into(mIvPortrait);
+            Glide.with(mActivity).load(headimgurl).into(mIvPortrait);
             mTvNickname.setText(nickname);
 
 
@@ -194,11 +278,5 @@ public class MeFragment extends BaseFragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
+
 }

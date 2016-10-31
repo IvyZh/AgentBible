@@ -7,7 +7,7 @@ package cn.com.gxdgroup.angentbible.domain;
  */
 
 public class MessageEvent {
-    private int msgType;
+    private int msgType;//0 :QQ登陆 1： 微信登陆
     private Object msg;
 
     public MessageEvent(int msgType, Object msg) {
@@ -19,15 +19,16 @@ public class MessageEvent {
         return msgType;
     }
 
-    public void setMsgType(int msgType) {
-        this.msgType = msgType;
-    }
 
     public Object getMsg() {
         return msg;
     }
 
-    public void setMsg(Object msg) {
-        this.msg = msg;
+    @Override
+    public String toString() {
+        return "MessageEvent{" +
+                "msgType=" + msgType +
+                ", msg=" + msg +
+                '}';
     }
 }

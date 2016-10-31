@@ -82,13 +82,6 @@ public class EquipmentActivity extends BaseActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void helloEventBus(MessageEvent event) {
-        L.v("--equipment activity--event bus0");
-        if (event.getMsgType() == 1) {
-            L.v("--equipment activity--event bus");
-        }
-    }
 
 
     @Override

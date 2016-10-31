@@ -3,6 +3,7 @@ package cn.com.gxdgroup.angentbible.net;
 import cn.com.gxdgroup.angentbible.net.api.DouBanServiceApi;
 import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
+import cn.com.gxdgroup.angentbible.net.others.JsonConverterFactory;
 import cn.com.gxdgroup.angentbible.net.others.StringConverterFactory;
 
 import okhttp3.OkHttpClient;
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retrofit2Utils {
     private static Retrofit mRetrofit = null;
-    private static String BASE_URL = "你的地址";
+    private static String BASE_URL = "http://192.168.11.128:8080/";
     private static OkHttpClient mOkHttpClient;
     private static ServiceApi mServiceApi;
 
@@ -33,6 +34,7 @@ public class Retrofit2Utils {
                 if (mRetrofit == null) {
                     mRetrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)
+                            .addConverterFactory(JsonConverterFactory.create())//添加转换器
                             .addConverterFactory(StringConverterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
