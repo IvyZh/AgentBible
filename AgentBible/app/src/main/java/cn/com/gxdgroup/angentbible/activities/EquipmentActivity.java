@@ -45,7 +45,7 @@ public class EquipmentActivity extends BaseActivity {
     @Override
     public void initView() {
         //注册事件
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
 
         final AroundEquipmentHolder equipmentHolder = new AroundEquipmentHolder(this);
         final EquipmentMapDetialsHolder detialsHolder = new EquipmentMapDetialsHolder(this);
@@ -80,8 +80,6 @@ public class EquipmentActivity extends BaseActivity {
 
         mMapView = equipmentHolder.getMapView();
     }
-
-
 
 
     @Override
