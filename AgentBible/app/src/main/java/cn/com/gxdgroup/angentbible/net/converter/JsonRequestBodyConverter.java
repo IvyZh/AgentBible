@@ -1,6 +1,4 @@
-package cn.com.gxdgroup.angentbible.net.others;
-
-import android.util.Log;
+package cn.com.gxdgroup.angentbible.net.converter;
 
 import org.json.JSONObject;
 

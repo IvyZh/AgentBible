@@ -279,18 +279,17 @@ public class TrendChartHolder extends BaseHolder {
         mChart.invalidate();
 
 
-
         // 给成交量 成交rate 平均价 平均价rata赋值
-        ValueAnimator valueAnimator = ValueAnimator.ofInt( 60000, 86512);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(60000, 86512);
         valueAnimator.setDuration(800);
         //
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int money= (int) animation.getAnimatedValue();
-                mTvPrice.setText(money+"");
-                mTvHouseNum.setText((money/12)+"");
+                int money = (int) animation.getAnimatedValue();
+                mTvPrice.setText(money + "");
+                mTvHouseNum.setText((money / 12) + "");
             }
         });
         valueAnimator.start();
@@ -325,7 +324,7 @@ public class TrendChartHolder extends BaseHolder {
             pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
                 @Override
                 public void onOptionsSelect(int options1, int option2, int options3) {
-                    mTvLocation.setText(names[options1]+"区");
+                    mTvLocation.setText(names[options1] + "区");
                 }
             });
         }

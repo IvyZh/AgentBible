@@ -1,10 +1,9 @@
 package cn.com.gxdgroup.angentbible.net;
 
-import cn.com.gxdgroup.angentbible.net.api.DouBanServiceApi;
 import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
-import cn.com.gxdgroup.angentbible.net.others.JsonConverterFactory;
-import cn.com.gxdgroup.angentbible.net.others.StringConverterFactory;
+import cn.com.gxdgroup.angentbible.net.converter.JsonConverterFactory;
+import cn.com.gxdgroup.angentbible.net.converter.StringConverterFactory;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
