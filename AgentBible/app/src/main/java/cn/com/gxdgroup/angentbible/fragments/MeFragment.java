@@ -39,9 +39,12 @@ import cn.com.gxdgroup.angentbible.activities.LoginActivity;
 import cn.com.gxdgroup.angentbible.base.BaseFragment;
 import cn.com.gxdgroup.angentbible.constant.MenuType;
 import cn.com.gxdgroup.angentbible.constant.MyConstants;
+import cn.com.gxdgroup.angentbible.domain.MoviesBean;
+import cn.com.gxdgroup.angentbible.net.retrofit2.HttpMethods;
 import cn.com.gxdgroup.angentbible.ui.SharePopupWindow;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
+import rx.Subscriber;
 
 
 /**
@@ -117,11 +120,35 @@ public class MeFragment extends BaseFragment {
             case R.id.rl_update:
                 break;
             case R.id.rl_setting:
+                getMovies();
                 break;
             case R.id.iv_portrait:
                 startActivity(new Intent(mActivity, LoginActivity.class));
                 break;
         }
+    }
+
+    private void getMovies() {
+        Subscriber<MoviesBean> subscriber = new Subscriber<MoviesBean>() {
+
+            @Override
+            public void onCompleted() {
+                UIUtils.showToast("电影加载完成");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                UIUtils.showToast("电影加载失败" + e.getMessage());
+            }
+
+            @Override
+            public void onNext(MoviesBean bean) {
+                mTvNickname.setText(bean.toString());
+            }
+        };
+
+
+        HttpMethods.getInstance().getTopMovie(subscriber, 0, 10);
     }
 
 

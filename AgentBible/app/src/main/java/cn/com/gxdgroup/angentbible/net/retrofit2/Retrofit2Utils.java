@@ -1,4 +1,4 @@
-package cn.com.gxdgroup.angentbible.net;
+package cn.com.gxdgroup.angentbible.net.retrofit2;
 
 import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
@@ -18,12 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retrofit2Utils {
     private static Retrofit mRetrofit = null;
-    private static String BASE_URL = "http://192.168.11.128:8080/";
+    private static String BASE_URL = "https://api.douban.com";//https://api.douban.com/v2/movie/top250?start=0&count=10
     private static OkHttpClient mOkHttpClient;
     private static ServiceApi mServiceApi;
 
     //通用的
-    private static Retrofit getRetrofit() {
+    public static Retrofit getRetrofit() {
 
         if (mRetrofit == null) {
             synchronized (Retrofit2Utils.class) {
@@ -33,7 +33,7 @@ public class Retrofit2Utils {
                 if (mRetrofit == null) {
                     mRetrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)
-                            .addConverterFactory(JsonConverterFactory.create())//添加转换器
+                            //.addConverterFactory(JsonConverterFactory.create())//添加转换器
                             .addConverterFactory(StringConverterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

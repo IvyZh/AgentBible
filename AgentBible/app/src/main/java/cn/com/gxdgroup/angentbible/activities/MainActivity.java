@@ -24,11 +24,9 @@ import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.fragments.DataAnalysisFragments;
 import cn.com.gxdgroup.angentbible.fragments.HomeFragment;
 import cn.com.gxdgroup.angentbible.fragments.MeFragment;
-import cn.com.gxdgroup.angentbible.net.NetUtils;
 import cn.com.gxdgroup.angentbible.ui.MyViewPager;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
-import rx.functions.Action1;
 
 
 public class MainActivity extends BaseActivity {

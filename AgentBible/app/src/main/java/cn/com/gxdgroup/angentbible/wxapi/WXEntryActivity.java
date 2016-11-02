@@ -19,16 +19,11 @@ import java.io.IOException;
 
 import cn.com.gxdgroup.angentbible.constant.MyConstants;
 import cn.com.gxdgroup.angentbible.domain.MessageEvent;
-import cn.com.gxdgroup.angentbible.net.Retrofit2Utils;
-import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.net.client.OkHttp3Utils;
 import cn.com.gxdgroup.angentbible.utils.AppManager;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;
 import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private Bundle bundle;

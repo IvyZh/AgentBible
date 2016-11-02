@@ -1,7 +1,6 @@
 package cn.com.gxdgroup.angentbible.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.com.gxdgroup.angentbible.R;
 import cn.com.gxdgroup.angentbible.base.BaseActivity;
@@ -35,7 +33,7 @@ import cn.com.gxdgroup.angentbible.domain.MessageEvent;
 import cn.com.gxdgroup.angentbible.listener.GetQQUserInfoUiListener;
 import cn.com.gxdgroup.angentbible.listener.MyTextWatcher;
 import cn.com.gxdgroup.angentbible.listener.QQLoginUiListener;
-import cn.com.gxdgroup.angentbible.net.Retrofit2Utils;
+import cn.com.gxdgroup.angentbible.net.retrofit2.Retrofit2Utils;
 import cn.com.gxdgroup.angentbible.net.api.ServiceApi;
 import cn.com.gxdgroup.angentbible.utils.L;
 import cn.com.gxdgroup.angentbible.utils.UIUtils;

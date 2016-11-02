@@ -39,8 +39,8 @@ public interface ServiceApi {
     Call<JSONObject> login(@Body JSONObject parmas);
 
 
-    @GET("book/{id}")
-    Observable<MoviesBean> getBookObservable(@Path("id") String id);
+    @GET("/v2/movie/top250")
+    Observable<MoviesBean> getTopMovie(@Query("start") int start, @Query("count") int count);
 
 
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//

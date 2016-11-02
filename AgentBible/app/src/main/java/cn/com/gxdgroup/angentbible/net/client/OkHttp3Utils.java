@@ -47,10 +47,7 @@ public class OkHttp3Utils {
                                 public Response intercept(Chain chain) throws IOException {
                                     Request request = chain.request()
                                             .newBuilder()
-                                            .addHeader("Content-Type", "application/json;charset=UTF-8")
-                                            .addHeader("Accept-Encoding", "gzip, deflate")
-                                            .addHeader("Connection", "keep-alive")
-                                            .addHeader("Accept", "*/*")
+//                                            .addHeader("Content-Type", "application/json;charset=UTF-8")
                                             .build();
                                     return chain.proceed(request);
                                 }
