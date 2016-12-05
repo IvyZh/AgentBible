@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        //注册事件.
+        //注册事件..
         EventBus.getDefault().register(this);
 
         fragments = new ArrayList<>();
